@@ -13,7 +13,7 @@ if(isset($_POST["UserName"], $_POST["Password"],$_POST['Fname'],$_POST['LName'],
     $Birthdate = $_POST['BOD'];
     $UserType = $_POST['UserType'];
 
-Test 
+
 $conn = new mysqli("localhost","root","","is3 online tutoring");
 if($conn->connect_error)
     die("Fatal Error - cannot connect to the Database");
