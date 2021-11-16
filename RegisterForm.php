@@ -18,7 +18,12 @@ function checkMatchingPassword(Form) {
 }
 </script> 
 
-<form method ="post" action = "Register.php" onsubmit="return checkMatchingPassword(this);">
+<form method ="post" action = "Register.php" enctype="multipart/form-data" onsubmit="return checkMatchingPassword(this);">
+
+
+    <label for="profileImage">Profile Image</image> <br>
+    <input type="file" name="profileImage" id="profileImage"> <br><br>
+
 
         User Name: 
         <input type='text' name='UserName' id="UserName" required>   
