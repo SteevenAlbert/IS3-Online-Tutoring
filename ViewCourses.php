@@ -1,6 +1,4 @@
-test 
-
-<?php
+ <?php
 $conn = new mysqli("localhost","root","","is3 online tutoring");
 if($conn->connect_error)
     die("Fatal Error - cannot connect to the Database");
