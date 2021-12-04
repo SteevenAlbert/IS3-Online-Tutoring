@@ -3,7 +3,7 @@
     <title>Registeration</title>
 </head>
 <body>
-
+    <?php include_once "Menu.php"; ?>
     <h1>REGISTER</h1>
 
 <script type="text/javascript" language="JavaScript">

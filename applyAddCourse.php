@@ -63,10 +63,9 @@
 
 		$applyAdd=new applyAdd($code, $title, $description,$hours, $level, $price, $approved,$createdBy);
 		$applyAdd->insert();
-    
+		header("Location:ViewCourses.php");
            
-            echo "<br>";
-            echo "<a href=ProfileMenu.php>CONTINUE</a>";
+        
         
 	?>	
 </body>

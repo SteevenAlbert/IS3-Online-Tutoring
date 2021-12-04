@@ -1,3 +1,8 @@
+<?php 
+session_start();
+include_once "Menu.php";
+ ?>
+
 <!doctype html>
 <html>
 <head>
@@ -35,11 +40,12 @@
             }
          ?>
          <!-- <input type="submit" name="Delete"> -->
-         <button type="delete" 
+         <button type="delete"
                 onclick="if (!confirm('Are you sure you want to delete this Course?')) 
                 { return false }">
-                <span>Delete</span>
-        </button>
+                <? header("Location:ViewCourses.php");?>
+           
+        Delete </button>
 	</form>
 </body>
 </html>

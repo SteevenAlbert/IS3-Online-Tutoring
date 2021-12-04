@@ -1,11 +1,18 @@
  <?php
  session_start();
+include_once "Menu.php";
+
 $conn = new mysqli("localhost","root","","is3 online tutoring");
 if($conn->connect_error)
     die("Fatal Error - cannot connect to the Database");
 
+$getCoursesQuery = "SELECT * FROM courses";
 
-$result = $conn->query($getUserQuery);
+$result = $conn->query($getCoursesQuery);
+
+if (!$result)
+ die ("Query error. $getUserQuery");
+
 if($_SESSION["UserType"]=="Learner"){
 echo "<table border=1 >
       

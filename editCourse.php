@@ -1,3 +1,8 @@
+<?php 
+session_start();
+include_once "Menu.php";
+ ?>
+
 <!doctype html>
 <html>
 <head>

@@ -25,8 +25,7 @@ if($userData){
     $_SESSION['BirthDate']=$userData[7];
     $_SESSION['UserType']=$userData[8];
     $_SESSION['PP']=$userData[9];
-    header("Location: ProfileMenu.php");
-    exit();
+    header("Location: Home.php");
 }
 
 

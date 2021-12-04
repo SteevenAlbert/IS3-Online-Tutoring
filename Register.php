@@ -47,7 +47,7 @@ if(!$conn->query($query) || !$conn->query($query2))
 else{
     echo "REGISTERED"; 
     echo "<br>";
-    echo "<a href=Index.html>CONTINUE</a>";
+    echo "<a href=home.php>CONTINUE</a>";
 }
 
 }else
