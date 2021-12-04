@@ -3,22 +3,14 @@
     <title>Registeration</title>
 </head>
 <body>
-    <?php include_once "Menu.php"; ?>
+    <?php 
+    include_once "Menu.php"; 
+    include_once "is3library.php"; 
+    ?>
     <h1>REGISTER</h1>
 
-<script type="text/javascript" language="JavaScript">
-function checkMatchingPassword(Form) {
-    if (Form.Password.value != Form.Password2.value)
-    {
-        alert('Those Passwords don\'t match!');
-        return false;
-    } else {
-        return true;
-    }
-}
-</script> 
 
-<form method ="post" action = "Register.php" enctype="multipart/form-data" onsubmit="return checkMatchingPassword(this);">
+<form method ="post" action = "Register.php" enctype="multipart/form-data" onsubmit="return validatePasswords(this);">
 
 
     <label for="profileImage">Profile Image</image> <br>
@@ -32,7 +24,7 @@ function checkMatchingPassword(Form) {
         <!-- PASSWORD WITH VALIDATION -->
 
         &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; Password: 
-        <input type="Password" name='Password' id="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+        <input type="Password" name='Password' id="password1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
         title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>    <br><br>
     
         <!-- LOOP TO ADD WHITESPACE -->
@@ -42,7 +34,7 @@ function checkMatchingPassword(Form) {
         }?>
 
        Re-Enter Password: 
-        <input type="Password" name='Password2' id="Password2" required>    <br><br><br><br>
+        <input type="Password" name='password2' id="password2" required>    <br><br><br><br>
         
         First Name: 
         <input type="text" name='Fname' id="Fname" placeholder="Bob" required>

@@ -15,15 +15,13 @@ include_once "Menu.php";
 	<?php include_once "is3library.php" ?>
 
 
-	<form method = "post" action = "applyCreateAdministrator.php" id = "myForm">
+	<form method = "post" action = "applyCreateAdministrator.php" onsubmit="return validatePasswords(this);">
 
-		Username:<br> <input type = text name = "username" id = "username" placeholder = "John97" required><br> <br>
+		Username: <br> <input type = text name = "username" id = "username" placeholder = "John97" required><br> <br>
 		Password:<br><input type = password name = "password" id = "password1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
         title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required><br>
         Confirm Password:<br><input type = password name = "password2" id = "password2" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
-        title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" 
-        onchange="validatePasswords(document.getElementById('myForm'))" 
-        required><br>
+        title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"  required><br>
         <span id = "passwordText"></span> 
 		 <br> <br> <br>
 
@@ -41,23 +39,6 @@ include_once "Menu.php";
 
 
 	</form>	
-
-	<script type="text/javascript" language="JavaScript">
-	function validatePasswords (form) 
-	{
-	    if (form.password1.value != form.password2.value)
-	    {
-	        document.getElementById("passwordText").innerHTML = "Passwords don't match";
-	        return false;
-	    } 
-	    else
-	    {
-	    	document.getElementById("passwordText").innerHTML = "";
-	    }
-	}
-	</script>
-
-
 	
 
 </body>

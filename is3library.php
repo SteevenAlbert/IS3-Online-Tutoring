@@ -6,7 +6,42 @@ $password = "";
 $database = "is3 online tutoring";
 $conn = "";
 
+function establishConnection()
+{
+    $GLOBALS['conn'] = new mysqli($GLOBALS['servername'], $GLOBALS['username'], $GLOBALS['password'], $GLOBALS['database']);
+        if($GLOBALS['conn']->connect_error)
+            die("fatal error: Cannot connect");
+}
 
+function validateUsername($username)
+{
+    establishConnection();
+
+    $sql = "SELECT * FROM users WHERE username='$username'";
+    $result = mysqli_query($GLOBALS['conn'],$sql) or die("Query unsuccessful") ;
+      if ($result->num_rows > 0) {
+        echo "<script type=\"text/javascript\"> alert('The username is already taken!'); </script>";
+        return false;
+      } else 
+        return true;   
+      
+}
+
+
+?>
+
+<script type="text/javascript" language="JavaScript">
+    function validatePasswords (form) 
+    {
+        if (form.password1.value != form.password2.value)
+        {
+            alert('Those Passwords don\'t match!');
+            return false;
+        } 
+    }
+</script> 
+
+<?php
 function countriesList()
 {
 	echo ' <select id= "country" name="country" class="form-control">
@@ -256,41 +291,6 @@ function countriesList()
                 <option value="Zimbabwe">Zimbabwe</option>
             </select>';
 }
-
-
-function validateUsername($username)
-{
-    establishConnection();
-
-    $sql = "SELECT * FROM users WHERE username='$username'";
-    $result = mysqli_query($GLOBALS['conn'],$sql) or die("Query unsuccessful") ;
-      if ($result->num_rows > 0) {
-        echo "<script type=\"text/javascript\"> alert('The username is already taken!'); </script>";
-        return false;
-      } else 
-        return true;   
-      
-}
-
-
-function establishConnection()
-{
-    $GLOBALS['conn'] = new mysqli($GLOBALS['servername'], $GLOBALS['username'], $GLOBALS['password'], $GLOBALS['database']);
-        if($GLOBALS['conn']->connect_error)
-            die("fatal error: Cannot connect");
-}
-
-
-
 ?>
 
-<!-- <script type="text/javascript" language="JavaScript">
-    function validatePasswords (form) 
-    {
-        if (form.password1.value != form.password2.value)
-        {
-            alert('Those Passwords don\'t match!');
-            return false;
-        } 
-    }
-</script>  -->
+
