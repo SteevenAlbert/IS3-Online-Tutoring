@@ -13,9 +13,8 @@ include_once "Menu.php";
 <body>
 	<form method = "post" action="applydeleteCourse.php">
 	 <?php 
-		$conn = new mysqli("localhost","root","","is3 online tutoring");
-        if($conn->connect_error)
-            die("Fatal Error - cannot connect to the Database");
+		include_once "is3library.php";
+        establishConnection();
 
             $query = "SELECT * FROM courses WHERE id = " .$_GET["id"];
 

@@ -7,9 +7,8 @@
 
 <body>
         <?php
-		$conn = new mysqli("localhost","root","","is3 online tutoring");
-        if($conn->connect_error)
-            die("Fatal Error - cannot connect to the Database");
+            include_once "is3library.php";
+            establishConnection();
 
             $query = "delete from courses where ID =".$_POST["id"];
 

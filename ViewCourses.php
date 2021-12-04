@@ -1,10 +1,9 @@
  <?php
  session_start();
 include_once "Menu.php";
+include_once "is3library.php";
 
-$conn = new mysqli("localhost","root","","is3 online tutoring");
-if($conn->connect_error)
-    die("Fatal Error - cannot connect to the Database");
+establishConnection();
 
 $getCoursesQuery = "SELECT * FROM courses";
 

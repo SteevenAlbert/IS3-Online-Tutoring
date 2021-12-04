@@ -15,9 +15,8 @@ include_once "Menu.php";
 	<form  method ="POST" action="applyAddCourse.php">
 
 	<?php	
-			$conn = new mysqli("localhost","root","","is3 online tutoring");
-            if($conn->connect_error)
-                die("Fatal Error - cannot connect to the Database");
+			include_once "is3library.php";
+			establishConnection();
 			$query = "SELECT Username FROM users WHERE UserType ='tutor'";
         	$results = $conn-> query($query);
 	?>		

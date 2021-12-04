@@ -2,6 +2,7 @@
 <body>
 
 <?php
+include_once "is3library.php";
 if(isset($_POST["UserName"], $_POST["Password"],$_POST['Fname'],$_POST['LName'], $_POST['Email'], $_POST['Country'],$_POST['BOD'] )) {
     $UserName = $_POST['UserName'];
     $Password = $_POST['Password'];
@@ -18,9 +19,7 @@ if(isset($_POST["UserName"], $_POST["Password"],$_POST['Fname'],$_POST['LName'],
     $target='images/'. $profileImageName;
     $result = move_uploaded_file($TempImageName, $target);
 
-$conn = new mysqli("localhost","root","","is3 online tutoring");
-if($conn->connect_error)
-    die("Fatal Error - cannot connect to the Database");
+	establishConnection();
 
     //Insert Image in Database if move was successful 
     if($result){

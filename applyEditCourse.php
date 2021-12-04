@@ -8,9 +8,8 @@
 <body>
 	
 	<?php
-    $conn = new mysqli("localhost","root","","is3 online tutoring");
-    if($conn->connect_error)
-        die("Fatal Error - cannot connect to the Database");
+    include_once "is3library.php";
+	establishConnection();
 		
 	$query="update courses set Code=\"".$_POST["code"]."\",
 	Title=\"".$_POST["title"]."\",

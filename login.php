@@ -1,11 +1,11 @@
 <?php
 session_start();
+include_once "is3library.php";
+establishConnection();
+
 $userName = $_POST['UserName'];
 $password = $_POST['Password'];
 
-$conn = new mysqli("localhost","root","","is3 online tutoring");
-if($conn->connect_error)
-    die("Fatal Error - cannot connect to the Database");
 
 $getUserQuery = "SELECT * FROM users WHERE Username ='$userName' AND Password='$password'";
 if(!$conn->query($getUserQuery))

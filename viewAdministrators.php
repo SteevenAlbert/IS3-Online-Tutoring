@@ -1,6 +1,7 @@
 <?php
  session_start();
 include_once "Menu.php";
+include_once "is3library.php";
 ?>
 
 <!DOCTYPE html>
@@ -19,10 +20,7 @@ include_once "Menu.php";
 	</tr>
 
 	<?php
-	include_once "is3library.php";
-
-	$conn = new mysqli($servername, $username, $password, $database);
-
+	
 	establishConnection();
 
 	$query = "select * from users where userType = 'administrator'";
