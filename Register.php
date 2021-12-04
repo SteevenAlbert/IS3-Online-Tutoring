@@ -17,7 +17,6 @@ if(isset($_POST["UserName"], $_POST["Password"],$_POST['Fname'],$_POST['LName'],
 
     $target='images/'. $profileImageName;
     $result = move_uploaded_file($TempImageName, $target);
-  
 
 $conn = new mysqli("localhost","root","","is3 online tutoring");
 if($conn->connect_error)
