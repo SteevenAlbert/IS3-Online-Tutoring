@@ -22,8 +22,10 @@ echo "<table border=1 >
         <th>Hours</th>  
         <th>Level</th>  
         <th>Price</th>  
-        <th>Instructor</th> </tr>";
-while($row = $result->fetch_assoc()) {
+        <th>Instructor</th>
+        <th>Add</th> </tr>";
+        
+while($row = $result->fetch_array(MYSQLI_ASSOC)) {
     ?>
      <tr>
      <td><?php echo$row["Code"]?></td>
@@ -35,9 +37,9 @@ while($row = $result->fetch_assoc()) {
      <td><?php echo$row["CreatedBy"]?></td>
      <td><a href=ViewCourses.php?id=<?php echo $row['ID']?>>Add To Cart</a> </td>
      </tr>
-     </table>
   <?php
 }
+echo "</table>";
 }else if($_SESSION["UserType"]=="Tutor"){
     echo "<table border=1 >
         <th>Code</th> 
@@ -61,8 +63,41 @@ while($row = $result->fetch_assoc()) {
              <td> <a href=editCourse.php?id=<?php echo $row['ID'] ?> > Edit</a></td>
             <td> <a href=deleteCourse.php?id=<?php echo $row['ID'] ?> >Delete</a></td>
              </tr>
-        </table>
 <?php
 }
+echo "</table>";
+}else if($_SESSION["UserType"]=="administrator"){
+    echo "<table border=1 >
+        <th>Code</th> 
+        <th>Title</th> 
+        <th>Description</th> 
+        <th>Hours</th>  
+        <th>Level</th>  
+        <th>Price</th>  
+        <th>Instructor</th> 
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>Approve</th></tr>";
+    echo "<form method = 'post' action = 'approveCourse.php'>";
+        
+        while($row = $result->fetch_assoc()) {
+            ?>
+            
+             <tr>
+             <td><?php echo$row["Code"]?></td>
+             <td><?php echo$row["Title"]?> </td>
+             <td><?php echo$row["Description"]?> </td>
+             <td><?php echo$row["Hours"]?> </td>
+             <td><?php echo$row["Level"]?></td>
+             <td><?php echo$row["Price"]?></td>
+             <td><?php echo$row["CreatedBy"]?></td>
+             <td> <a href=editCourse.php?id=<?php echo $row['ID'] ?> > Edit</a></td>
+            <td> <a href=deleteCourse.php?id=<?php echo $row['ID'] ?> >Delete</a></td>
+            <td> <input type = "checkbox" value = <?php echo$row["Code"]?> name = "courses[]"></td>
+             </tr>
+<?php
+}
+echo " <button> Approve </button> </form>";
+echo "</table>";
 }
 ?>

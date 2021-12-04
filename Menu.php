@@ -13,6 +13,8 @@
                     echo"Cart  &nbsp;&nbsp; "; 
                     echo "Edit Profile &nbsp; &nbsp;";
                     echo "<a href=logout.php>Logout</a> &nbsp; &nbsp;";
+                    echo"<form> <input type = 'text' placeholder = 'Search' name = 'search'> 
+                    <input type = 'submit' value = 'Go'>  </form>";
                     
                 }else if($_SESSION['UserType']=="Tutor")
                 { 
@@ -24,6 +26,22 @@
                     echo "View Enrolled Courses &nbsp; &nbsp;";
                     echo "Edit Profile &nbsp; &nbsp;";
                     echo "<a href=logout.php>Logout</a> &nbsp; &nbsp;";
+                    echo"<form> <input type = 'text' placeholder = 'Search' name = 'search'> 
+                    <input type = 'submit' value = 'Go'>  </form>";
+                }
+                else if($_SESSION['UserType']=="administrator")
+                { 
+                    echo "Welcome Back, ".$_SESSION['FirstName']."! &nbsp; &nbsp;";
+                    echo"<a href='home.php'>Home</a>  &nbsp; &nbsp;";
+					echo"Categories  &nbsp;&nbsp; ";
+                    echo "<a href=ViewCourses.php>View All Courses</a> &nbsp; &nbsp;";
+                    echo "<a href=addCourse.php>Add Course</a> &nbsp; &nbsp;";
+                    echo "<a href=createAdministrator.php> Create Administrator</a> &nbsp; &nbsp;";
+                    echo "<a href=ViewAdministrators.php>View Administrators</a> &nbsp; &nbsp;";
+                    echo "<a href=ViewLearners.php>View Learners</a> &nbsp; &nbsp;";
+                    echo "<a href=logout.php>Logout</a> &nbsp; &nbsp;";
+                    echo"<form> <input type = 'text' placeholder = 'Search' name = 'search'> 
+                    <input type = 'submit' value = 'Go'>  </form>";
                 }
             }
             else
