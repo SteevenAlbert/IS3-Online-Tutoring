@@ -20,6 +20,7 @@ while($rows = $result1->fetch_array(MYSQLI_ASSOC)){
 
     foreach($rows as $row)
     echo "course ".$count." <input type = text name = title value =".$row." readonly><br>";
+    //echo "ID <input type =hidden name = id value ="._GET['id']<br>";
         echo"<br>";
         $count++;
 }
@@ -29,4 +30,6 @@ while($rows = $result2->fetch_array(MYSQLI_ASSOC)){
 }
 echo"<br>";
 ?>
-<input type="submit"  name="click">
+<form action="enrolledCourses.php" method="post">
+<input type="submit" value="checkout" name="Submit1"><br/><br/>
+</form>

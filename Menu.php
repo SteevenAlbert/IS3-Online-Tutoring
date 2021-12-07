@@ -9,7 +9,7 @@
                     echo"<a href='home.php'>Home</a>  &nbsp; &nbsp;";
 					echo"Categories  &nbsp;&nbsp; ";
                     echo "<a href=ViewCourses.php>View All Courses</a> &nbsp; &nbsp;";
-                    echo "View Enrolled Courses &nbsp; &nbsp;";
+                    echo "<a href='enrolledCourses.php'>View Enrolled Courses</a>  &nbsp; &nbsp;";
                     echo"<a href='cart.php'>Cart</a>  &nbsp; &nbsp;"; 
                     echo "Edit Profile &nbsp; &nbsp;";
                     echo "<a href=logout.php>Logout</a> &nbsp; &nbsp;";
