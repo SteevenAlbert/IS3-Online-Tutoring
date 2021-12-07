@@ -9,6 +9,7 @@ $getCoursesQuery = "SELECT * FROM courses";
 
 $result = $conn->query($getCoursesQuery);
 
+
 if (!$result)
  die ("Query error. $getUserQuery");
 
@@ -99,4 +100,27 @@ echo "</table>";
 echo " <button> Approve </button> </form>";
 echo "</table>";
 }
+
+function myFunction($conn) {
+    $x = $_GET["id"];
+    $user = $_SESSION['username'];
+    $query1= "insert into cart (UserName) values ('$user')";
+    $query2= "insert into cartcourses (UserName, ID ) values ('$user','$x')";
+
+    $result1 = mysqli_query($conn,$query1);
+    $result2 = mysqli_query($conn,$query2);
+    if(!$result1 && !$result2){
+        echo"cannot execute query";
+    }
+}
+if (isset($_GET['id'])) {
+    myFunction($conn);
+}
+
 ?>
+
+  <!-- <script>
+      function loadmessage() {
+          alert('Course is added succesfully')
+        } 
+  </script>   -->

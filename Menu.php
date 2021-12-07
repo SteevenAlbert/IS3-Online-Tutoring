@@ -10,7 +10,7 @@
 					echo"Categories  &nbsp;&nbsp; ";
                     echo "<a href=ViewCourses.php>View All Courses</a> &nbsp; &nbsp;";
                     echo "View Enrolled Courses &nbsp; &nbsp;";
-                    echo"Cart  &nbsp;&nbsp; "; 
+                    echo"<a href='cart.php'>Cart</a>  &nbsp; &nbsp;"; 
                     echo "Edit Profile &nbsp; &nbsp;";
                     echo "<a href=logout.php>Logout</a> &nbsp; &nbsp;";
                     echo"<form> <input type = 'text' placeholder = 'Search' name = 'search'> 
