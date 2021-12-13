@@ -17,6 +17,7 @@ include_once "is3library.php";
 		<th> First Name </th>
 		<th> Last Name</th>
 		<th> View </th>
+		<th> Delete </th>
 	</tr>
 
 	<?php
@@ -34,6 +35,7 @@ include_once "is3library.php";
 		<td> <?php echo $row["FirstName"] ?> </td>
 		<td> <?php echo $row["LastName"] ?> </td>
 		<td> <a href = viewUser.php?id=<?php echo $row["Username"] ?> > View </a> </td>
+		<td> <a href = deleteUser.php?id=<?php echo $row["Username"] ?> > Delete </a> </td>
 	</tr>
 
 
