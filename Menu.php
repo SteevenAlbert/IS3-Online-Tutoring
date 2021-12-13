@@ -12,6 +12,7 @@
                     echo "<a href='enrolledCourses.php'>View Enrolled Courses</a>  &nbsp; &nbsp;";
                     echo"<a href='cart.php'>Cart</a>  &nbsp; &nbsp;"; 
                     echo "Edit Profile &nbsp; &nbsp;";
+                    echo "<a href=contactUs.php>Contact us</a> &nbsp; &nbsp;";
                     echo "<a href=logout.php>Logout</a> &nbsp; &nbsp;";
                     echo"<form> <input type = 'text' placeholder = 'Search' name = 'search'> 
                     <input type = 'submit' value = 'Go'>  </form>";
@@ -39,6 +40,7 @@
                     echo "<a href=createAdministrator.php> Create Administrator</a> &nbsp; &nbsp;";
                     echo "<a href=ViewAdministrators.php>View Administrators</a> &nbsp; &nbsp;";
                     echo "<a href=ViewLearners.php>View Learners</a> &nbsp; &nbsp;";
+                    echo "<a href=learnersMessagesList.php>Messages</a> &nbsp; &nbsp;";
                     echo "<a href=logout.php>Logout</a> &nbsp; &nbsp;";
                     echo"<form> <input type = 'text' placeholder = 'Search' name = 'search'> 
                     <input type = 'submit' value = 'Go'>  </form>";

@@ -10,12 +10,11 @@
     <h1>REGISTER</h1>
 
 
-<form method ="post" action = "Register.php" enctype="multipart/form-data" onsubmit="return validatePasswords(this);">
+    <form method ="post" action = "Register.php" enctype="multipart/form-data" onsubmit="return validatePasswords(this);">
 
 
-    <label for="profileImage">Profile Image</image> <br>
-    <input type="file" name="profileImage" id="profileImage"> <br><br>
-
+        <label for="profileImage">Profile Image</image> <br>
+        <input type="file" name="profileImage" id="profileImage"> <br> <br>
 
         User Name: 
         <input type='text' name='UserName' id="UserName" required>   
