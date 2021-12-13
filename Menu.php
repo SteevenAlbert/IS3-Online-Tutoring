@@ -14,7 +14,8 @@
                     echo "Edit Profile &nbsp; &nbsp;";
                     echo "<a href=contactUs.php>Contact us</a> &nbsp; &nbsp;";
                     echo "<a href=logout.php>Logout</a> &nbsp; &nbsp;";
-                    echo"<form> <input type = 'text' placeholder = 'Search' name = 'search'> 
+                    echo"<form action = 'courseSearch.php' method = 'post'> 
+                    <input type = 'text' placeholder = 'Search' name = 'search' required> 
                     <input type = 'submit' value = 'Go'>  </form>";
                     
                 }else if($_SESSION['UserType']=="Tutor")
@@ -27,7 +28,8 @@
                     echo "View Enrolled Courses &nbsp; &nbsp;";
                     echo "Edit Profile &nbsp; &nbsp;";
                     echo "<a href=logout.php>Logout</a> &nbsp; &nbsp;";
-                    echo"<form> <input type = 'text' placeholder = 'Search' name = 'search'> 
+                    echo"<form action = 'courseSearch.php' method = 'post'> 
+                    <input type = 'text' placeholder = 'Search' name = 'search' required> 
                     <input type = 'submit' value = 'Go'>  </form>";
                 }
                 else if($_SESSION['UserType']=="administrator")
@@ -42,7 +44,8 @@
                     echo "<a href=ViewLearners.php>View Learners</a> &nbsp; &nbsp;";
                     echo "<a href=learnersMessagesList.php>Messages</a> &nbsp; &nbsp;";
                     echo "<a href=logout.php>Logout</a> &nbsp; &nbsp;";
-                    echo"<form> <input type = 'text' placeholder = 'Search' name = 'search'> 
+                    echo"<form action = 'courseSearch.php' method = 'post'> 
+                    <input type = 'text' name = 'search' placeholder = 'Search' required> 
                     <input type = 'submit' value = 'Go'>  </form>";
                 }
             }
@@ -54,7 +57,8 @@
                 echo"<a href='TutorRegisterForm.php'>Register as a tutor</a>  &nbsp; &nbsp;";
                 echo"<a href='loginForm.php'>Sign in</a>  &nbsp; &nbsp; ";  
                 echo"<a href='RegisterForm.php'>Sign Up</a>  &nbsp; &nbsp; "; 
-                echo"<form> <input type = 'text' placeholder = 'Search' name = 'search'> 
+                echo"<form action = 'courseSearch.php' method = 'post'> 
+                <input type = 'text' placeholder = 'Search' name = 'search'required> 
                 <input type = 'submit' value = 'Go'>  </form>";
                     
             }
