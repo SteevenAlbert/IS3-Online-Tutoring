@@ -32,7 +32,7 @@
                     <input type = 'text' placeholder = 'Search' name = 'search' required> 
                     <input type = 'submit' value = 'Go'>  </form>";
                 }
-                else if($_SESSION['UserType']=="administrator")
+                else if($_SESSION['UserType']=="Administrator")
                 { 
                     echo "Welcome Back, ".$_SESSION['FirstName']."! &nbsp; &nbsp;";
                     echo"<a href='home.php'>Home</a>  &nbsp; &nbsp;";
