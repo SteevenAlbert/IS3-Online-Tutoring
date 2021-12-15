@@ -18,13 +18,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["Submit1"])){
     $result_sql=$conn->query($sql);
     $result_delete1=$conn->query($sql_delete1);
     $result_delete2=$conn->query($sql_delete2);
-    $counter=-1;
-    
+    $counter=0;
     while($rows = $result_sql->fetch_array(MYSQLI_ASSOC)){
         foreach($rows as $row){
-          $query1="INSERT INTO enroll (UserName,ID,EnrollDate,Done) VALUES ('$user',$row[$counter],NOW(),1)";
+          $ID=$row[$counter];
+          $query1="INSERT INTO enroll (UserName,ID,EnrollDate,Done) VALUES ('$user',$ID,NOW(),1)";
           $result1=mysqli_query($conn,$query1);
-          $counter++;
         }
     }
 
