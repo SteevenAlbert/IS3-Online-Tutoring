@@ -34,15 +34,16 @@ Level:<br>
 	    }
 	?>
 	</select><br>
+Categorie:<br> <input type='text' name='categorie'><br>
 Price:<br> <input type='text' name='price'><br>
-Approved:<br> 
-	<input type="checkbox" name="approved"><br>
+<!-- Approved:<br> 
+	<input type="checkbox" name="approved"><br> -->
+	
 <!-- Yes:<input type='radio' name='approved[]'><br>
 No: <input type='radio' name='approved[]'><br> -->
 
 
 Created By:
-<!-- <input type='text' name='createdBy'><br><br> -->
 <select name='createdBy' >
 		<?php
 			while($row = $results->fetch_array(MYSQLI_ASSOC)) {
@@ -52,7 +53,7 @@ Created By:
 </select><br><br>
 
 
-	<a href="editCourse.php">
+	<a href="applyAddCourse.php">
 	  <button>Save Course</button>
 	</a>
 		

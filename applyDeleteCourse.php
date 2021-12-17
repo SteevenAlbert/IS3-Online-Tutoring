@@ -20,7 +20,7 @@
             else
                 echo "Successfully deleted.....".$query;
             	
-          header("Location: viewCourses.php");
+          header("Location: pendingCourses.php");
         ?>
 	
 </body>

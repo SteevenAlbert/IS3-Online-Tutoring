@@ -34,15 +34,15 @@ include_once "Menu.php";
                 echo "Hours:<br> <input type = text name = hours value=\"".$row["Hours"]."\" readonly><br>";
                 echo "Level:<br> <input type = text name = level value=".$row["Level"]." readonly><br>";
 				echo "Price:<br> <input type = text name = price value=".$row["Price"]." readonly><br>";
-                echo "Approved:<br> <input type = checkbox name = approved value=\"".$row["Approved"]."\" readonly><br>";
+                //echo "Approved:<br> <input type = checkbox name = approved value=\"".$row["Approved"]."\" readonly><br>";
                 echo "Created By:<br> <input type = text name = createdby value=".$row["CreatedBy"]." readonly><br><br>";
             }
          ?>
-         <!-- <input type="submit" name="Delete"> -->
+
          <button type="delete"
                 onclick="if (!confirm('Are you sure you want to delete this Course?')) 
                 { return false }">
-                <? header("Location:ViewCourses.php");?>
+                <? header("Location:pendingCourses.php");?>
            
         Delete </button>
 	</form>

@@ -30,7 +30,7 @@ include_once "Menu.php";
 			$Hours=$row["Hours"];
 			$Level=$row["Level"];
 			$Price=$row["Price"];
-			$Approved=$row["Approved"];
+			//$Approved=$row["Approved"];
 			$CreatedBy=$row["CreatedBy"];
 
            echo "<input type = hidden name=id value = $ID><br>";
@@ -40,7 +40,7 @@ include_once "Menu.php";
 		   echo "Hours:<br> <input type = text name=hours value = $Hours><br>";
 		   echo "Level:<br> <input type = text name=level value = $Level><br>";
 		   echo "Price:<br> <input type = text name=price value = $Price><br>";
-		   echo "Approved:<br> <input type = checkbox name=approved value = $Approved><br>";
+		   //echo "Approved:<br> <input type = checkbox name=approved value = $Approved><br>";
 		   echo "Created By:<br> <input type = text name=createdby value = $CreatedBy readonly> <br><br>"; 
          }
 	?>	

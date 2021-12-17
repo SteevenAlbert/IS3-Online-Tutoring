@@ -17,8 +17,9 @@
 			public $price;
 			public $approved;
 			public $createdBy;
+			public $categories;
 
-			function __construct($code, $title, $description,$hours, $level, $price, $approved,$createdBy){
+			function __construct($code, $title, $description,$hours, $level, $price, $approved,$createdBy,$categories){
 				$this->code=$code;
 				$this->title=$title;
 				$this->description=$description;
@@ -27,21 +28,23 @@
 				$this->price=$price;
 				$this->approved=$approved;
 				$this->createdBy=$createdBy;
+				$this->categories=$categories;
 			}
 			function insert(){
 			$conn = new mysqli("localhost","root","","is3 online tutoring");
                 if($conn->connect_error)
                 die("Fatal Error - cannot connect to the Database");
 				
-				$sql = "INSERT INTO courses ( code, title, description,hours, level, price, approved,createdBy) VALUES (
+				$sql = "INSERT INTO courses ( code, title, description,hours, level, price, approved,createdBy,categories) VALUES (
 						'".$_POST['code']."',
 						'".$_POST['title']."',
 						'".$_POST['description']."',
 						'".$_POST['hours']."',
 						'".$_POST['level']."',
 						'".$_POST['price']."',
-						'".$_POST['approved']."',
-						'".$_POST['createdBy']."')";
+						'0',
+						'".$_POST['createdBy']."',
+						'".$_POST['categorie']."')";
 				
 				if($conn->query($sql)===TRUE){
 					echo "New course created successfully<br>";
@@ -58,12 +61,12 @@
     	$hours=$_POST['hours'];
 		$level=$_POST['level'];
     	$price=$_POST['price'];
-    	$approved=$_POST['approved'];
 		$createdBy=$_POST['createdBy'];
+		$categories=$_POST['categorie'];
 
-		$applyAdd=new applyAdd($code, $title, $description,$hours, $level, $price, $approved,$createdBy);
+		$applyAdd=new applyAdd($code, $title, $description,$hours, $level, $price, 0,$createdBy,$categories);
 		$applyAdd->insert();
-		header("Location:ViewCourses.php");
+		header("Location:pendingCourses.php");
            
         
         
