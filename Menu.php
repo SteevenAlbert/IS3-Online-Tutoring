@@ -45,6 +45,7 @@
                     echo "<a href=createAdministrator.php> Create Administrator</a> &nbsp; &nbsp;";
                     echo "<a href=ViewAdministrators.php>View Administrators</a> &nbsp; &nbsp;";
                     echo "<a href=ViewLearners.php>View Learners</a> &nbsp; &nbsp;";
+                    echo "<a href=order.php>View Orders</a> &nbsp; &nbsp;";
                     echo "<a href=learnersMessagesList.php>Messages</a> &nbsp; &nbsp;";
                     echo "<a href=logout.php>Logout</a> &nbsp; &nbsp;";
                     echo"<form action = 'courseSearch.php' method = 'post'> 
