@@ -43,7 +43,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["Submit1"])){
     $result2=mysqli_query($conn,$query2);
     while($rows = $result2->fetch_array(MYSQLI_ASSOC)){
         foreach($rows as $row){
-            echo "Course name <input type=text name=title value =".$row." readonly><br><br>";
+            echo "Course name <input type=text name=title value=\"".$row."\" readonly><br><br>";
         }
          
     }
@@ -58,7 +58,7 @@ else if(!isset($_POST["Submit1"])){
 
     while($rows = $result2->fetch_array(MYSQLI_ASSOC)){
         foreach($rows as $row)
-          echo "Course name <input type = text name = title value =".$row." readonly><br><br>";
+          echo "Course name <input type = text name = title value=\"".$row."\" readonly><br><br>";
     }
 }
 ?>

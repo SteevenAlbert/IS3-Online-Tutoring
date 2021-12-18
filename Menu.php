@@ -27,7 +27,7 @@
                     echo "<a href=tutorCourses.php>View My Courses</a> &nbsp; &nbsp;";
                     echo "<a href=approveCourse.php>View All Courses</a> &nbsp; &nbsp;";
                     echo "<a href=addCourse.php>Add Course</a> &nbsp; &nbsp;";
-                    echo "View Enrolled Courses &nbsp; &nbsp;";
+                    // echo "View Enrolled Courses &nbsp; &nbsp;";
                     echo "Edit Profile &nbsp; &nbsp;";
                     echo "<a href=logout.php>Logout</a> &nbsp; &nbsp;";
                     echo"<form action = 'courseSearch.php' method = 'post'> 
