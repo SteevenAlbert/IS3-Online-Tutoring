@@ -40,7 +40,7 @@ include_once "Menu.php";
          <button type="delete"
                 onclick= "if (!confirm('Are you sure you want to delete this administrator?')) 
                 { return false }">
-                <? header("Location:ViewCourses.php");?>
+                <? header("Location:approveCourse.php");?>
            
         Delete </button>
 

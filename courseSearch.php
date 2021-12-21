@@ -23,7 +23,7 @@ if (mysqli_num_rows($result)<=0)
 else{
     while ($row = $result->fetch_array(MYSQLI_ASSOC))
     {
-        echo "<a href = viewCourse.php?id=".$row["ID"]." >".$row["Code"]."&nbsp".$row["Title"]."</a> <br>";
+        echo "<a href = approveCourse.php?id=".$row["ID"]." >".$row["Code"]."&nbsp".$row["Title"]."</a> <br>";
         echo $row["Description"]."<br>";
         echo "Hours: ".$row["Hours"]." <br>";
         echo "Level: ".$row["Level"]." <br>";

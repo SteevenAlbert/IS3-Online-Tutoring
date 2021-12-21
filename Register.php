@@ -27,21 +27,16 @@ if(isset($_POST["UserName"], $_POST["Password"],$_POST['Fname'],$_POST['LName'],
         $Email= filter_var($Email,FILTER_SANITIZE_EMAIL);
     if($result){
         echo "Image Uploaded Successfully\n"; 
-        $query = "INSERT INTO users (Username, Password, FirstName, LastName, Email, PhoneNumber, Country, Birthdate, UserType, profile_picture)
-        VALUES ('$UserName', '$Password', '$Fname','$LName', '$Email', '$PhoneNo', '$Country', '$Birthdate', '$UserType','$profileImageName')";
-    }else{
-         echo "Image Upload Failed\n";
         $query = "INSERT INTO users (Username, Password, FirstName, LastName, Email, PhoneNumber, Country, Birthdate, UserType)
         VALUES ('$UserName', '$Password', '$Fname','$LName', '$Email', '$PhoneNo', '$Country', '$Birthdate', '$UserType')";
+         $query2 = "INSERT INTO learners (Username, profile_picture) VALUES ('$UserName','$profileImageName')";   
+    }else{
+        echo "Image Upload Failed\n";
+        $query = "INSERT INTO users (Username, Password, FirstName, LastName, Email, PhoneNumber, Country, Birthdate, UserType)
+        VALUES ('$UserName', '$Password', '$Fname','$LName', '$Email', '$PhoneNo', '$Country', '$Birthdate', '$UserType')";
+        $query2 = "INSERT INTO tutors (Username) VALUES ('$UserName')";
     }   
     
-    
-if($UserType == "Learner"){
-    $query2 = "INSERT INTO learners (Username) VALUES ('$UserName')";
-}else{
-    $query2 = "INSERT INTO tutors (Username) VALUES ('$UserName')";
-}
-
 
 
 if(!$conn->query($query) || !$conn->query($query2))

@@ -14,6 +14,8 @@ if(!$conn->query($getUserQuery))
 $result = $conn->query($getUserQuery);
 $userData = mysqli_fetch_array($result);
 
+
+
 if($userData){
     $_SESSION['username']= $userData[0];
     $_SESSION['password']= $userData[1];
@@ -24,9 +26,20 @@ if($userData){
     $_SESSION['Country']=$userData[6];
     $_SESSION['BirthDate']=$userData[7];
     $_SESSION['UserType']=$userData[8];
-    $_SESSION['PP']=$userData[9];
+    //Get Profile Picture
+    $getPPQuery = "SELECT * FROM learners WHERE Username ='$userName'";
+    if(!$conn->query($getPPQuery))
+        echo mysqli_errno($conn).": " .mysqli_error($conn);
+    
+    $result2 = $conn->query($getPPQuery);
+    $row = mysqli_fetch_array($result2);
+    $_SESSION['PP']=$row[1];
+
+
     header("Location: Home.php");
-    // test
+    //test
+}else{
+    echo "Invalid Login credentials";
 }
 
 

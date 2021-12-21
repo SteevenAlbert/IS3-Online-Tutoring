@@ -23,18 +23,20 @@ if (!$result){
     <th>Description</th> 
     <th>Hours</th>  
     <th>Level</th>  
-    <th>Price</th>  
+    <th>Price</th> 
+    <th>Content</th> 
     <th>Edit</th>
     <th>Delete</th> </tr>";
     while($row = $result->fetch_assoc()) {
         ?>
         <tr>
-         <td><?php echo$row["Code"]?></td>
+        <td> <a href=courseDetails.php?id=<?php echo $row['ID'] ?> > <?php echo$row["Code"]?></a> </td>
          <td><?php echo$row["Title"]?> </td>
          <td><?php echo$row["Description"]?> </td>
          <td><?php echo$row["Hours"]?> </td>
          <td><?php echo$row["Level"]?></td>
          <td><?php echo$row["Price"]?></td>
+         <td> <a href=addCourseContent.php?id=<?php echo $row['ID'] ?> > Add Content</a></td>
          <td> <a href=editCourse.php?id=<?php echo $row['ID'] ?> > Edit</a></td>
          <td> <a href=deleteCourse.php?id=<?php echo $row['ID'] ?> >Delete</a></td>
          <?php
@@ -55,17 +57,19 @@ if (!$result){
            <th>Hours</th>  
            <th>Level</th>  
            <th>Price</th>  
+           <th>Content</th>
            <th>Edit</th>
            <th>Delete</th> </tr>";
            while($row2 = $result2->fetch_assoc()) {
                ?>
                <tr>
-                <td><?php echo$row2["Code"]?></td>
+               <td> <a href=courseDetails.php?id=<?php echo $row2['ID'] ?> > <?php echo$row2["Code"]?></a> </td>
                 <td><?php echo$row2["Title"]?> </td>
                 <td><?php echo$row2["Description"]?> </td>
                 <td><?php echo$row2["Hours"]?> </td>
                 <td><?php echo$row2["Level"]?></td>
                 <td><?php echo$row2["Price"]?></td>
+                <td> <a href=addCourseContent.php?id=<?php echo $row2['ID'] ?> > Add Content</a></td>
                 <td> <a href=editCourse.php?id=<?php echo $row2['ID'] ?> > Edit</a></td>
                 <td> <a href=deleteCourse.php?id=<?php echo $row2['ID'] ?> >Delete</a></td>
                 <?php

@@ -33,7 +33,7 @@ if (!$result2)
             
             ?>
             <tr>
-             <td><?php echo$row["Code"]?></td>
+            <td> <a href=courseDetails.php?id=<?php echo $row['ID'] ?> > <?php echo$row["Code"]?></a> </td>
              <td><?php echo$row["Title"]?> </td>
              <td><?php echo$row["Description"]?> </td>
              <td><?php echo$row["Hours"]?> </td>
