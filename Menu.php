@@ -17,7 +17,7 @@
                     echo"<form action = 'courseSearch.php' method = 'post'> 
                     <input type = 'text' placeholder = 'Search' name = 'search' required> 
                     <input type = 'submit' value = 'Go'>  </form>";
-                    
+
                 }
                 else if($_SESSION['UserType']=="Tutor")
                 { 

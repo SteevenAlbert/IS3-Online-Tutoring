@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once "Menu.php";
+include_once "filters.php";
 include_once "is3library.php";
 
 establishConnection();
@@ -15,17 +16,20 @@ if (isset($_POST['submit']))
     $fileMove = move_uploaded_file($fileTempName, $target);
 
     //Insert file in Database if move was successful 
-    if($fileMove){
-        $query = "INSERT INTO messages(fromUsername, text, link, file, isRead, date) VALUES ('".$_SESSION['username']."','".$_POST['message']."','".$_POST['link']."', '$fileName', 0, now())";
-        $result = $conn->query($query);
-        if (!$result)
-            die ("Query error. $query");
-    }
-    else{
-        $query = "INSERT INTO messages(fromUsername, text, link, isRead, date) VALUES ('".$_SESSION['username']."','".$_POST['message']."','".$_POST['link']."', 0, now())";
-        $result = $conn->query($query);
-        if (!$result)
-            die ("Query error. $query");
+    if(filterLink($_POST['link'])){
+        $_POST['link'] = filter_var($_POST['link'],FILTER_SANITIZE_URL);
+        if($fileMove){
+            $query = "INSERT INTO messages(fromUsername, text, link, file, isRead, date) VALUES ('".$_SESSION['username']."','".$_POST['message']."','".$_POST['link']."', '$fileName', 0, now())";
+            $result = $conn->query($query);
+            if (!$result)
+                die ("Query error. $query");
+        }
+        else{
+            $query = "INSERT INTO messages(fromUsername, text, link, isRead, date) VALUES ('".$_SESSION['username']."','".$_POST['message']."','".$_POST['link']."', 0, now())";
+            $result = $conn->query($query);
+            if (!$result)
+                die ("Query error. $query");
+        }
     }
 }
 

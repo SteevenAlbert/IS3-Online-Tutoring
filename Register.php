@@ -2,6 +2,7 @@
 <body>
 
 <?php
+include_once "filters.php";
 include_once "is3library.php";
 if(isset($_POST["UserName"], $_POST["Password"],$_POST['Fname'],$_POST['LName'], $_POST['Email'], $_POST['Country'],$_POST['BOD'] )) {
     $UserName = $_POST['UserName'];
@@ -22,6 +23,8 @@ if(isset($_POST["UserName"], $_POST["Password"],$_POST['Fname'],$_POST['LName'],
 	establishConnection();
 
     //Insert Image in Database if move was successful 
+    if(filterEmail($Email)){
+        $Email= filter_var($Email,FILTER_SANITIZE_EMAIL);
     if($result){
         echo "Image Uploaded Successfully\n"; 
         $query = "INSERT INTO users (Username, Password, FirstName, LastName, Email, PhoneNumber, Country, Birthdate, UserType, profile_picture)
@@ -48,7 +51,7 @@ else{
     echo "<br>";
     echo "<a href=home.php>CONTINUE</a>";
 }
-
+    }
 }else
 echo "Required Data is Not Complete";
 
