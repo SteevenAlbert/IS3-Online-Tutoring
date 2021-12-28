@@ -17,8 +17,8 @@ include_once "Menu.php";
 		include_once "is3library.php";
         establishConnection();
 
-            $query = "SELECT * FROM users WHERE username = '" .$_GET["id"]."'";
-
+            //----------------------------- Display user to delete details -----------------------------
+            $query = "SELECT * FROM users WHERE UserID = '" .$_GET["id"]."'";
             $results = $conn-> query($query);
 
             if(!$results)
@@ -37,6 +37,7 @@ include_once "Menu.php";
             }
          ?>
 
+`        <!-- Get deletion confirmation -->
          <button type="delete"
                 onclick= "if (!confirm('Are you sure you want to delete this administrator?')) 
                 { return false }">

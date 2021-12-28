@@ -6,22 +6,21 @@
 </head>
 
 <body>
-        <?php
-            include_once "is3library.php";
-            establishConnection();
+    <?php
+        include_once "is3library.php";
+        establishConnection();
 
-            $query = "delete from courses where ID =".$_POST["id"];
+        //---------------------- Delete current Administrator ----------------------
+        $query = "delete from courses where CourseID =".$_POST["id"];
+        $results = $conn-> query($query);
 
-            $results = $conn-> query($query);
-
-            if(!$results)
-                die("Fatal error in executing the delete $query");
-
-            else
-                echo "Successfully deleted.....".$query;
-            	
-          header("Location: pendingCourses.php");
-        ?>
+        if(!$results)
+            die("Fatal error in executing the delete $query");
+        else
+            echo "Successfully deleted.....".$query;
+            
+        header("Location: pendingCourses.php");
+    ?>
 	
 </body>
 </html>

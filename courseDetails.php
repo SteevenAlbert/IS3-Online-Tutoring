@@ -10,8 +10,8 @@
  include_once "is3library.php";
  establishConnection();
 
-/*-------Show Course Details-------*/
- $getCoursesQuery = "SELECT * FROM courses WHERE ID=".$_GET["id"];
+//---------------------------------- Show Course Details ----------------------------------
+ $getCoursesQuery = "SELECT * FROM courses WHERE CourseID=".$_GET["id"];
  $result = $conn->query($getCoursesQuery);
  if (!$result)
  die ("Query error. $getUserQuery");
@@ -24,7 +24,7 @@
 <?php echo "<p>".$row["Description"]."</p>"?>
 
 
-<!-- REVIEW FORM -->
+<!------------------------------------ REVIEW FORM --------------------------------------->
 <?php if($_SESSION['UserType']=="Learner"){?>
 <form method ="post" action = "">
 <div class="container">
@@ -48,9 +48,10 @@
 </form>
 <?php } ?>
 
+<!------------------------------------ Course Overview  --------------------------------------->
 <h2>Course Overview</h2>
 <div class = "wrapper">
-  <?php $query = "SELECT Overview FROM courses WHERE ID =".$_GET['id'];
+  <?php $query = "SELECT Overview FROM courses WHERE CourseID =".$_GET['id'];
        if(!$conn->query($query))
        echo mysqli_errno($conn).": " .mysqli_error($conn);
        else{
@@ -60,10 +61,11 @@
   ?>
 <video src="CoursesContent\Videos\<?php echo $row['Overview']?>" autoplay controls> </video>
 
+<!------------------------------------ Course Chapters --------------------------------------->
 <h2> Chapters </h2>
 <?php
     $id = $_GET["id"];
-    $query = "SELECT * FROM coursechapters WHERE courseID= '$id'";
+    $query = "SELECT * FROM coursechapters WHERE CourseID = '$id'";
     if(!$conn->query($query))
         echo mysqli_errno($conn).": " .mysqli_error($conn);
     $result = $conn->query($query);
@@ -76,7 +78,8 @@
 }
 ?>
 
-<!---------SHOW REVIEWS-----
+<!----------------------------------- SHOW REVIEWS -------------------------------------------->
+<!--
 <h2> Reviews </h2>
 <div class="container2">
   <div class="feedback2">
@@ -94,13 +97,13 @@
       echo "</div>";  
       } */?>
   </div>
-</div>->
+</div>-->
 
 
 
-<!---------CALCULATE AVERAGE RATING---------->
+<!----------------------------------- CALCULATE AVERAGE RATING ------------------------------------>
 <?php
-  $getReviewsQuery = "SELECT * FROM ratings WHERE courseID=".$_GET["id"];
+  $getReviewsQuery = "SELECT * FROM ratings WHERE CourseID=".$_GET["id"];
   $reviews = $conn->query($getReviewsQuery);
   if (!$reviews)
     die ("Query error. $getReviewsQuery");
@@ -116,14 +119,14 @@
 }
 
 
-  /*-------------Show Individual Reviews---------------*/
-    $getCoursesQuery = "SELECT * FROM ratings WHERE courseID=".$_GET["id"];
+  //--------------------------------------- Show Individual Reviews -----------------------------------------*/
+    $getCoursesQuery = "SELECT * FROM ratings WHERE CourseID=".$_GET["id"];
     $result = $conn->query($getCoursesQuery);
     if (!$result)
        die ("Query error. $getCoursesQuery");
     while($row= $result->fetch_array(MYSQLI_ASSOC)){
-      echo "<b>".$row['userName']."</b><br>";
-      $name=$row['userName'];
+      echo "<b>".$row['UserID']."</b><br>";
+      $name=$row['UserID'];
       ?>
       <div class="showRating">
       <?php 
@@ -146,15 +149,17 @@
 ?>
 
 
-<!-- SUBMIT REVIEW -->
+<!----------------------------------------- SUBMIT REVIEW ----------------------------------------->
 <?php
 if(isset($_POST['rating'])){
-    $submitReviewQuery = "INSERT INTO ratings (courseID, userName, rating, review, date)
-                          VALUES ('".$_GET["id"]."', '".$_SESSION["username"]."','".$_POST["rating"]."','".$_POST["review"]."', now())";
-    if(!$conn->query($submitReviewQuery))
-        echo mysqli_errno($conn).": " .mysqli_error($conn);
-    
-        header('Location: courseDetails.php?id='.$_GET['id']);
+  
+  $submitReviewQuery = "INSERT INTO ratings (CourseID, UserID, rating, review, date)
+  VALUES ('".$_GET["id"]."', '".$_SESSION["UserID"]."','".$_POST["rating"]."','".$_POST["review"]."', now())";
+  
+  if(!$conn->query($submitReviewQuery))
+    echo mysqli_errno($conn).": " .mysqli_error($conn);
+
+  header('Location: courseDetails.php?id='.$_GET['id']);
 }
 ?>
 

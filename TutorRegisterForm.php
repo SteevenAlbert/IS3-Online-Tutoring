@@ -4,7 +4,10 @@
 </head>
 <body>
     <?php include_once "Menu.php"; ?>
-    <h1>REGISTER</h1>
+
+
+<h1>REGISTER</h1>
+
 <script type="text/javascript" language="JavaScript">
 function checkMatchingPassword(Form) {
     if (Form.Password.value != Form.Password2.value)
@@ -17,6 +20,7 @@ function checkMatchingPassword(Form) {
 }
 </script> 
 
+<!------------------------------ User info form ------------------------------>
 <form method ="post" action = "Register.php" onsubmit="return checkMatchingPassword(this);">
 
         User Name: 

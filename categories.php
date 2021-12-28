@@ -5,9 +5,8 @@ include_once "is3library.php";
 
 establishConnection();
 
+//------------------------------------ Get courses grouped by categorie ------------------------------------
 $getCoursesQuery = "SELECT * FROM courses GROUP BY Categories";
-
-
 $result = $conn->query($getCoursesQuery);
 while($row = $result->fetch_assoc()) {
     $getCoursesbyCategory = "SELECT * FROM courses where Categories='".$row["Categories"]."'";
@@ -18,6 +17,7 @@ $result2 = $conn->query($getCoursesbyCategory);
 if (!$result2)
  die ("Query error. $getCoursesbyCategory");
 
+//------------------------------------ Display Courses by categorie ------------------------------------
  else{
         echo "<br><br><br>";
         echo "<table border=3 ><th>".$row["Categories"]."</th></table>";
@@ -33,7 +33,7 @@ if (!$result2)
             
             ?>
             <tr>
-            <td> <a href=courseDetails.php?id=<?php echo $row['ID'] ?> > <?php echo$row["Code"]?></a> </td>
+            <td> <a href=courseDetails.php?id=<?php echo $row['CourseID'] ?> > <?php echo$row["Code"]?></a> </td>
              <td><?php echo$row["Title"]?> </td>
              <td><?php echo$row["Description"]?> </td>
              <td><?php echo$row["Hours"]?> </td>

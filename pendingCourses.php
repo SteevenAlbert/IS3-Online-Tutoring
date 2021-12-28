@@ -5,6 +5,7 @@ include_once "is3library.php";
 
 establishConnection();
 
+//------------------------------ Get pending courses ------------------------------ 
 $getCoursesQuery = "SELECT * FROM courses where Approved='0'";
 $getCourses = "SELECT * FROM courses";
 
@@ -14,6 +15,7 @@ $result3 = $conn->query($getCourses);
 if (!$result)
  die ("Query error. $getUserQuery");
 
+ //--------------------------- Display all pending courses -------------------------
 else if($_SESSION["UserType"]=="Administrator"){
     echo "<table border=1 >
         <th>Code</th> 
@@ -43,20 +45,19 @@ else if($_SESSION["UserType"]=="Administrator"){
              <td><?php echo$row["Price"]?></td>
              <td><?php echo$row["CreatedBy"]?></td>
              <td><?php echo$row["Categories"]?></td>
-             <td> <a href=editCourse.php?id=<?php echo $row['ID'] ?> > Edit</a></td>
-             <td> <a href=deleteCourse.php?id=<?php echo $row['ID'] ?> >Delete</a></td>
+             <td> <a href=editCourse.php?id=<?php echo $row['CourseID'] ?> > Edit</a></td>
+             <td> <a href=deleteCourse.php?id=<?php echo $row['CourseID'] ?> >Delete</a></td>
              <td> <input type = "checkbox" value = <?php echo$row["Code"]?> name = "courses[]"></td>
              </tr>
 <?php
         }
 }
-
- echo " <button name='Approve' > Approve </button> </form>";
+echo " <button name='Approve' > Approve </button> </form>";
 echo "</table>";
 
 
 
-
+//------------------------------ Approve selected courses ------------------------------ 
 ?>
  <?php
     establishConnection();
@@ -64,7 +65,6 @@ echo "</table>";
     if(isset($_POST['Approve'])){
         $_SESSION['courses']=$_POST['courses'];
     while($row = $result3->fetch_assoc()){
-       // echo "test";
         for($i=0;$i<count($_SESSION["courses"]);$i++){
             if($_SESSION["courses"][$i]===$row["Code"]){   
             $updatePending="update courses set Approved='1' where Code='".$row["Code"]."'";
@@ -80,8 +80,3 @@ echo "</table>";
        header("Location:approveCourse.php");
     }
  ?>
-  <!-- <script>
-      function loadmessage() {
-          alert('Course is added succesfully')
-        } 
-  </script>   -->

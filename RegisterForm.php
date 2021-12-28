@@ -7,9 +7,10 @@
     include_once "Menu.php"; 
     include_once "is3library.php"; 
     ?>
+
+
     <h1>REGISTER</h1>
-
-
+    <!------------------------------- User info form ------------------------------->
     <form method ="post" action = "Register.php" enctype="multipart/form-data" onsubmit="return validatePasswords(this);">
 
 
@@ -21,14 +22,13 @@
     
 
         <!-- PASSWORD WITH VALIDATION -->
-
         &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; Password: 
         <input type="Password" name='Password' id="password1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
         title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>    <br><br>
     
         <!-- LOOP TO ADD WHITESPACE -->
        <?php for($i=0; $i<29;$i++){
-           //White Space
+           // White Space
             ?>&nbsp; <?php
         }?>
 

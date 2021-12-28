@@ -14,7 +14,7 @@ include_once "Menu.php";
 
 	<?php include_once "is3library.php" ?>
 
-
+	<!------------------------------------------ Administrator registration form ---------------------------------------->
 	<form method = "post" action = "applyCreateAdministrator.php" onsubmit="return validatePasswords(this);">
 
 		Username: <br> <input type = text name = "username" id = "username" placeholder = "John97" required><br> <br>

@@ -23,6 +23,7 @@ include_once "Menu.php";
 
 	establishConnection();
 
+	//------------------------------ Get all learners ---------------------------------------
 	$query = "select * from users where userType = 'learner'";
 	$results = $conn->query($query);
 
@@ -33,7 +34,7 @@ include_once "Menu.php";
 		<td> <?php echo $row["Username"] ?> </td>
 		<td> <?php echo $row["FirstName"] ?> </td>
 		<td> <?php echo $row["LastName"] ?> </td>
-		<td> <a href = viewUser.php?id=<?php echo $row["Username"] ?> > View </a> </td>
+		<td> <a href = viewUser.php?id=<?php echo $row["UserID"] ?> > View </a> </td>
 	</tr>
 
 

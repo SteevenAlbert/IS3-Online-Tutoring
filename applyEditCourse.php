@@ -11,6 +11,7 @@
     include_once "is3library.php";
 	establishConnection();
 		
+	//-------------------------------- Update current course --------------------------------
 	$query="update courses set Code=\"".$_POST["code"]."\",
 	Title=\"".$_POST["title"]."\",
 	Description=\"".$_POST["description"]."\",
@@ -19,17 +20,16 @@
 	Price=\"".$_POST["price"]."\", 
 	Approved=\"".$_POST["approved"]."\", 
 	CreatedBy=\"".$_POST["createdby"]."\" where
-	ID=".$_POST["id"];
+	CourseID=".$_POST["id"];
 	
-	 $results = $conn-> query($query);
+	$results = $conn-> query($query);
 	
-	 if(!$results)
-       die("Fatal error in executing the update statements  $query");	
-		
+	if(!$results)
+       die("Fatal error in executing the update statements  $query");		
 	else 
 		echo "Successfully edited and updated...".$query;
         	
-    header("Location: viewCourses.php");
+    header("Location: pendingCourses.php");
 		?>
 
 </body>

@@ -24,6 +24,7 @@ include_once "is3library.php";
 	
 	establishConnection();
 
+	//------------------------------ Get all administrators ---------------------------------------
 	$query = "select * from users where userType = 'administrator'";
 	$results = $conn->query($query);
 
@@ -34,8 +35,8 @@ include_once "is3library.php";
 		<td> <?php echo $row["Username"] ?> </td>
 		<td> <?php echo $row["FirstName"] ?> </td>
 		<td> <?php echo $row["LastName"] ?> </td>
-		<td> <a href = viewUser.php?id=<?php echo $row["Username"] ?> > View </a> </td>
-		<td> <a href = deleteUser.php?id=<?php echo $row["Username"] ?> > Delete </a> </td>
+		<td> <a href = viewUser.php?id=<?php echo $row["UserID"] ?> > View </a> </td>
+		<td> <a href = deleteUser.php?id=<?php echo $row["UserID"] ?> > Delete </a> </td>
 	</tr>
 
 

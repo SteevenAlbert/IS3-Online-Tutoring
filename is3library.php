@@ -272,6 +272,18 @@ function validateUsername($username)
       
 }
 
+function getUsername($UserID)
+{
+    establishConnection();
+
+    $sql = "SELECT * FROM users WHERE UserID = $UserID";
+    $result = $GLOBALS['conn']->query($sql);
+    if (!$result)
+        die ("Query error. $query");
+    
+    $userData = mysqli_fetch_array($result);
+    return $userData[1];
+}
 
 function establishConnection()
 {

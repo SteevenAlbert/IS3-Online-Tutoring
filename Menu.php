@@ -1,7 +1,8 @@
 <html>
 	
 	<body>				
-			<?php
+		<?php
+            //------------------------------ Existing User ------------------------------ 
             if (isset($_SESSION['username'])){
 				if($_SESSION['UserType']=="Learner"){
                     echo "Welcome Back, ".$_SESSION['FirstName']."!";
@@ -51,6 +52,7 @@
                     <input type = 'submit' value = 'Go'>  </form>";
                 }
             }
+            //------------------------------ Guest ------------------------------ 
             else
             {
                 echo "Welcome  &nbsp; &nbsp;"; 
@@ -64,7 +66,7 @@
                 <input type = 'submit' value = 'Go'>  </form>";
                     
             }
-			?>
+		?>
 	
 		<br><br>
 	</body>

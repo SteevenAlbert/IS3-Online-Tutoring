@@ -16,11 +16,13 @@ include_once "Menu.php";
 		include_once "is3library.php";
 		establishConnection();
 
-		$query = "select * from users where Username = '".$_GET["id"]."'";
+		//------------------------------ Get user info ---------------------------------------
+		$query = "select * from users where UserID = '".$_GET["id"]."'";
 		$result = $conn->query($query);
 
 		if (!$result) die ("Fatal error in executing query $query");
 
+		//------------------------------ Display user info ---------------------------------------
 		while ($row = $result->fetch_array(MYSQLI_ASSOC))
 		{
 			if ($row['UserType'] == "Learner")

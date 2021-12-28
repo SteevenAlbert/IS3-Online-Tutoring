@@ -6,7 +6,7 @@ include_once "is3library.php";
 
 establishConnection();
 
-// Send message 
+//--------------------------------------------- Send message ---------------------------------------------
 if (isset($_POST['submit']))
 {
     $fileName = time() .'_'.$_FILES['messageFile']['name'];
@@ -15,17 +15,17 @@ if (isset($_POST['submit']))
     $target='messagesFiles/'. $fileName;
     $fileMove = move_uploaded_file($fileTempName, $target);
 
-    //Insert file in Database if move was successful 
+    // Insert file in Database if move was successful 
     if(filterLink($_POST['link'])){
         $_POST['link'] = filter_var($_POST['link'],FILTER_SANITIZE_URL);
         if($fileMove){
-            $query = "INSERT INTO messages(fromUsername, text, link, file, isRead, date) VALUES ('".$_SESSION['username']."','".$_POST['message']."','".$_POST['link']."', '$fileName', 0, now())";
+            $query = "INSERT INTO messages(fromUserID, text, link, file, isRead, date) VALUES ('".$_SESSION['UserID']."','".$_POST['message']."','".$_POST['link']."', '$fileName', 0, now())";
             $result = $conn->query($query);
             if (!$result)
                 die ("Query error. $query");
         }
         else{
-            $query = "INSERT INTO messages(fromUsername, text, link, isRead, date) VALUES ('".$_SESSION['username']."','".$_POST['message']."','".$_POST['link']."', 0, now())";
+            $query = "INSERT INTO messages(fromUserID, text, link, isRead, date) VALUES ('".$_SESSION['UserID']."','".$_POST['message']."','".$_POST['link']."', 0, now())";
             $result = $conn->query($query);
             if (!$result)
                 die ("Query error. $query");
@@ -33,18 +33,18 @@ if (isset($_POST['submit']))
     }
 }
 
-// History
-$query = "SELECT * FROM messages WHERE fromUsername = '".$_SESSION['username']."' OR toUsername = '".$_SESSION['username']."'";
+//--------------------------------------------- Messages history ---------------------------------------------
+$query = "SELECT * FROM messages WHERE fromUserID = '".$_SESSION['UserID']."' OR toUserID = '".$_SESSION['UserID']."'";
 $result = $conn->query($query);
 if (!$result)
     die ("Query error. $query");
 
 while($row = $result->fetch_array(MYSQLI_ASSOC))
 {
-    if ($row["fromUsername"]== $_SESSION['username'])
+    if ($row["fromUserID"]== $_SESSION['UserID'])
         echo "<b> You: </b> <br>";
     else
-        echo "<b> Our team: </b> <br>"; // or $row["fromUsername"]
+        echo "<b> Our team: </b> <br>"; 
 
     if ($row['text'] != NULL)
         echo $row["text"]."<br>";
@@ -58,7 +58,7 @@ while($row = $result->fetch_array(MYSQLI_ASSOC))
     echo date('H:i:s d-m-Y ', strtotime($row['date']))."<br> <br>";
 }
 
-// Message input
+//--------------------------------------------- Message input ---------------------------------------------
 echo "<form action ='' method = 'post' enctype = 'multipart/form-data'>";
 echo "<textarea name='message' rows='3' cols='100'> </textarea> <br>";
 echo "<input type='url' name='link' cols = '100'> &nbsp";
