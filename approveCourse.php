@@ -24,6 +24,7 @@ else if($_SESSION["UserType"]=="Learner"){
             <th>Price</th>  
             <th>Instructor</th>
             <th>Rating</th>
+            <th>Add to cart</th>
             </tr>";
            
     // Display overall rating
@@ -166,18 +167,54 @@ echo "</table>";
 
 //------------------------------------ Add course to cart ------------------------------------
 function addToCart($conn) {
-    $x = $_GET["id"];
-    $user = $_SESSION['UserID'];
-    $query2= "insert into cartcourses (UserID,CourseID) values ('$user','$x')";
+    
+    $insertCartQuery= "INSERT INTO cartcourses (UserID,CourseID) 
+    VALUES ('".$_SESSION['UserID']."','".$_GET['id']."')";
 
-    $result2 = mysqli_query($conn,$query2);
-    if(!$result2){
-        echo"cannot execute query";
+    $result_insertCart = mysqli_query($conn,$insertCartQuery);
+    if(!$result_insertCart){
+        die ("Error. $insertCartQuery");
     }
 }
     
 if (isset($_GET['id'])) {
-    addToCart($conn);
+
+    $x = $_GET["id"];
+    $user = $_SESSION['UserID'];
+
+    // check wether the course is already in the cart
+    $message1="Course already in cart";
+    $checkInCart= "SELECT CourseID FROM cartcourses WHERE UserID='$user' AND CourseID=".$x;
+    $result_checkCart = mysqli_query($conn,$checkInCart);
+
+    if(!$result_checkCart){
+        die ("Error. $checkInCart");
+    }
+
+    $row1 = mysqli_num_rows($result_checkCart);
+    if($row1!=0){
+        echo "<script>alert('$message1');</script>";
+    }
+    
+
+     //check wether the learner already enrolled in this course
+    $message2="You are already enrolled in this course";
+    $checkInEnroll= "SELECT CourseID FROM enroll WHERE UserID='$user' AND CourseID=".$x;
+    $result_checkEnroll = mysqli_query($conn,$checkInEnroll);
+    if(!$result_checkEnroll){
+        die ("Error. $checkInEnroll");
+    }
+    
+    $row2 = mysqli_num_rows($result_checkEnroll);
+    if($row2!=0){
+        echo "<script>alert('$message2');</script>";
+    }
+    elseif($row2==0){// to do nothing
+    }
+    
+    else{
+        addToCart($conn);
+    }
 }
     
 ?>

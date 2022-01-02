@@ -146,7 +146,7 @@ if(isset($_POST['submit'])){
 
 
 <br>
-<a href="changePassword.php"> Change Password </a>
+<a href="requestReset.php"> Change Password </a>
 </body>
 </html>
 

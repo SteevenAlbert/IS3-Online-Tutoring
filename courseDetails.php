@@ -25,7 +25,21 @@
 
 
 <!------------------------------------ REVIEW FORM --------------------------------------->
-<?php if($_SESSION['UserType']=="Learner"){?>
+
+<?php
+  
+  $Query_enroll="SELECT * FROM enroll WHERE courseID=".$_GET['id']." AND UserID=".$_SESSION['UserID'];
+   $result_Query=$conn->query($Query_enroll);
+   if(!$result_Query){
+    die ("Error. $Query_enroll");
+  }
+  
+?>
+<?php 
+  $row = mysqli_num_rows($result_Query);
+  if($row!=0){
+   if($_SESSION['UserType']=="Learner"){
+  ?>
 <form method ="post" action = "">
 <div class="container">
   <div class="feedback">
@@ -46,7 +60,7 @@
   </div>
 </div>
 </form>
-<?php } ?>
+<?php } }?>
 
 <!------------------------------------ Course Overview  --------------------------------------->
 <h2>Course Overview</h2>
@@ -120,12 +134,12 @@
 
 
   //--------------------------------------- Show Individual Reviews -----------------------------------------*/
-    $getCoursesQuery = "SELECT * FROM ratings WHERE CourseID=".$_GET["id"];
+    $getCoursesQuery = "SELECT r.*,u.Username FROM ratings r, users u WHERE r.userID=u.userID AND CourseID=".$_GET["id"];
     $result = $conn->query($getCoursesQuery);
     if (!$result)
        die ("Query error. $getCoursesQuery");
     while($row= $result->fetch_array(MYSQLI_ASSOC)){
-      echo "<b>".$row['UserID']."</b><br>";
+      echo "<b>".$row['Username']."</b><br>";
       $name=$row['UserID'];
       ?>
       <div class="showRating">
@@ -151,10 +165,13 @@
 
 <!----------------------------------------- SUBMIT REVIEW ----------------------------------------->
 <?php
+
 if(isset($_POST['rating'])){
   
+  $review = $conn->real_escape_string($_POST["review"]);
+
   $submitReviewQuery = "INSERT INTO ratings (CourseID, UserID, rating, review, date)
-  VALUES ('".$_GET["id"]."', '".$_SESSION["UserID"]."','".$_POST["rating"]."','".$_POST["review"]."', now())";
+  VALUES ('".$_GET["id"]."', '".$_SESSION["UserID"]."','".$_POST["rating"]."','$review', now())";
   
   if(!$conn->query($submitReviewQuery))
     echo mysqli_errno($conn).": " .mysqli_error($conn);

@@ -14,9 +14,14 @@ if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["Submit1"])){
     $sql_delete2="DELETE FROM cartcourses WHERE UserID='$user'";
          
     // Insert into orders
-    $query3= "INSERT INTO orders (UserID)
-    SELECT UserID FROM learners WHERE UserID = $user";
+    $query3= "INSERT INTO orders (UserID,OrderDate,Amount) VALUES
+    ((SELECT UserID FROM learners WHERE UserID = $user), now(),
+    (SELECT SUM(price) FROM courses c1,cartcourses c2 WHERE c2.CourseID=c1.CourseID AND c2.UserID='$user'))";
     $result3 = mysqli_query($conn,$query3);
+
+    if(!$result3){
+        die ("Error. $query3");
+      }
     
 
     $result_sql=$conn->query($sql);
