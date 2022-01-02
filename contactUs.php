@@ -19,11 +19,8 @@ if (isset($_POST['submit']))
     if(filterLink($_POST['link'])){
         $_POST['link'] = filter_var($_POST['link'],FILTER_SANITIZE_URL);
     }
-<<<<<<< Updated upstream
-=======
       $text_msg = $conn->real_escape_string($_POST['message']);
       
->>>>>>> Stashed changes
         if($fileMove){
 
             $query = "INSERT INTO messages(fromUserID, text, link, file, isRead, date) VALUES ('".$_SESSION['UserID']."','$text_msg','".$_POST['link']."', '$fileName', 0, now())";
