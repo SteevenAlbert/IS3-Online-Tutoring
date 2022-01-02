@@ -1,0 +1,30 @@
+
+#reply{
+    position: absolute;
+    font-family:monospace;
+    font-style: oblique;
+    padding-left: 5px;
+    border-radius: 10px;
+    font-weight: 900;
+    font-size: 15px;
+    left: 20%;
+    width:4%;
+    height: 4%;
+    text-align:center;
+}
+
+#auditorReply{
+    position: absolute;
+    font-family:monospace;
+    font-style: oblique;
+    text-align:center;
+    padding:10px;
+    margin: -2%;
+    border-radius: 10px;
+    font-weight: 900;
+    font-size: 15px;
+    left: 25%;
+    width:30%;
+    height: 4%;
+    background-color: rgb(192, 190, 182);   
+}

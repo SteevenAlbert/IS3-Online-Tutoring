@@ -51,6 +51,25 @@
                     <input type = 'text' name = 'search' placeholder = 'Search' required> 
                     <input type = 'submit' value = 'Go'>  </form>";
                 }
+                else if($_SESSION['UserType']=="Auditor")
+                { 
+                    echo "Welcome Back, ".$_SESSION['FirstName']."! &nbsp; &nbsp;";
+                    echo"<a href='home.php'>Home</a>  &nbsp; &nbsp;";
+					echo"<a href=categories.php> Categories</a> &nbsp; &nbsp; ";
+                    echo "<a href=pendingCourses.php>Pending Courses</a> &nbsp; &nbsp;";
+                    echo "<a href=approveCourse.php>Approved Courses</a> &nbsp; &nbsp;";
+                    echo "<a href=addCourse.php>Add Course</a> &nbsp; &nbsp;";
+                    echo "<a href=createAdministrator.php> Create Administrator</a> &nbsp; &nbsp;";
+                    echo "<a href=ViewAdministrators.php>View Administrators</a> &nbsp; &nbsp;";
+                    echo "<a href=ViewLearners.php>View Learners</a> &nbsp; &nbsp;";
+                    echo "<a href=order.php>View Orders</a> &nbsp; &nbsp;";
+                    echo "<a href=auditorMessagesList.php>Messages</a> &nbsp; &nbsp;";
+                    echo "<a href=editProfile.php>Edit Profile</a> &nbsp; &nbsp;";
+                    echo "<a href=logout.php>Logout</a> &nbsp; &nbsp;";
+                    echo"<form action = 'courseSearch.php' method = 'post'> 
+                    <input type = 'text' name = 'search' placeholder = 'Search' required> 
+                    <input type = 'submit' value = 'Go'>  </form>";
+                }
             }
             //------------------------------ Guest ------------------------------ 
             else

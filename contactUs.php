@@ -18,6 +18,7 @@ if (isset($_POST['submit']))
     // Insert file in Database if move was successful 
     if(filterLink($_POST['link'])){
         $_POST['link'] = filter_var($_POST['link'],FILTER_SANITIZE_URL);
+    }
         if($fileMove){
             $query = "INSERT INTO messages(fromUserID, text, link, file, isRead, date) VALUES ('".$_SESSION['UserID']."','".$_POST['message']."','".$_POST['link']."', '$fileName', 0, now())";
             $result = $conn->query($query);
@@ -30,7 +31,7 @@ if (isset($_POST['submit']))
             if (!$result)
                 die ("Query error. $query");
         }
-    }
+    
 }
 
 //--------------------------------------------- Messages history ---------------------------------------------
