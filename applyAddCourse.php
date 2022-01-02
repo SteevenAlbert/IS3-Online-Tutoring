@@ -71,8 +71,7 @@
 
 	$applyAdd=new applyAdd($code, $title, $description,$hours, $level, $price, 0,$createdBy,$categories);
 	$applyAdd->insert();
-	header("Location:tutorCourses.php");
-
+	header("Location:addCourseContent.php?$code");
 ?>	
 </body>
 </html>

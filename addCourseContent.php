@@ -34,7 +34,7 @@ establishConnection();
     while($row =$result->fetch_array(MYSQLI_ASSOC)){
         $chaptersCount+=1;
         $title=  $row['Title'];
-        echo "<a href=chapterContent.php?id=$id&ch=$chaptersCount>Chapter $chaptersCount: $title </a>"; 
+        echo "<a href=addChapterContent.php?id=$id&ch=$chaptersCount>Chapter $chaptersCount: $title </a>"; 
         echo "<br>";
     }
 
@@ -93,24 +93,42 @@ establishConnection();
             }
         }
 
-        // Insesrt course material
-        if($_FILES["Thumbnail"]["size"]!=0){
-            $fileName = time() .'_'.$_FILES['Thumbnail']['name'];
-            $TempImageName = $_FILES['Thumbnail']['tmp_name'];
-            $target='CoursesContent/Thumbnails/'. $fileName;
-            $result = move_uploaded_file($TempImageName, $target);
-            $id = $_GET["id"];
 
-            $query = "INSERT INTO coursematerials (CourseID, type, url) 
-            VALUES ('$id', 'Thumbnail', '$fileName')";
-
+    if($_FILES["Thumbnail"]["size"]!=0){
+        $fileName = time() .'_'.$_FILES['Thumbnail']['name'];
+        $TempImageName = $_FILES['Thumbnail']['tmp_name'];
+        $target='CoursesContent/Thumbnails/'. $fileName;
+        $result = move_uploaded_file($TempImageName, $target);
+        $id = $_GET["id"];
+        $query = "SELECT Thumbnail FROM courses WHERE CourseID =".$_GET['id'];
+        if(!$conn->query($query))
+            echo mysqli_errno($conn).": " .mysqli_error($conn);
+        $result = $conn->query($query);
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        if($row['Thumbnail']!=null){
+            $deleteTarget='CoursesContent/Thumbnails/'.$row['Thumbnail'];
+            $query = "UPDATE courses SET Thumbnail='$fileName' WHERE CourseID =".$_GET['id'];
             if(!$conn->query($query))
                 echo mysqli_errno($conn).": " .mysqli_error($conn);
-                else{
-                    echo "Course Overview uploaded\n"; 
-                    echo "<br>";
-                }
+            else{
+                echo "Thumbnail Overview Updated\n"; 
+                echo "<br>";
+                echo "<a href=home.php>CONTINUE</a>";
+                unlink($deleteTarget);
+                move_uploaded_file($TempImageName, $target);
+            }
         }
-
+        else{
+            $query = "UPDATE courses SET Thumbnail='$fileName' WHERE CourseID =".$_GET['id'];
+            if(!$conn->query($query))
+            echo mysqli_errno($conn).": " .mysqli_error($conn);
+            else{
+                echo "Thumbnail uploaded\n"; 
+                echo "<br>";
+                echo "<a href=home.php>CONTINUE</a>";
+                move_uploaded_file($TempImageName, $target);
+            }
+        }
     }
+}
 ?>

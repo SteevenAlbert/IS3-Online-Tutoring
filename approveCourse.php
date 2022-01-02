@@ -175,6 +175,69 @@ function addToCart($conn) {
     if(!$result_insertCart){
         die ("Error. $insertCartQuery");
     }
+    else if($_SESSION["UserType"]=="Administrator"){
+        echo "<table border=1 >
+            <th>Code</th> 
+            <th>Title</th> 
+            <th>Description</th> 
+            <th>Hours</th>  
+            <th>Level</th>  
+            <th>Price</th>  
+            <th>Instructor</th> 
+            <th>Categorie</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Approve</th></tr>";
+        echo "<form method = 'post' action = ''>";
+            while($row = $result->fetch_assoc()) {
+                
+                ?>
+                 <tr>
+                 <td><?php echo$row["Code"]?></td>
+                 <td><?php echo$row["Title"]?> </td>
+                 <td><?php echo$row["Description"]?> </td>
+                 <td><?php echo$row["Hours"]?> </td>
+                 <td><?php echo$row["Level"]?></td>
+                 <td><?php echo$row["Price"]?></td>
+                 <td><?php echo$row["CreatedBy"]?></td>
+                 <td><?php echo$row["Categories"]?></td>
+                 <td> <a href=editCourse.php?id=<?php echo $row['ID'] ?> > Edit</a></td>
+                 <td> <a href=deleteCourse.php?id=<?php echo $row['ID'] ?> >Delete</a></td>
+                 <td> <input type = "checkbox" value = <?php echo$row["Code"]?> name = "courses[]"></td>
+                 </tr>
+    <?php
+            }
+    }else if($_SESSION["UserType"]=="Tutor" && $_GET['id']=1){
+        echo "<table border=1 >
+            <th>Code</th> 
+            <th>Title</th> 
+            <th>Description</th> 
+            <th>Hours</th>  
+            <th>Level</th>  
+            <th>Price</th>
+            <th>Content</th>  
+            <th>Edit</th>
+            <th>Delete</th>
+            </tr>";
+            
+        echo "<form method = 'post' action = 'approveCourse.php'>";
+            
+            while($row = $result->fetch_assoc()) {
+                if($row["CreatedBy"]==$_SESSION["username"]){
+                ?>
+                 <tr>
+                 <td> <a href=courseDetails.php?id=<?php echo $row['ID'] ?> > <?php echo$row["Code"]?></a> </td>
+                 <td><?php echo$row["Title"]?> </td>
+                 <td><?php echo$row["Description"]?> </td>
+                 <td><?php echo$row["Hours"]?> </td>
+                 <td><?php echo$row["Level"]?></td>
+                 <td><?php echo$row["Price"]?></td>
+                 <td> <a href=addCourseContent.php?id=<?php echo $row['ID'] ?> > Add Content</a></td>
+                 <td> <a href=editCourse.php?id=<?php echo $row['ID'] ?> > Edit</a></td>
+                 <td> <a href=deleteCourse.php?id=<?php echo $row['ID'] ?> >Delete</a></td>
+                 </tr>
+  <?php  }
+  }
 }
     
 if (isset($_GET['id'])) {
@@ -216,5 +279,10 @@ if (isset($_GET['id'])) {
         addToCart($conn);
     }
 }
-    
+    if (isset($_GET['id'])) {
+        addToCart($conn);
+     
+    }
+
+}
 ?>

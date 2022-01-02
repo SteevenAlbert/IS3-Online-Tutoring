@@ -29,7 +29,7 @@ include_once "Menu.php";
 		First Name:<br> <input type = text name = "firstName" placeholder = "John" required> <br><br>
 		Last Name:<br> <input type = text name = "lastName" placeholder = "Smith" required><br><br>
 		Email:<br> <input type = email name = "email"placeholder = "johnsmith@gmail.com" required><br><br>
-		Phone number:<br> <input type = tel name = "phoneNumber" pattern="^\+(?:[0-9]●?){6,14}[0-9]$" placeholder = "+201009876523" required><br><br>
+		Phone number:<br> <input type = tel name = "phoneNumber"  placeholder = "+201009876523" required><br><br>
 		Country:<br> 
 		<?php include_once "is3library.php"; countriesList(); ?>
 		<br><br>

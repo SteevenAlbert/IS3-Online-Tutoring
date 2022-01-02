@@ -37,21 +37,23 @@ function displayCourses($result)
         <th>Hours</th>  
         <th>Level</th>  
         <th>Price</th> 
+        <th>Enrolled</th>
         <th>Content</th> 
         <th>Edit</th>
         <th>Delete</th> </tr>";
         while($row = $result->fetch_assoc()) {
             ?>
             <tr>
-            <td> <a href=courseDetails.php?id=<?php echo $row['CourseID'] ?> > <?php echo$row["Code"]?></a> </td>
-            <td><?php echo$row["Title"]?> </td>
-            <td><?php echo$row["Description"]?> </td>
-            <td><?php echo$row["Hours"]?> </td>
-            <td><?php echo$row["Level"]?></td>
-            <td><?php echo$row["Price"]?></td>
-            <td> <a href=addCourseContent.php?id=<?php echo $row['CourseID'] ?> > Add Content</a></td>
-            <td> <a href=editCourse.php?id=<?php echo $row['CourseID'] ?> > Edit</a></td>
-            <td> <a href=deleteCourse.php?id=<?php echo $row['CourseID'] ?> >Delete</a></td>
+             <td> <a href=courseDetails.php?id=<?php echo $row['CourseID'] ?> > <?php echo$row["Code"]?></a> </td>
+             <td><?php echo$row["Title"]?> </td>
+             <td><?php echo$row["Description"]?> </td>
+             <td><?php echo$row["Hours"]?> </td>
+             <td><?php echo$row["Level"]?></td>
+             <td><?php echo$row["Price"]?></td>
+             <td> <a href=viewStudentsEnrolled.php?id=<?php echo $row['CourseID'] ?> > View</a></td>
+             <td> <a href=addCourseContent.php?id=<?php echo $row['CourseID'] ?> > Edit Content</a></td>
+             <td> <a href=editCourse.php?id=<?php echo $row['CourseID'] ?> > Edit</a></td>
+             <td> <a href=deleteCourse.php?id=<?php echo $row['CourseID'] ?> >Delete</a></td>
             <?php
         }
         echo "</table>";

@@ -1,11 +1,10 @@
 <html>
-	
 	<body>				
 		<?php
             //------------------------------ Existing User ------------------------------ 
             if (isset($_SESSION['username'])){
 				if($_SESSION['UserType']=="Learner"){
-                    echo "Welcome Back, ".$_SESSION['FirstName']."!";
+       
                     echo"<a href='home.php'>Home</a>  &nbsp; &nbsp;";
 					echo"<a href=categories.php> Categories</a> &nbsp; &nbsp; ";
                     echo "<a href=approveCourse.php>View All Courses</a> &nbsp; &nbsp;";
@@ -13,13 +12,13 @@
                     echo"<a href='cart.php'>Cart</a>  &nbsp; &nbsp;"; 
                     echo "<a href=editProfile.php>Edit Profile</a> &nbsp; &nbsp;";
                     echo "<a href=contactUs.php>Contact us</a> &nbsp; &nbsp;";
+                    echo "<a href=Notifications.php>Notifications</a> &nbsp; &nbsp;";
                     echo "<a href=logout.php>Logout</a> &nbsp; &nbsp;";
                     echo"<form action = 'courseSearch.php' method = 'post'> 
                     <input type = 'text' placeholder = 'Search' name = 'search' required> 
                     <input type = 'submit' value = 'Go'>  </form>";
                 }else if($_SESSION['UserType']=="Tutor")
                 { 
-                    echo "Welcome Back, ".$_SESSION['FirstName']."! &nbsp; &nbsp;";
                     echo"<a href='home.php'>Home</a>  &nbsp; &nbsp;";
 					echo"<a href=categories.php> Categories</a> &nbsp; &nbsp; ";
                     echo "<a href=tutorCourses.php>View My Courses</a> &nbsp; &nbsp;";
@@ -34,7 +33,7 @@
                 }
                 else if($_SESSION['UserType']=="Administrator")
                 { 
-                    echo "Welcome Back, ".$_SESSION['FirstName']."! &nbsp; &nbsp;";
+  
                     echo"<a href='home.php'>Home</a>  &nbsp; &nbsp;";
 					echo"<a href=categories.php> Categories</a> &nbsp; &nbsp; ";
                     echo "<a href=pendingCourses.php>Pending Courses</a> &nbsp; &nbsp;";

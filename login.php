@@ -3,11 +3,11 @@ session_start();
 include_once "is3library.php";
 establishConnection();
 
-$userName = $_POST['UserName'];
-$password = $_POST['Password'];
+$username = $_POST['username'];
+$password = $_POST['password'];
 
 //-------------------------------------------- Get user data --------------------------------------------
-$getUserQuery = "SELECT * FROM users WHERE Username ='$userName' AND Password='$password'";
+$getUserQuery = "SELECT * FROM users WHERE Username ='$username' AND Password='$password'";
 if(!$conn->query($getUserQuery))
     echo mysqli_errno($conn).": " .mysqli_error($conn);
 
@@ -36,10 +36,12 @@ if($userData){
     
     $result2 = $conn->query($getPPQuery);
     $row = mysqli_fetch_array($result2);
+
+    if($row){
     $_SESSION['PP']=$row[1];
-
-
-    header("Location: Home.php");
+    }
+    
+    echo "success";
 }else{
     echo "Invalid Login credentials";
 }

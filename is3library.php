@@ -295,14 +295,3 @@ function establishConnection()
 
 
 ?>
-
-<script type="text/javascript" language="JavaScript">
-    function validatePasswords (form) 
-    {
-        if (form.password1.value != form.password2.value)
-        {
-            alert('Those Passwords don\'t match!');
-            return false;
-        } 
-    }
-</script> 

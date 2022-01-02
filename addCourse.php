@@ -41,10 +41,9 @@ include_once "Menu.php";
 		<?php echo $_SESSION['username']?> <br><br>
 
 
-		<a href="applyAddCourse.php">
-		<button>Save Course</button>
-		</a>
-		
+	<a href="applyAddCourse.php">
+	  <button>Save Course</button>
+	</a>
 	</form>
 </body>
 </html>

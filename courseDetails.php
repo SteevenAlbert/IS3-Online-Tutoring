@@ -92,13 +92,28 @@
 }
 ?>
 
-<!----------------------------------- SHOW REVIEWS -------------------------------------------->
-<!--
+<!---------SHOW REVIEWS----->
+<?php
+  $reviewsRating = array_fill(1,5,0);
+  $getReviewsQuery = "SELECT * FROM ratings WHERE courseID=".$_GET["id"];
+  $reviews = $conn->query($getReviewsQuery);
+  if (!$reviews)
+    die ("Query error. $getReviewsQuery");
+    $reviewCount=0;
+    $reviewsTotal=0;
+  while($review= $reviews->fetch_array(MYSQLI_ASSOC)){
+    $reviewCount +=1; 
+    $reviewsTotal+= $review['rating'];  
+    $reviewsRating[$review['rating']] +=1; 
+  }
+  ?>
+
+
 <h2> Reviews </h2>
-<div class="container2">
-  <div class="feedback2">
-    <?php/* for($j=5; $j>=1; $j--){
-      echo "<div class=rating>";
+
+ 
+    <?php for($j=5; $j>=1; $j--){
+      echo "<div class=showGeneralRating>";
         for($i=5; $i>=1; $i--){
           if($i==$j){
           echo "<input type=radio name=rating$j value=$i id=rating-$i checked>";
@@ -107,26 +122,16 @@
         }
           echo "<label for=rating-$i></label>";
         }
-        echo "<h3>$j</h3>";
+        echo "<h3>$reviewsRating[$j] : </h3>";
       echo "</div>";  
-      } */?>
-  </div>
-</div>-->
+      } ?>
+  
+
 
 
 
 <!----------------------------------- CALCULATE AVERAGE RATING ------------------------------------>
 <?php
-  $getReviewsQuery = "SELECT * FROM ratings WHERE CourseID=".$_GET["id"];
-  $reviews = $conn->query($getReviewsQuery);
-  if (!$reviews)
-    die ("Query error. $getReviewsQuery");
-    $reviewCount=0;
-    $reviewsTotal=0;
-  while($review= $reviews->fetch_array(MYSQLI_ASSOC)){
-    $reviewCount +=1; 
-    $reviewsTotal+= $review['rating'];
-  }
   if($reviewCount){
   $averageRating = round($reviewsTotal / $reviewCount, 1);
   echo "<h3>".$averageRating."/5<br></h3>";

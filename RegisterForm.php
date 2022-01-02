@@ -1,40 +1,92 @@
+<?php 
+    include_once "Menu.php"; 
+    include_once "is3library.php";
+?>
+
 <html>
 <head>
-    <title>Registeration</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    $usernameValid = false;
+    $passValid=false;
+   /*--------------Username Responsive Check-----------*/
+    function UserNameCheck(str) {
+        document.getElementById("submit").disabled = false;
+        if (str.length==0) {
+            document.getElementById("usernameMessage").innerHTML="";
+            document.getElementById("submit").disabled = true;
+            return;
+        }
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange=function() {
+            if (this.readyState==4 && this.status==200) {
+                document.getElementById("usernameMessage").innerHTML=this.responseText;
+                if(this.responseText!="Available" || $passValid==false){
+                    document.getElementById("submit").disabled = true;
+                }
+            }
+        }
+        xmlhttp.open("GET","checkUsername.php?un="+str,true);
+        xmlhttp.send();
+    }
+    /*--------------Password Responsive Check-----------*/
+    function passCheck() {
+        var number = /([0-9])/;
+        var alphabets = /([a-zA-Z])/;
+        var special_characters = /([~,!,@,#,$,%,^,&,*,-,_,+,=,?,>,<])/;
+        if ($('#password1').val().length<1){
+            $('#passCheckMessage').html("");
+            return;
+        }
+        if ($('#password1').val().length > 6 && $('#password1').val().match(number) && $('#password1').val().match(alphabets) && $('#password1').val().match(special_characters)) {
+            $('#passCheckMessage').html("Strong");
+            document.getElementById("submit").disabled = false;
+        } else {
+            $('#passCheckMessage').html("Not Strong Enough - Password should include alphabets, numbers and special characters.)");
+            document.getElementById("submit").disabled = true;
+        }
+    }
+
+     /*--------------Password Match Check-----------*/
+     function checkPassMatch(){
+        if ($('#password2').val().length==0){
+            $('#checkMatchMessage').html("");
+            return;
+        }
+         if($('#password1').val() == $('#password2').val()){
+            document.getElementById("checkMatchMessage").innerHTML = "Password Match";
+         }else{
+            document.getElementById("checkMatchMessage").innerHTML = "Passwords do not Match";
+         }
+     }
+</script>
+<title>Registeration</title>
 </head>
 <body>
-    <?php 
-    include_once "Menu.php"; 
-    include_once "is3library.php"; 
-    ?>
-
-
     <h1>REGISTER</h1>
     <!------------------------------- User info form ------------------------------->
-    <form method ="post" action = "Register.php" enctype="multipart/form-data" onsubmit="return validatePasswords(this);">
-
+    <form method ="post" action = "Register.php" enctype="multipart/form-data">
 
         <label for="profileImage">Profile Image</image> <br>
         <input type="file" name="profileImage" id="profileImage"> <br> <br>
 
+        <!-- USERNAME AND PASSWORD WITH VALIDATION -->
         User Name: 
-        <input type='text' name='UserName' id="UserName" required>   
+        <input type='text' name='UserName' id="UserName" onkeyup="UserNameCheck(this.value)" required>   
+        <div id="usernameMessage"></div>
+        <br>
+       
+        Password: 
+        <input type="Password" name='Password' id="password1" onkeyup="passCheck(this.value)" required>   
     
+         Re-Enter Password: 
+        <input type="Password" name='password2' id="password2" onkeyup="checkPassMatch(this.value)" required>    <br>
+        <div id="passCheckMessage"></div>
+        <div id="checkMatchMessage"></div>
+        <br><br>
 
-        <!-- PASSWORD WITH VALIDATION -->
-        &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; Password: 
-        <input type="Password" name='Password' id="password1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
-        title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>    <br><br>
-    
-        <!-- LOOP TO ADD WHITESPACE -->
-       <?php for($i=0; $i<29;$i++){
-           // White Space
-            ?>&nbsp; <?php
-        }?>
 
-       Re-Enter Password: 
-        <input type="Password" name='password2' id="password2" required>    <br><br><br><br>
-        
+        <!-- User Details -->
         First Name: 
         <input type="text" name='Fname' id="Fname" placeholder="Bob" required>
       
@@ -67,7 +119,7 @@
         I Agree to Terms and Conditions <input type='checkbox' name='agree' required>
         <br><br>
 
-        <input type='submit' value="Register">
+        <input type='submit' id="submit" value="Register" disabled>
         
     </form>
 

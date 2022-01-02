@@ -41,25 +41,23 @@ if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST["Submit1"])){
 
     }
 
-    //------------------------------- Display enrolled courses -------------------------------
-    $query2="SELECT Title FROM courses c, enroll e where e.CourseID=c.CourseID AND e.UserID='$user'";
+    
+    // if(!$result2)
+    //     echo"failed to execute query 2";
+    echo "<h1> Your Courses </h1>"; 
+    $query2="SELECT * FROM courses c, enroll e where e.CourseID=c.CourseID AND e.UserID='$user'";
     $result2=mysqli_query($conn,$query2);
     while($rows = $result2->fetch_array(MYSQLI_ASSOC)){
-        foreach($rows as $row){
-            echo "Course name <input type=text name=title value=\"".$row."\" readonly><br><br>";
-        }
-         
-    } 
- 
-}
-else if(!isset($_POST["Submit1"])){
-    //------------------------------- Display enrolled courses -------------------------------
-    $query2="SELECT Title FROM courses c, enroll e where e.CourseID=c.CourseID AND e.UserID='$user'";
+        ?> <a href=viewCourseContent.php?id=<?php echo $rows['CourseID']?>><?php echo $rows['Title'] ?><br><br> </a> 
+     <?php } 
+
+}else if(!isset($_POST["Submit1"])){
+    echo "<h1> Your Courses </h1>"; 
+    $query2="SELECT * FROM courses c, enroll e where e.CourseID=c.CourseID AND e.UserID='$user'";
     $result2=mysqli_query($conn,$query2);
 
-    while($rows = $result2->fetch_array(MYSQLI_ASSOC)){
-        foreach($rows as $row)
-            echo "Course name <input type = text name = title value=\"".$row."\" readonly><br><br>";
-    }
+    while($row = $result2->fetch_array(MYSQLI_ASSOC)){
+       ?> <a href=viewCourseContent.php?id=<?php echo $row['CourseID']?>><?php echo $row['Title'] ?><br><br> </a> 
+    <?php }
 }
 ?>

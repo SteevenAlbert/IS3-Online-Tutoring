@@ -41,12 +41,19 @@ if(isset($_POST["UserName"], $_POST["Password"],$_POST['Fname'],$_POST['LName'],
         VALUES ('$UserName', '$Password', '$Fname','$LName', '$Email', '$PhoneNo', '$Country', '$Birthdate', '$UserType')";
         $query2 = true;
     }else{
-        echo "Image Upload Failed\n";
+         echo "Image Upload Failed\n";
         $query = "INSERT INTO users (Username, Password, FirstName, LastName, Email, PhoneNumber, Country, Birthdate, UserType)
         VALUES ('$UserName', '$Password', '$Fname','$LName', '$Email', '$PhoneNo', '$Country', '$Birthdate', '$UserType')";
         $query2 = false;
     }   
     
+    
+if($UserType == "Learner"){
+    $query2 = "INSERT INTO learners (Username) VALUES ('$UserName')";
+}else{
+    $query2 = "INSERT INTO tutors (Username) VALUES ('$UserName')";
+}
+
 
 
 if(!$conn->query($query))
