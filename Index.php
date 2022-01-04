@@ -1,5 +1,4 @@
 
 <?php
-header("Location:home.php");
-
+header("Location:./src/public/home.php");
 ?>
