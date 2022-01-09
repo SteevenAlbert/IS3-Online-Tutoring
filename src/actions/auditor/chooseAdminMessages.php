@@ -7,7 +7,7 @@ establishConnection();
 
 $adminID = $_GET['admin'];
 
-
+//-------------------------------- All users who chated with this admin ---------------------------
 echo "<b>All chats for:".getUsername($adminID). "</b> <br> <br>";
 
 $query = "SELECT DISTINCT toUserID from messages WHERE fromUserID = '".$adminID ."'";
@@ -25,11 +25,7 @@ while($row = $result->fetch_array(MYSQLI_ASSOC)){
 echo "</table>";
 
 
-
-
-
-
-
+//-------------------------------- All commented messages for this admin ---------------------------
 $query = "SELECT m1.text as Comment, m2.text as Message from messages as m1, messages as m2 
 WHERE m1.parentMessageID IS NOT NULL AND m1.toUserID = $adminID
 AND m1.parentMessageID = m2.messageID";
