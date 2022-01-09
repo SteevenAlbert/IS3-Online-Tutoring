@@ -30,7 +30,7 @@ $query = "UPDATE messages SET isReadAuditor = 1 WHERE fromUserID ='".$_GET['lear
 
         if ($row["UserType"]== 'Learner')
             echo "<b>".$row["FirstName"]." (Learner)</b> <br>";
-        else if ($row["UserType"]== 'Administrator'){
+        else if ($row["UserType"]== 'Administrator' && $row['fromUserID'] == $_GET['admin']){
             echo "<b>".$row["FirstName"]."(Admin)</b> <br>";
             ?>
             <form method="post" action="">
@@ -38,6 +38,10 @@ $query = "UPDATE messages SET isReadAuditor = 1 WHERE fromUserID ='".$_GET['lear
             </form>
             <?php
             $messageID=$row['messageID'];
+        }
+        else if ($row["UserType"] == 'Administrator')
+        {
+            echo "<b>".$row["FirstName"]."(Admin)</b> <br>";
         }
 
         if ($row['text'] != NULL)
