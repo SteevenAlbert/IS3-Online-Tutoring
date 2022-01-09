@@ -7,7 +7,7 @@ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
 
 establishConnection();
 //-------------------------------------------- Set read to true --------------------------------------------
-$query = "UPDATE messages SET isReadAuditor = 0 WHERE fromUserID ='".$_GET['id']."'";
+$query = "UPDATE messages SET isReadAuditor = 1 WHERE fromUserID ='".$_GET['learner']."' OR (fromUserID = '".$_GET['admin']."' AND toUserID = '".$_GET['learner']."')";
     $result = $conn->query($query);
     if (!$result)
         die ("Query error. $query");
@@ -16,7 +16,8 @@ $query = "UPDATE messages SET isReadAuditor = 0 WHERE fromUserID ='".$_GET['id']
 //-------------------------------------------- Get messages history --------------------------------------------
     $query="SELECT DISTINCT m.* , u.UserID , u.UserType ,u.FirstName
             FROM messages m 
-            JOIN users u ON (m.fromUserID ='".$_GET['id']."' OR m.toUserID = '".$_GET['id']."') AND (u.UserID=m.fromUserID)";
+            JOIN users u ON (m.fromUserID ='".$_GET['learner']."' OR m.toUserID = '".$_GET['learner']."') AND (u.UserID=m.fromUserID)";
+    
     $result = $conn->query($query);
     if (!$result)
     die ("Query error. $query");
@@ -24,7 +25,6 @@ $query = "UPDATE messages SET isReadAuditor = 0 WHERE fromUserID ='".$_GET['id']
     $query2="SELECT UserID FROM users WHERE UserType='Auditor' ";
     $result2 = $conn->query($query2);
     
-//while($row2 = $result2->fetch_array(MYSQLI_ASSOC)){
 
     while($row = $result->fetch_array(MYSQLI_ASSOC)){
 
@@ -47,11 +47,11 @@ $query = "UPDATE messages SET isReadAuditor = 0 WHERE fromUserID ='".$_GET['id']
             echo "<a href='".$row['link'] ."'>". $row['link']."</a> <br>";
         
         if ($row['file'] != NULL)
-            echo "<img src = 'messagesFiles/".$row['file'] ."' width = 300> <br>";
+            echo "<img src = '/IS3-Online-Tutoring/uploads/messagesFiles/messagesFiles/".$row['file'] ."' width = 300> <br>";
         
             echo date('H:i:s d-m-Y ', strtotime($row['date']))."<br> <br>";
     }
-//}   
+
 
 //---------------------------------------------------------- Click on reply button -----------------------------------------
 if (isset($_POST['reply']))
@@ -59,22 +59,19 @@ if (isset($_POST['reply']))
     echo "<form action ='' method = 'post' enctype = 'multipart/form-data'>";
     echo "<textarea name='message' rows='3' cols='100'> </textarea> <br><br>";
     echo "<input type = text hidden name='replyTo' value =".$_POST['reply'].">";
-    // echo "<input type='url' name='link' cols = '100'> &nbsp";
-    // echo "<input type='file' name='messageFile' id ='messageFile'> <br>";
     echo "<input type=submit name='submitReply' value='Submit'> ";
 }
 
 //---------------------------------------------------------- Send reply message to Admin ---------------------------------------------
 if(isset($_POST['submitReply'])){
     if($_POST['message']){
-        $replyQuery = "INSERT INTO messages(fromUserID, text, isRead, date,parentMessageID) VALUES ('".$_SESSION['UserID']."','".$_POST['message']."',0, now(),'".$_POST['replyTo']."')";
+        $replyQuery = "INSERT INTO messages(fromUserID, toUserID, text, isRead, date,parentMessageID) 
+        VALUES ('".$_SESSION['UserID']."','".$_GET['admin']."','".$_POST['message']."',0, now(),'".$_POST['replyTo']."')";
             $replyResult = $conn->query($replyQuery);
             if (!$replyResult)
                 die ("Query error. $replyQuery");
     }
 }
 
-
-    
 
 ?>

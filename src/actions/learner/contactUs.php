@@ -11,7 +11,7 @@ if (isset($_POST['submit']))
     $fileName = time() .'_'.$_FILES['messageFile']['name'];
     $fileTempName = $_FILES['messageFile']['tmp_name'];
 
-    $target='messagesFiles/'. $fileName;
+    $target='/xampp/htdocs/IS3-Online-Tutoring/uploads/messagesFiles/'. $fileName;
     $fileMove = move_uploaded_file($fileTempName, $target);
 
     // Insert file in Database if move was successful 
@@ -56,7 +56,7 @@ while($row = $result->fetch_array(MYSQLI_ASSOC))
         echo "<a href='".$row['link'] ."'>". $row['link']."</a> <br>";
     
     if ($row['file'] != NULL)
-        echo "<img src = 'messagesFiles/".$row['file'] ."' width = 300> <br>";
+        echo "<img src = '/IS3-Online-Tutoring/uploads/messagesFiles/".$row['file'] ."' width = 300> <br>";
 
     echo date('H:i:s d-m-Y ', strtotime($row['date']))."<br> <br>";
 }
