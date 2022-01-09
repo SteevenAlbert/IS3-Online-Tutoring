@@ -46,14 +46,19 @@ if (isset($_GET["id"])) {
 }
 
 //------------------------------------ Display total price ------------------------------------
+echo "<form action='/IS3-Online-Tutoring/src/actions/learner/enroll.php' method='post'>";
+
+$numberOfCourses = mysqli_num_rows($result1);
+echo "<input hidden type = text name = 'amount' value = $numberOfCourses><br>";
+
+
 while($rows = $result2->fetch_array(MYSQLI_ASSOC)){
     foreach($rows as $row)
-      echo "total <input type = text name = title value =".$row." readonly><br>";
+      echo "total <input type = text name = 'total' value =".$row." readonly><br>";
 }
 echo"<br>";
 
-//-------------------------------- ------- Purchase button ------------------------------------
+//--------------------------------------- Purchase button ------------------------------------
 ?>
-<form action="enrolledCourses.php" method="post">
     <input type="submit" value="Purchase" name="Submit1"><br/><br/>
 </form>

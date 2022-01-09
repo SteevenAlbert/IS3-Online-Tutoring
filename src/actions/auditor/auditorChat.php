@@ -58,6 +58,7 @@ if (isset($_POST['reply']))
 {
     echo "<form action ='' method = 'post' enctype = 'multipart/form-data'>";
     echo "<textarea name='message' rows='3' cols='100'> </textarea> <br><br>";
+    echo "<input type = text hidden name='replyTo' value =".$_POST['reply'].">";
     // echo "<input type='url' name='link' cols = '100'> &nbsp";
     // echo "<input type='file' name='messageFile' id ='messageFile'> <br>";
     echo "<input type=submit name='submitReply' value='Submit'> ";
@@ -66,7 +67,7 @@ if (isset($_POST['reply']))
 //---------------------------------------------------------- Send reply message to Admin ---------------------------------------------
 if(isset($_POST['submitReply'])){
     if($_POST['message']){
-        $replyQuery = "INSERT INTO messages(fromUserID, text, isRead, date,parentMessageID) VALUES ('".$_SESSION['UserID']."','".$_POST['message']."',0, now(),'$messageID')";
+        $replyQuery = "INSERT INTO messages(fromUserID, text, isRead, date,parentMessageID) VALUES ('".$_SESSION['UserID']."','".$_POST['message']."',0, now(),'".$_POST['replyTo']."')";
             $replyResult = $conn->query($replyQuery);
             if (!$replyResult)
                 die ("Query error. $replyQuery");

@@ -2,7 +2,6 @@
 session_start();
 include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/Menu.php";
 include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
-
 establishConnection();
 
 //-------------------------------------------- Show all unread messages (latest first) --------------------------------------------

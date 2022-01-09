@@ -57,7 +57,7 @@ else if($_SESSION["UserType"]=="Learner"){
     <td><?php echo$row["Price"]?></td>
     <td><?php echo$row["CreatedBy"]?></td>
     <td> <?php echo $averageRating."/5  ($reviewCount reviews)"?> </td>
-    <td><a href=/IS3-Online-Tutoring/src/view/viewApprovedCourses.php?id=<?php echo $row['CourseID']?>>Add To Cart</a> 
+    <td><a href=/IS3-Online-Tutoring/src/actions/learner/addToCart.php?id=<?php echo $row['CourseID']?>>Add To Cart</a> 
     </tr>
 
     <?php

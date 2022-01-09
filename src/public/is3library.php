@@ -276,10 +276,10 @@ function getUsername($UserID)
 {
     establishConnection();
 
-    $sql = "SELECT * FROM users WHERE UserID = $UserID";
+    $sql = "SELECT * FROM users WHERE UserID =". $UserID;
     $result = $GLOBALS['conn']->query($sql);
     if (!$result)
-        die ("Query error. $query");
+        die ("Query error. $sql");
     
     $userData = mysqli_fetch_array($result);
     return $userData[1];

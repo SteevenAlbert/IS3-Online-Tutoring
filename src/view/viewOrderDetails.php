@@ -6,48 +6,45 @@ establishConnection();
 
 $get_id=$_GET['id'];
 
-$query1="SELECT c.title, u.Username ,o1.orderDate, o1.Amount
-FROM courses c
-JOIN ordercourses o2 ON o2.courseID =c.courseID
-JOIN orders o1 ON o1.orderID=o2.orderID
-AND o2.orderID='$get_id'
-JOIN users u ON o1.UserID=u.UserID
-ORDER BY o2.orderID";
+$query = "SELECT * FROM ORDERS WHERE OrderID = ".$get_id;
+$order =$conn->query($query);
 
-$result_1=$conn->query($query1);
+while ($row = $order->fetch_array(MYSQLI_ASSOC))
+{
+  // Get order info
+  echo "<b> Order Reference number: ".$row["orderID"]."</b><br>";
+  echo getUsername($row["UserID"])."<br>";
+  echo "Amount: ".$row["Amount"]."<br>";
+  echo "Total: ".$row["Total"]."<br>";
+  echo $row["OrderTime"]."<br>";
 
-// select username
-$query2="SELECT u.Username From users u, orders o WHERE o.orderID='".$_GET["id"]."' AND o.UserID=u.UserID";
-$result_2=$conn->query($query2);
+  // Get order courses
+  $getOrderQuery = "SELECT * FROM orderCourses as o, courses as c 
+  WHERE o.CourseID = c.CourseID AND o.orderID =".$row["orderID"];
+  $orderResult =$GLOBALS['conn']->query($getOrderQuery);
 
-if(!$result_1){
-    die ("Error. $query1");
+  if (!$orderResult)
+  die("Cannot process query $getOrderID");
+
+  echo "<table border = 1>";
+  echo "<tr> <th> Code </th>  <th> Title </th>  <th> Category </th>   
+  <th> Created By </th> <th> Description </th> <th> Hours </th> <th> Level </th> <th> Price </th>  </tr>";
+  while ($orderCourses = $orderResult->fetch_array(MYSQLI_ASSOC))
+  {
+    echo "<tr>";
+    echo "<td>". $orderCourses['Code'] ."</td>";
+    echo "<td>". $orderCourses['Title'] ."</td>";
+    echo "<td>". $orderCourses['Categories'] ."</td>";
+    echo "<td>". getUsername($orderCourses['CreatedBy']) ."</td>";
+    echo "<td>". $orderCourses['Description'] ."</td>";
+    echo "<td>". $orderCourses['Hours'] ."</td>";
+    echo "<td>". $orderCourses['Level'] ."</td>";
+    echo "<td>". $orderCourses['Price'] ."</td>";
+    echo "</tr>";
   }
-
-
-if(!$result_2){
-    die ("Error. $query2");
-  }
-
-$row = $result_2->fetch_array(MYSQLI_ASSOC);
-    
-    echo "<table border=2 >
-    <th> Order ".$_GET["id"]."</th>
-    <th>".$row["Username"]."</th>
-    </table>";
-    echo "<table border=1>
-    <th>Course Title</th>
-    <th>Order Date</th>
-    <th>Amount</th>";
-    while($row1 = $result_1->fetch_array(MYSQLI_ASSOC)) {
-      ?>
-       <tr>
-       <td><?php echo$row1["title"]?></td>
-       <td><?php echo$row1["orderDate"]?></td>
-       <td><?php echo$row1["Amount"]?></td>
-       </tr>
-    <?php
-
+  echo "</table>";
 }
+
+echo "<br>";
 
 ?>
