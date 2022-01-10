@@ -20,7 +20,7 @@ while($row = $result->fetch_array(MYSQLI_ASSOC))
     $name = $CourseNameResult->fetch_array(MYSQLI_ASSOC);
 
     echo "<b> ".$name['Title']." </b> <br>";
-    echo "<a href=survey.php?TutorID=".$row['FromUserID'].">".$row['Type']."</a><br>";
+    echo "<a href=survey.php?TutorID=".$row['FromUserID']."&CourseID=".$row['CourseID'].">".$row['Type']."</a><br>";
     echo $row["Text"]."<br>";
 
     if ($row['Link'] != NULL)

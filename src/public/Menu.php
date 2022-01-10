@@ -43,6 +43,7 @@
                     echo "<a href=/$root/src/model/User/Adminstrator/createAdministrator.php> Create Administrator</a> &nbsp; &nbsp;";
                     echo "<a href=/$root/src/view/ViewAdministrators.php>View Administrators</a> &nbsp; &nbsp;";
                     echo "<a href=/$root/src/view/ViewLearners.php>View Learners</a> &nbsp; &nbsp;";
+                    echo "<a href=/$root/src/view/viewStatistics.php>View Statistics</a> &nbsp; &nbsp;";
                     echo "<a href=/$root/src/view/viewOrders.php>View Orders</a> &nbsp; &nbsp;";
                     echo "<a href=/$root/src/view/viewAdminMessagesList.php>Messages</a> &nbsp; &nbsp;";
                     echo "<a href=/$root/src/model/User/editProfile.php>Edit Profile</a> &nbsp; &nbsp;";
