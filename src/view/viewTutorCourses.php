@@ -1,9 +1,29 @@
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<!-- Rating stars -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../../CSS/ratings.css" type="text/css">
+<link rel="stylesheet" href="../../CSS/courses.css" type="text/css">
+
+
 <?php
  session_start();
  include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/Menu.php";
  include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";;
  
  establishConnection();
+ $GLOBALS['conn'] = $conn;
 
  //------------------------------ Get current tutor pending courses ------------------------------
  $getPendingCourses = "SELECT * FROM courses where Approved='0' and CreatedBy='".$_SESSION["UserID"]."'";
@@ -13,50 +33,116 @@
  $getApprovedCourses = "SELECT * FROM courses where Approved='1' and CreatedBy='".$_SESSION["UserID"]."'";
  $result2 = $conn->query($getApprovedCourses);
 
+
 //------------------------------ Display current tutor pending courses ------------------------------
- echo "<br><br><br>";
- echo "<table border=3><th>Pending Courses</th></table>";
- displayCourses($result);
+ echo "<h3 class='title'>Pending Courses</h3>";
+ if (!$result){
+    die ("Query error. $getUserQuery");
+}
+else {
+    while($row = $result->fetch_assoc()) {
+        displayCourse($row);
+        ?>
+        <div class="col-lg-3">
+            <a href=/IS3-Online-Tutoring/src/model/Course/addCourseContent.php?id=<?php echo $row['CourseID'] ?> class="btn btn-primary">Add/Edit Content</a>
+            <a href=/IS3-Online-Tutoring/src/model/Course/editCourse.php?id=<?php echo $row['CourseID'] ?> class="btn btn-primary">Edit Details</a>
+            <a href=/IS3-Online-Tutoring/src/model/Course/deleteCourse.php?id=<?php echo $row['CourseID'] ?> class="btn btn-primary deletebtn">Delete</a>
+        </div>
+        </div>
+        </div>
+        <?php
+    }
+}
 
  //------------------------------ Display current tutor approved courses ------------------------------
- echo "<br><br><br>";
- echo "<table border=3><th>Approved Courses</th></table>";
- displayCourses($result2);
+echo "<h3 class='title'>Approved Courses</h3>";
+if (!$result2){
+    die ("Query error. $getUserQuery");
+}
+else {
+    while($row = $result2->fetch_assoc()) {
+        displayCourse($row);
+        ?>
+        <div class="col-lg-3">
+                    
+            <a href=/IS3-Online-Tutoring/src/view/viewStudentsEnrolled.php?id=<?php echo $row['CourseID'] ?> class="btn btn-primary"> Enrolled Learners</a>
+            <a href=/IS3-Online-Tutoring/src/model/Course/addCourseContent.php?id=<?php echo $row['CourseID'] ?> class="btn btn-primary">Add/Edit Content</a>
+            <a href=/IS3-Online-Tutoring/src/model/Course/editCourse.php?id=<?php echo $row['CourseID'] ?> class="btn btn-primary">Edit Details</a>
+            <a href=/IS3-Online-Tutoring/src/model/Course/deleteCourse.php?id=<?php echo $row['CourseID'] ?> class="btn btn-primary deletebtn">Delete</a>
+        </div>  
+        </div>
+        </div>
+        <?php
+    }
+}
 
-function displayCourses($result)
+function displayCourse($row)
 {
-    if (!$result){
-        die ("Query error. $getUserQuery");
-    }
-    else {
+        $averageRating=5;
+        $reviewCount=0;
         
-        echo "<table border=2 >
-        <th>Code</th> 
-        <th>Title</th> 
-        <th>Description</th> 
-        <th>Hours</th>  
-        <th>Level</th>  
-        <th>Price</th> 
-        <th>Enrolled</th>
-        <th>Content</th> 
-        <th>Edit</th>
-        <th>Delete</th> </tr>";
-        while($row = $result->fetch_assoc()) {
-            ?>
-            <tr>
-             <td> <a href=/IS3-Online-Tutoring/src/view/viewCourseDetails.php?id=<?php echo $row['CourseID'] ?> > <?php echo$row["Code"]?></a> </td>
-             <td><?php echo$row["Title"]?> </td>
-             <td><?php echo$row["Description"]?> </td>
-             <td><?php echo$row["Hours"]?> </td>
-             <td><?php echo$row["Level"]?></td>
-             <td><?php echo$row["Price"]?></td>
-             <td> <a href=/IS3-Online-Tutoring/src/view/viewStudentsEnrolled.php?id=<?php echo $row['CourseID'] ?> > View</a></td>
-             <td> <a href=/IS3-Online-Tutoring/src/model/Course/addCourseContent.php?id=<?php echo $row['CourseID'] ?> > Edit Content</a></td>
-             <td> <a href=/IS3-Online-Tutoring/src/model/Course/editCourse.php?id=<?php echo $row['CourseID'] ?> > Edit</a></td>
-             <td> <a href=/IS3-Online-Tutoring/src/model/Course/deleteCourse.php?id=<?php echo $row['CourseID'] ?> >Delete</a></td>
-            <?php
-        }
-        echo "</table>";
+        getRating($row, $averageRating, $reviewCount);
+
+        $thumbnail = "/IS3-Online-Tutoring/resources/CoursesContent/Thumbnails/".$row["Thumbnail"];
+
+        // Display course details
+        ?>
+
+        <div class="card border-primary mb-3 course">
+            <div class="row">
+                <div class="col-lg-3">
+                    <img src=<?php echo $thumbnail?> width = 200>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href=/IS3-Online-Tutoring/src/view/viewCourseDetails.php?id=<?php echo $row['CourseID'] ?> > <?php echo $row["Code"]." ".$row["Title"]?></a>
+                        </h4>
+                        <p class="card-text">
+                            <?php echo$row["Description"]?> <br>
+                            <small class="text-muted">
+                                <?php echo$row["Level"]?>
+                                <span class="dot"></span>
+                                <?php echo$row["Hours"]." total hours"?><br> 
+                                <i><?php echo getUsername($row["CreatedBy"])?></i><br> 
+                            </small>
+                        </p>
+                    </div>
+                
+                    <h5 class="card-text">
+                        <?php 
+                        echo "EGP".$row["Price"]."<br>";
+                        for ($i = 0; $i <= 5; $i++)
+                        {
+                            if ($i <= $averageRating)
+                                echo "<span class='fa fa-star checked'></span>";
+                            else
+                                echo "<span class='fa fa-star unchecked'></span>";
+                        }
+                        echo "<small class='text-muted'> <br><br>($reviewCount reviews)</small>";?>
+                    </h5>
+                </div>
+                
+        <?php
+        
+}
+
+
+function getRating($row, &$averageRating, &$reviewCount)
+{
+    $getReviewsQuery = "SELECT * FROM ratings WHERE CourseID=".$row["CourseID"];
+    $reviews = $GLOBALS['conn']->query($getReviewsQuery);
+    
+    if (!$reviews)
+        die ("Query error. $getReviewsQuery");
+
+    $reviewsTotal=0;
+    while($review= $reviews->fetch_array(MYSQLI_ASSOC)){
+        $reviewCount +=1; 
+        $reviewsTotal+= $review['rating'];
     }
+
+    if($reviewCount)
+        $averageRating = round($reviewsTotal / $reviewCount, 1);
 }
 ?>
