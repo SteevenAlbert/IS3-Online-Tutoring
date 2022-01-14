@@ -22,14 +22,21 @@ if(isset($_POST["UserName"], $_POST["Password"],$_POST['Fname'],$_POST['LName'],
     $result = move_uploaded_file($TempImageName, $target);
     $hashedPassword =  password_hash($Password, PASSWORD_DEFAULT);
 
+    $fileType=strtolower(pathinfo($target,PATHINFO_EXTENSION));
+
+    $accept=false;
 
     if($fileType=="jpg" || $fileType=="jpeg" || $fileType=="png"){
         $result = move_uploaded_file($TempImageName, $target);
+        $accept=true;
+    }
+    elseif($_POST['profileImage']==null){
+        echo "you didn't upload an image <br>";
     }
     else
     {
         echo "Only JPG, JPEG & PNG files are allowed <br>";      
-        $result = false;
+        $accept=false;
     }
 
 	establishConnection();
@@ -38,7 +45,7 @@ if(isset($_POST["UserName"], $_POST["Password"],$_POST['Fname'],$_POST['LName'],
     // Insert Image in Database if move was successful 
     if(filterEmail($Email)){
         $Email= filter_var($Email,FILTER_SANITIZE_EMAIL);
-    if($result){
+    if($accept){
         echo "Image Uploaded Successfully<br>"; 
         $query = "INSERT INTO users (Username, Password, FirstName, LastName, Email, PhoneNumber, Country, Birthdate, UserType)
         VALUES ('$UserName', '$hashedPassword', '$Fname','$LName', '$Email', '$PhoneNo', '$Country', '$Birthdate', '$UserType')";

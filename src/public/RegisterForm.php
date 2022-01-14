@@ -93,14 +93,12 @@
             if(isset($_GET['learner'])) { 
                 ?>
                 <h1 class="text-center" style="color:black;">Learner Register</h1>
-                <input type="hidden" name="UserType" value="Learner">
                 <?php    
             }       
         
             else if(isset($_GET['tutor'])) { 
                 ?>
                 <h1 class="text-center" style="color:black;">Tutor Register</h1>
-                <input type="hidden" name="UserType" value="Tutor">
                 <?php
             }       
             ?>
@@ -178,9 +176,25 @@
 					<label style="color:black;">Birth Date:</label>
 					<input type="date" name='BOD' id="BOD"  min="1920-01-01" max="2021-12-31"  class="form-control">
 				</div>
-   		    </div>   
+   		    </div> 
+               
+               <?php  
+            if($_GET['id']=="learner") { 
+                ?>
+                <input type="hidden" name="UserType" value="Learner">
+                
+                <?php 
+                echo 
+            }       
+        
+            else if($_GET['id']=="tutor") { 
+                ?>
+                <input type="hidden" name="UserType" value="Tutor">
+                <?php
+            }       
+            ?>
 
-            <input type="hidden" name="UserType" value="Learner">
+            <!-- <input type="hidden" name="UserType" value="Learner"> -->
             <label style="color:black;">I Agree to Terms and Conditions</label> <input type='checkbox' name='agree' required>
             <input type='submit' id="submit" value="Register" class="btn btn-primary btn-block btn-lg" disabled>
         </div>
