@@ -22,20 +22,32 @@
  isAdmin();
 ?>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+<link rel="stylesheet" href="../../CSS/view.css">
+<link rel="stylesheet" href="../../CSS/home.css">
+
 <!DOCTYPE html>
 <html>
 <head>
-	<title>View administrators</title>
+	<title>View Learners</title>
 </head>
 <body>
 
-	<table border = 1>
-	<tr>
-		<th> Username </th>
-		<th> First Name </th>
-		<th> Last Name</th>
-		<th> View </th>
-	</tr>
+<div class="BannerText">
+	<h1 style="text-align:center;">View Learners</h1>
+</div>
+	<table class="table table-hover">
+		<thead style="background-color:#89CFF0">
+			<tr>
+				<th> Username </th>
+				<th> First Name </th>
+				<th> Last Name</th>
+				<th> View </th>
+			</tr>
+		<thead>
 
 	<?php
 	establishConnection();
@@ -54,13 +66,14 @@
 
 	while ($row = $results->fetch_array(MYSQLI_ASSOC)) {
 	?>
-
+	<tbody>
 	<tr>
 		<td> <?php echo $row["Username"] ?> </td>
 		<td> <?php echo $row["FirstName"] ?> </td>
 		<td> <?php echo $row["LastName"] ?> </td>
-		<td> <a href = viewUser.php?id=<?php echo $row["UserID"] ?> > View </a> </td>
+		<td> <a href = viewUser.php?id=<?php echo $row["UserID"] ?> class="btn btn-primary" style="background-color:green"> View </a> </td>
 	</tr>
+	</tbody>
 
 
 	<?php

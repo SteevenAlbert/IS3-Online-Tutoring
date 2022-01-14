@@ -184,7 +184,6 @@
                 <input type="hidden" name="UserType" value="Learner">
                 
                 <?php 
-                echo 
             }       
         
             else if($_GET['id']=="tutor") { 
