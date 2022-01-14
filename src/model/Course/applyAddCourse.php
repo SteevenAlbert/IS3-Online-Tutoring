@@ -87,7 +87,7 @@
 
 	$applyAdd=new applyAdd($code, $title, $description,$hours, $level, $price, 0,$createdBy,$categories);
 	$applyAdd->insert();
-	header("Location: /IS3-Online-Tutoring/src/view/viewTutorCourses.php");
+	header("Location:/IS3-Online-Tutoring/src/public/viewTutorCourses.php");
 ?>	
 </body>
 </html>

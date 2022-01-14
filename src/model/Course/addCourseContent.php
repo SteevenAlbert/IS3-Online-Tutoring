@@ -63,7 +63,8 @@ isAdminOrTutor();
                     VALUES ('$id', '$chaptersCount+1', '$title' )";
         if(!$conn->query($query))
             echo mysqli_errno($conn).": " .mysqli_error($conn);
-        header('Location: addCourseContent.php?id='.$id);
+            
+       
     }
 
     //-------------------------------------- Upload --------------------------------------
@@ -92,7 +93,7 @@ isAdminOrTutor();
                 else{
                     echo "Course Overview Updated\n"; 
                     echo "<br>";
-                    echo "<a href=home.php>CONTINUE</a>";
+                    echo "<a href=/IS3-Online-Tutoring/src/public/home.php>CONTINUE</a>";
                     unlink($deleteTarget);
                     move_uploaded_file($TempImageName, $target);
                 }

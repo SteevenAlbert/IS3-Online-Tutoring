@@ -16,8 +16,8 @@
 
 <link rel="stylesheet" href="../../CSS/ratings.css" type="text/css">
 <link rel="stylesheet" href="../../CSS/courses.css" type="text/css">
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/IS3-Online-Tutoring/CSS/home.css" type="text/css">
 
 <?php
 
@@ -189,9 +189,9 @@ function getRating($row, &$averageRating, &$reviewCount)
 
 function displayRating($rating)
 {
-    for ($i = 0; $i <= 5; $i++)
+    for ($i = 0; $i < 5; $i++)
     {
-        if ($i <= $rating)
+        if ($i <= $rating-1)
             echo "<span class='fa fa-star checked'></span>";
         else
             echo "<span class='fa fa-star unchecked'></span>";

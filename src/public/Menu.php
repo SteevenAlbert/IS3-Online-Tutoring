@@ -33,7 +33,7 @@
                                 </li>
                             </ul> 
 
-                            <?php echo "SESSION:". $_SESSION['PP'] ?>
+
                             <ul class="nav navbar-nav navbar-right">
                                 <li> <a href="/<?php echo $root ?>/src/model/Cart/cart.php"><img class="navbar-icons" src="\<?php echo $root ?>\resources\images\icons\cart.png"></a></li> 
                                 <li> <a href="/<?php echo $root ?>/src/view/ViewNotifications.php"><img class="navbar-icons" src="\<?php echo $root ?>\resources\images\icons\notification.png"></a></li>       

@@ -12,7 +12,7 @@ $result = $conn->query($query);
 $row = $result->fetch_array(MYSQLI_ASSOC);
 
 if($row){
-    echo "Username Taken";
+    echo "Username Taken ";
 }else{
     echo "Available";
 }
