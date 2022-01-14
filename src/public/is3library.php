@@ -297,4 +297,51 @@ function getRoot(){
     return $root;
 }
 
+function isAdminOrTutor()
+{
+    if(empty($_SESSION['UserID']) || ($_SESSION['UserType'] != "Administrator" && $_SESSION['UserType'] != "Tutor"))
+    {
+        ?>
+        <div class="alert alert-warning">
+            <strong>Warning!</strong> This page needs authentication.
+        </div>
+        <?php
+        exit();
+    }
+}
+
+function isTutor()
+{
+    isUserType("Tutor");
+}
+
+function isAdmin()
+{
+    isUserType("Administrator");
+}
+
+function isAuditor()
+{
+    isUserType("Auditor");
+}
+
+function isLearner()
+{
+    isUserType("Learner");
+}
+
+function isUserType($type)
+{
+    if(empty($_SESSION['UserID']) || $_SESSION['UserType'] != $type)
+    {
+        ?>
+        <div class="alert alert-warning">
+            <strong>Warning!</strong> This page needs authentication.
+        </div>
+        <?php
+        exit();
+    }
+
+}
+
 ?>
