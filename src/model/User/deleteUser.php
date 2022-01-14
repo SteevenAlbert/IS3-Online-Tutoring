@@ -18,6 +18,12 @@ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
 isAdmin();
 ?>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+<link rel="stylesheet" href="../../../CSS/view.css">
+
 <!doctype html>
 <html>
 <head>
@@ -44,24 +50,82 @@ isAdmin();
             }
 
             while($row = $results->fetch_array(MYSQLI_ASSOC)) {
+                ?>
+            <img id="deleteAdmin" src="../../../uploads/backgroundImages/deleteAdmin.jpg" alt="deleteAdmin" width="600" height="600">
+            <div id="centerViewForm">
 
-                echo "Username:<br> <input type=text name=username value =".$row["Username"]." readonly><br> <br>";
-                echo "First Name:<br> <input type=text name=firstName value =".$row["FirstName"]." readonly><br><br>";
-                echo "Last Name:<br> <input type=text name=lastName value =".$row["LastName"]." readonly><br><br>";
-                echo "Email:<br> <input type=text name=email value =".$row["Email"]." readonly><br><br>";
-                echo "Phone number:<br> <input type=text name=phoneNumber value =".$row["PhoneNumber"]." readonly><br><br>";
-                echo "Country:<br> <input type=text name=country value =".$row["Country"]." readonly><br><br>";
-                echo "Birthdate:<br> <input type=text name=birthdate value =".$row["BirthDate"]." readonly><br><br>";
+                <div class="row">
+					<div class="col-lg-6">
+						 <label>Firstname</label>
+							 <div id="viewAdminData">
+								 <?php echo "".$row["FirstName"].""; ?>
+							 </div>
+					</div>
+					<div class="col-lg-6" style="margin-bottom:5%">
+						 <label>Lastname</label>
+							 <div id="viewAdminData">
+								 <?php echo "".$row["LastName"].""; ?>
+							 </div>
+					</div>
+				</div>
+
+                <div class="row">
+					<div class="col-lg-6" style="margin-bottom:3%">
+						 <label>Username</label>
+							<div id="viewAdminData">
+							    <?php echo "".$row["Username"].""; ?>
+							</div>
+					</div>
+					<div class="col-lg-6" style="margin-bottom:3%">
+						<label>Email</label>
+							<div id="viewAdminData">
+							 <?php echo "".$row["Email"].""; ?>
+							</div>
+					</div>
+				</div>
+
+                <div class="row">
+					<div class="col-lg-6">
+						<label>Number</label>
+							<div id="viewAdminData">
+								 <?php echo "".$row["PhoneNumber"].""; ?>
+							</div>
+					</div>
+					<div class="col-lg-6" style="margin-bottom:3%">
+						<label>Country</label>
+							<div id="viewAdminData">
+								 <?php echo "".$row["Country"].""; ?>
+							</div>
+					</div>
+				</div>
+
+                <div class="row">
+						 <div class="col-lg-6" style="margin-bottom:3%">
+							 <label>Birth Date</label>
+								 <div id="viewAdminData">
+									 <?php echo "".$row["BirthDate"].""; ?>
+								</div>
+						</div>
+				</div><br>
+
+                <div class="row">
+						<div class="col-lg-12">
+                            <button class="btn btn-danger" type="delete" onclick= "if (!confirm('Are you sure you want to delete this administrator?')) { return false }"><? header("Location:approveCourse.php");?><i class="fa fa-trash fa-2x"></i></button>
+					    </div>
+				</div>  
+
+            </div>
+            <?php
             }
          ?>
-
-`        <!-- Get deletion confirmation -->
-         <button type="delete"
+        <!-- Get deletion confirmation -->
+        <!-- <button type="delete"
                 onclick= "if (!confirm('Are you sure you want to delete this administrator?')) 
                 { return false }">
-                <? header("Location:approveCourse.php");?>
+                <? /*header("Location:approveCourse.php");*/?>
             
-        Delete </button>
+        Delete </button> -->
+ 
 
         
 	</form>

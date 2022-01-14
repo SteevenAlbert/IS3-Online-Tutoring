@@ -37,7 +37,7 @@
 <body>
 
 <div class="BannerText">
-	<h1 style="text-align:center;">View Learners</h1>
+	<h1 style="padding-left:300px;">View Learners</h1>
 </div>
 	<table class="table table-hover">
 		<thead style="background-color:#89CFF0">

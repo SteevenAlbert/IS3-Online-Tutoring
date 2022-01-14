@@ -7,3 +7,44 @@ th{
 }
 
 table td + td { border-left:1px solid rgb(194, 191, 191); }
+
+#centerViewForm{
+    position: absolute;
+    top: 25%;
+    left: 60%;
+}
+label{
+    color:black; 
+    font-size:20px;
+}
+#viewAdminData{
+    color:black; 
+    font-size:18px;
+}
+#viewAdminImage{
+    margin-left: 10%;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+#viewLearnerImage{
+    margin-left: 10%;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+.BannerText > h1{
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    /* width: 100%; */
+    margin-left: 27%;
+    height: 40px;
+}
+#deleteUser{
+    position:relative;
+    top:400px;
+    left:60%;
+}
+#deleteAdmin{
+    position:relative;
+    top:40px;
+    left:5%;
+}

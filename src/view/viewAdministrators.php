@@ -33,7 +33,7 @@
 </head>
 <body>
 	<div class="BannerText">
-		<h1 style="text-align:center;">View Administrators</h1>
+		<h1 style="padding-left:300px;">View Administrators</h1>
 	</div>
 
 	<table class="table table-hover">
