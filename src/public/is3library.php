@@ -285,6 +285,20 @@ function getUsername($UserID)
     return $userData[1];
 }
 
+function getCourseTitle($CourseID)
+{
+    establishConnection();
+
+    $sql = "SELECT * FROM courses WHERE CourseID =". $CourseID;
+    $result = $GLOBALS['conn']->query($sql);
+    if (!$result)
+        die ("Query error. $sql");
+    
+    $userData = mysqli_fetch_array($result);
+    return $userData[1]." ".$userData[2];
+}
+
+
 function getProfilePicture($UserID)
 {
     $ppquery = "SELECT * FROM learners WHERE UserID =".$UserID;
@@ -330,8 +344,6 @@ function isAdminOrTutor()
 function addToCart($user, $course)
 {
     
-        
-        
         // check wether the course is already in the cart
         $message1="Course already in cart";
         $checkInCart= "SELECT CourseID FROM cartcourses WHERE UserID='".$user."' AND CourseID=".$course;

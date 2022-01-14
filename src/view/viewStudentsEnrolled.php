@@ -13,6 +13,12 @@
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+
+<link rel="stylesheet" href="../../CSS/view.css">
 
 <?php
 session_start();
@@ -37,14 +43,22 @@ try{
    echo"Message:", $e->getMessage();  
 }
 ?>
-<table border = 1>
-<tr>
-<th>Student</th> 
-<th>Enroll Date</th> 
-<th>Rated</th> 
-<th>Send Survey</th>  
-</tr>
 
+<div class="page-title">
+    <h1>Students enrolled in <?php echo getCourseTitle($CourseID)?></h1>
+</div>
+
+<table class="table table-hover">
+<thead>
+<tr>
+<th class="text-center">Student</th> 
+<th class="text-center">Enroll Date</th> 
+<th class="text-center">Rated</th> 
+<th class="text-center">Send Survey</th>  
+</tr>
+</thead>
+
+<tbody>
 <?php
 while($row = $result->fetch_array(MYSQLI_ASSOC)) {
     $UserID = $row['UserID'];
@@ -66,7 +80,7 @@ while($row = $result->fetch_array(MYSQLI_ASSOC)) {
     $row2 = $return->fetch_array(MYSQLI_ASSOC);
     
     echo "<tr>";
-    echo "<td> $UserID </td> ";
+    echo "<td>". getUsername($UserID) ."</td> ";
     echo "<td> $EnrollDate </td> ";
     if($row2){       
         echo "<td>Done</td>";
@@ -79,5 +93,6 @@ while($row = $result->fetch_array(MYSQLI_ASSOC)) {
  
     echo "</tr>";
 }
+    echo "</tbody>";
     echo "</table>";
 ?>  

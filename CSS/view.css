@@ -2,6 +2,7 @@ table {
     text-align: center;
     margin-top: 50px;
 }
+
 th{
     text-align: center;
 }
@@ -31,13 +32,18 @@ label{
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
 }
-.BannerText > h1{
+.page-title{
+    width: 100%;
+    height: 50px;
+}
+
+.page-title>h1{
     font-family: 'Sora', sans-serif;
     font-weight: 700;
-    /* width: 100%; */
-    margin-left: 27%;
     height: 40px;
+    text-align: center;
 }
+
 #deleteUser{
     position:relative;
     top:400px;
@@ -48,3 +54,27 @@ label{
     top:40px;
     left:5%;
 }
+
+
+thead{
+    text-align: center;
+}
+
+.title-section{
+    height: 50px;
+    padding: 2%;
+    color: #2596be;
+}
+
+.title{
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size:x-large;
+    padding: 2px;
+    max-width: 60%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+
+table td + td { border-left:1px solid rgb(194, 191, 191); }
