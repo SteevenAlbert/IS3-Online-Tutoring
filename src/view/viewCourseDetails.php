@@ -19,6 +19,12 @@
 
 
 <?php
+//--------------------------------- ADD TO CART --------------------------------------
+if (isset($_POST['AddToCart']))
+{
+    addToCart($_SESSION['UserID'], $_GET['id']);
+}
+
 //---------------------------------- Show Course Details ----------------------------------
 $GLOBALS['conn'] = $conn;
 
@@ -60,7 +66,9 @@ $GLOBALS['conn'] = $conn;
       <div class="card-section1">
         <h1 class="card-title"><?php echo "E£".$row['Price']?></h1>
         <div class="card-body text-center">
-        <a href=/IS3-Online-Tutoring/src/model/Cart/cart.php?id=<?php echo $row['CourseID']?>><button class="card-button" >Add To Cart</button></a>
+        <form action = '' method = 'post'>
+        <input type =submit name = "AddToCart"value = "Add To Cart" class="card-button">
+        </form>
         <a href=""><button class="card-button" id="card-button2" >View Reviews</button></a>
         <p class="card-text">30-Day Money-Back Guarantee</p>
       </div>

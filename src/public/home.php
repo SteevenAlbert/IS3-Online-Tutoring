@@ -125,7 +125,7 @@ $result = $conn->query($getCoursesQuery);
                             <a href="/IS3-Online-Tutoring/src/view/viewCourseDetails.php?id=<?php echo $row['CourseID']?>" class="block-20 d-flex align-items-start" style="background-image: url(<?php echo $thumbnail ?>);">
                             </div></a>
                             
-                            <a href=/IS3-Online-Tutoring/src/actions/learner/addToCart.php?id=<?php echo $row['CourseID']?>><button class="btn-primary button" ><i class="fas fa-shopping-cart icon"></i>Add To Cart</button></a>
+                            <a href=home.php?id=<?php echo $row['CourseID']?>><button class="btn-primary button" ><i class="fas fa-shopping-cart icon"></i>Add To Cart</button></a>
               
                             <?php displayCourse($row); ?>    
                     </div>
@@ -178,9 +178,6 @@ function displayCourse($row)
     // Display course details
     ?>
 
- 
-     
-    
         <div class="card-body">
             <h4 class="card-title">
                 <a href=/IS3-Online-Tutoring/src/view/viewCourseDetails.php?id=<?php echo $row['CourseID'] ?> > <?php echo $row["Code"]." ".$row["Title"]?></a>
@@ -196,8 +193,6 @@ function displayCourse($row)
             </p>
               
            
-         
-            
                 <h5 class="card-text">
                     <?php 
                     for ($i = 0; $i <= 5; $i++)
@@ -216,6 +211,12 @@ function displayCourse($row)
 
     <?php
     
+}
+
+//--------------------------------- ADD TO CART --------------------------------------
+if (isset($_GET['id']))
+{
+    addToCart($_SESSION['UserID'], $_GET['id']);
 }
 
 ?>
