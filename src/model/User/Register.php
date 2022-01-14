@@ -20,6 +20,8 @@ if(isset($_POST["UserName"], $_POST["Password"],$_POST['Fname'],$_POST['LName'],
     $TempImageName = $_FILES['profileImage']['tmp_name'];
     $target='/xampp/htdocs/IS3-Online-Tutoring/uploads/profile_pictures/'.$profileImageName;
     $result = move_uploaded_file($TempImageName, $target);
+    $hashedPassword =  password_hash($Password, PASSWORD_DEFAULT);
+
 
     if($fileType=="jpg" || $fileType=="jpeg" || $fileType=="png"){
         $result = move_uploaded_file($TempImageName, $target);
@@ -39,12 +41,12 @@ if(isset($_POST["UserName"], $_POST["Password"],$_POST['Fname'],$_POST['LName'],
     if($result){
         echo "Image Uploaded Successfully<br>"; 
         $query = "INSERT INTO users (Username, Password, FirstName, LastName, Email, PhoneNumber, Country, Birthdate, UserType)
-        VALUES ('$UserName', '$Password', '$Fname','$LName', '$Email', '$PhoneNo', '$Country', '$Birthdate', '$UserType')";
+        VALUES ('$UserName', '$hashedPassword', '$Fname','$LName', '$Email', '$PhoneNo', '$Country', '$Birthdate', '$UserType')";
         $query2 = true;
     }else{
          echo "Image Upload Failed<br>";      
         $query = "INSERT INTO users (Username, Password, FirstName, LastName, Email, PhoneNumber, Country, Birthdate, UserType)
-        VALUES ('$UserName', '$Password', '$Fname','$LName', '$Email', '$PhoneNo', '$Country', '$Birthdate', '$UserType')";
+        VALUES ('$UserName', '$hashedPassword', '$Fname','$LName', '$Email', '$PhoneNo', '$Country', '$Birthdate', '$UserType')";
         trigger_error("user tried to upload wrong file format", E_USER_WARNING);
         $query2 = false;
     }   

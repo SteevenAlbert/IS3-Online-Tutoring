@@ -1,3 +1,6 @@
+<?php include_once "Menu.php"; ?>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <html>
 <head> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -35,8 +38,7 @@
 </head>
 
 <body>
-    <?php include_once "Menu.php"; ?>
-    
+<h1>LOGIN</h1>
     <!------------------------------- Get login info ------------------------------>
     <!-- User Name: <input type="text" name ="UserName" id="UserName" required><br><br>
     Password: &nbsp;&nbsp;   <input type="password"  name = "Password" id="Password" required><br>

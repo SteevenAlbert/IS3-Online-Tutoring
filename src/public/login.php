@@ -8,7 +8,7 @@ $username = $_POST['username'];
 $password = $_POST['password'];
 
 //-------------------------------------------- Get user data --------------------------------------------
-$getUserQuery = "SELECT * FROM users WHERE Username ='$username' AND Password='$password'";
+$getUserQuery = "SELECT * FROM users WHERE Username ='$username'";
 $result = $conn->query($getUserQuery);
 try{
     if(!$result){     
@@ -20,8 +20,12 @@ try{
 }
 
 $userData = mysqli_fetch_array($result);
+$hashedPass="";
 
 if($userData){
+    $hashedPass = $userData[2];
+}
+if(password_verify($password, $hashedPass)){
     // Update session 
     $_SESSION['UserID']= $userData[0];
     $_SESSION['username']= $userData[1];
@@ -35,7 +39,15 @@ if($userData){
     $_SESSION['UserType']=$userData[9];
     
     // Get Profile Picture
-    $getPPQuery = "SELECT * FROM learners WHERE UserID ='".$_SESSION['UserID']."'";
+    if($_SESSION['UserType']=="Tutor"){
+        $getPPQuery = "SELECT * FROM tutors WHERE UserID ='".$_SESSION['UserID']."'";
+        if(!$conn->query($getPPQuery))
+            echo mysqli_errno($conn).": " .mysqli_error($conn);
+    }else{
+        $getPPQuery = "SELECT * FROM learners WHERE UserID ='".$_SESSION['UserID']."'";
+        if(!$conn->query($getPPQuery))
+            echo mysqli_errno($conn).": " .mysqli_error($conn);
+    }
     $result2 = $conn->query($getPPQuery);
 
     try{
@@ -51,7 +63,7 @@ if($userData){
     $row = mysqli_fetch_array($result2);
 
     if($row){
-    $_SESSION['PP']=$row[1];
+      $_SESSION['PP']=$row[1];
     }
     
     echo "success";
