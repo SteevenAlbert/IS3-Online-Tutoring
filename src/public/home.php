@@ -1,10 +1,235 @@
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">	
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+<link rel="stylesheet" href="/IS3-Online-Tutoring/CSS/home.css" type="text/css">
+<link rel="stylesheet" href="/IS3-Online-Tutoring/CSS/carousel.css">
+<link rel="stylesheet" href="/IS3-Online-Tutoring/CSS/ratings.css">
+<link rel="stylesheet" href="../../CSS/courses.css" type="text/css">
+
+
 <?php
 session_start();
 include_once "Menu.php";
-if(isset($_SESSION['FirstName']))
-    echo "Welcome Back, ".$_SESSION['FirstName']."!";
-else
-echo "<h2> Welcome </h2>";
-echo "<h3> Featured courses </h3>";
+
+establishConnection();
+$GLOBALS['conn'] = $conn;
+
+$getCoursesQuery = "SELECT * FROM courses where Approved='1'";
+$result = $conn->query($getCoursesQuery);
+?>
+
+<html>
+<body>
+<div class="container-fluid">
+    <div class="Banner">
+        <div class="BannerElements">
+            <div class="BannerText">
+                <?php 
+               if(isset($_SESSION['UserType'])){
+                    if($_SESSION['UserType']=="Learner"){   ?>
+                        <h1> Welcome Back,<br> <?php echo $_SESSION['FirstName'] ." ". $_SESSION['LastName']?> </h1>
+                        <h2> Get back to learning! </h2>
+                    <?php }else if($_SESSION['UserType']=="Tutor"){?>
+                        <h1> Welcome Back,<br> <?php echo $_SESSION['FirstName'] ." ". $_SESSION['LastName']?> </h1>
+                        <h2> Let's Teach! </h2>
+                    <?php }else if($_SESSION['UserType']=="Adminstrator"){?>
+                        <h1> Welcome Back,<br> <?php echo $_SESSION['FirstName'] ." ". $_SESSION['LastName']?> </h1>
+                        <h2>  </h2>
+                    <?php }else if($_SESSION['UserType']=="Auditor"){?>
+                        <h1> Welcome Back,<br> <?php echo $_SESSION['FirstName'] ." ". $_SESSION['LastName']?> </h1>
+                        <h2>  </h2>
+                    <?php }
+                }else{?>
+                    <h1> Experienced Tutors,<br> World-class customer service. </h1>
+                    <h2> Courses taught by real-world experts from €13.99<br> — through January </h2>
+                <?php } 
+                ?>
+            </div>
+            <div class="BannerButtons">
+            <?php 
+            if(isset($_SESSION['UserType'])){
+                if($_SESSION['UserType']=="Learner"){   ?>
+                     <a href="/IS3-Online-Tutoring/src/view/viewEnrolledCourses.php"><button class="BannerButton"><span>View My Courses </span></button></a>
+                     <a href="/IS3-Online-Tutoring/src/view/viewApprovedCourses.php"><button id="BB2" class="BannerButton"><span>Discover New Courses </span></button></a>                
+                     <?php }else if($_SESSION['UserType']=="Tutor"){ ?>
+                        <a href="/IS3-Online-Tutoring/src/view/viewTutorCourses.php"><button class="BannerButton"><span>View My Courses </span></button></a>
+                    <?php }else if($_SESSION['UserType']=="Adminstrator"){ ?>
+                        <a href="/IS3-Online-Tutoring/src/view/viewAdminMessagesList.php"><button class="BannerButton"><span>View Messages</span></button></a>
+                        <a href="/IS3-Online-Tutoring/src/view/viewPendingCourses.php"><button class="BannerButton"><span>Approve New Courses </span></button></a>
+                    <?php }
+                }else{?>
+                <a href="/IS3-Online-Tutoring/src/view/viewApprovedCourses.php"><button class="BannerButton"><span>View All Courses </span></button></a>
+                <a href="/IS3-Online-Tutoring/src/public/RegisterForm.php"><button id="BB2" class="BannerButton"><span>Sign Up </span></button></a>
+                <?php } ?>
+            </div>
+        </div>
+        <img src="../../resources/images/homeIllustration.jpg">
+    </div>
+
+    <div class="row services">
+        <div class="col-xs-3 service">
+            <div class="service-icon" id="service1">
+                <img src="../../resources/images/icons/service3.png">
+            </div>
+            <div class="service-text">
+                <h3>Private Tutoring</h3>
+                <p>Find your very own tutor.</p>
+            </div>
+        </div>
+        <div class="col-xs-3 service">
+            <div class="service-icon" id="service2">
+                <img src="../../resources/images/icons/service2.png">
+            </div>
+            <div class="service-text">
+                <h3>Best Offers</h3>
+                <p>Stay followed to get the best <br>deals on courses.</p>
+            </div>
+        </div>
+        <div class="col-xs-3 service">
+            <div class="service-icon"  id="service3">
+                <img src="../../resources/images/icons/service3.png">
+            </div>
+            <div class="service-text">
+                <h3>AR/VR Experience</h3>
+                <p>Advanced Learning methods</p>
+            </div>
+        </div>
+        <div class="col-xs-3 service">
+            <div class="service-icon"  id="service4">
+                <img src="../../resources/images/icons/service4.png">
+            </div>
+            <div class="service-text">
+                <h3>On All Platforms</h3>
+                <p>Wherever you are, whatever<br> device.</p>
+            </div>
+        </div>
+    </div>
+ 
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-left">
+                <h2 class="heading-section mb-5 pb-md-4">Featured Courses</h2>
+            </div>
+            <div class="col-md-12">
+                <div class="featured-carousel owl-carousel">
+                <?php while($row = $result->fetch_array(MYSQLI_ASSOC)){
+                        $thumbnail = "/IS3-Online-Tutoring/resources/CoursesContent/Thumbnails/".$row["Thumbnail"];
+                    ?>
+                    <div class="item">
+                        <div class="blog-entry">
+                            <a href="/IS3-Online-Tutoring/src/view/viewCourseDetails.php?id=<?php echo $row['CourseID']?>" class="block-20 d-flex align-items-start" style="background-image: url(<?php echo $thumbnail ?>);">
+                            </div></a>
+                            
+                            <a href=/IS3-Online-Tutoring/src/actions/learner/addToCart.php?id=<?php echo $row['CourseID']?>><button class="btn-primary button" ><i class="fas fa-shopping-cart icon"></i>Add To Cart</button></a>
+              
+                            <?php displayCourse($row); ?>    
+                    </div>
+                <?php } ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="Banner">
+        <div class="BannerElements">
+            <div class="BannerText">
+                <h1> Experienced Tutors,<br> World-class customer service. </h1>
+                <h2> Courses taught by real-world experts from €13.99<br> — through January </h2>
+            </div>
+            <div class="BannerButtons">
+                <a href="/IS3-Online-Tutoring/src/view/viewApprovedCourses.php"><button class="BannerButton"><span>View All Courses </span></button></a>
+                <a href="/IS3-Online-Tutoring/src/public/RegisterForm.php"><button id="BB2" class="BannerButton"><span>Sign Up </span></button></a>
+            </div>
+        </div>
+        <img src="../../resources/images/homeIllustration.jpg">
+    </div>
+
+
+
+
+</div>    
+<script src="/IS3-Online-Tutoring/js/popper.js"></script>
+<script src="/IS3-Online-Tutoring/js/owl.carousel.min.js"></script>
+<script src="/IS3-Online-Tutoring/js/carousel.js"></script>
+</body>
+</html>
+
+<?php
+function getRating($row, &$averageRating, &$reviewCount)
+{
+    $getReviewsQuery = "SELECT * FROM ratings WHERE CourseID=".$row["CourseID"];
+    $reviews = $GLOBALS['conn']->query($getReviewsQuery);
+    
+    if (!$reviews)
+        die ("Query error. $getReviewsQuery");
+
+    $reviewsTotal=0;
+    while($review= $reviews->fetch_array(MYSQLI_ASSOC)){
+        $reviewCount +=1; 
+        $reviewsTotal+= $review['rating'];
+    }
+
+    if($reviewCount)
+        $averageRating = round($reviewsTotal / $reviewCount, 1);
+}
+
+
+function displayCourse($row)
+{
+    $averageRating=5;
+    $reviewCount=0;
+    
+    getRating($row, $averageRating, $reviewCount);
+
+    $thumbnail = "/IS3-Online-Tutoring/resources/CoursesContent/Thumbnails/".$row["Thumbnail"];
+
+    // Display course details
+    ?>
+
+ 
+     
+    
+        <div class="card-body">
+            <h4 class="card-title">
+                <a href=/IS3-Online-Tutoring/src/view/viewCourseDetails.php?id=<?php echo $row['CourseID'] ?> > <?php echo $row["Code"]." ".$row["Title"]?></a>
+            </h4>
+            <p class="card-text">
+                <?php echo$row["Description"]?> <br>
+                <small class="text-muted">
+                    <?php echo$row["Level"]?>
+                    <span class="dot"></span>
+                    <?php echo$row["Hours"]." total hours"?><br> 
+                    <i><?php echo getUsername($row["CreatedBy"])?></i><br> 
+                </small>
+            </p>
+              
+           
+         
+            
+                <h5 class="card-text">
+                    <?php 
+                    for ($i = 0; $i <= 5; $i++)
+                    {
+                        if ($i <= $averageRating)
+                            echo "<span class='fa fa-star checked'></span>";
+                        else
+                            echo "<span class='fa fa-star unchecked'></span>";
+                    }
+                    echo "<small class='text-muted'> <br><br>($reviewCount reviews)</small>";?>
+                </h5>
+                <h4 class="card-subtitle">
+                    <?php echo"EGP".$row["Price"]?><br>
+                </h4>
+                </div>
+
+    <?php
+    
+}
 
 ?>
