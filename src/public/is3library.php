@@ -285,6 +285,23 @@ function getUsername($UserID)
     return $userData[1];
 }
 
+function getProfilePicture($UserID)
+{
+    $ppquery = "SELECT * FROM learners WHERE UserID =".$UserID;
+    $ppresult = $GLOBALS['conn']->query($ppquery);
+    try{
+        if (!$ppresult){
+            throw new Exception("Error Occured"); 
+        }
+                    
+    }catch(Exception $e){  
+    echo"Message:", $e->getMessage();  
+    }
+
+
+    while ($pprow = $ppresult->fetch_array(MYSQLI_ASSOC))
+        return "/IS3-Online-Tutoring/uploads/profile_pictures/".$pprow['profile_picture'];
+}
 function establishConnection()
 {
     $GLOBALS['conn'] = new mysqli($GLOBALS['servername'], $GLOBALS['username'], $GLOBALS['password'], $GLOBALS['database']);

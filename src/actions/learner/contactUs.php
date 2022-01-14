@@ -77,7 +77,7 @@ try{
 
 
 $day ="";
-
+echo "<body class = 'chat-page'>";
 echo "<div class = 'main-content col-lg-6'>";
 echo "<div class = 'msgs'>";
 while($row = $result->fetch_array(MYSQLI_ASSOC))
@@ -92,8 +92,7 @@ while($row = $result->fetch_array(MYSQLI_ASSOC))
     $day = date('d-m-Y ', strtotime($row['date']));
     echo "</div>";
 
-
-
+    
     echo "<div class = 'row'>";
     if ($row["fromUserID"]== $_SESSION['UserID'])
     {
@@ -132,10 +131,12 @@ echo "</div>";
 
 <div class = 'row'>
 <input type='url' class='input-field form-control' placeholder = 'Enter a url' name='link'>
-<input type='file' name='messageFile' id ='messageFile'>
+<input type='file' class="custom-file-input" name='messageFile' id ='messageFile'>
 </div>
 
 
 </form>
 </div>
+
+</body>
 

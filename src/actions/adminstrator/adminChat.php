@@ -7,12 +7,15 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+
 <!-- Rating stars -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
 
+
+<link rel="stylesheet" href="/IS3-Online-Tutoring/CSS/chat.css" type="text/css">
 <?php
 session_start();
 include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/Menu.php";
@@ -65,13 +68,53 @@ try{
    echo"Message:", $e->getMessage();  
 }
 
+$target = getProfilePicture($_GET['id']);
+
+$day ="";
+?>
+
+<body class = 'chat-page'>
+<div class = 'main-content col-lg-6'>
+
+
+<div class="row chat-header ">
+    <div class = "chat-about">
+    <img class = "chat-header-img"src=<?php echo $target ?> alt="avatar">
+    <label> <?php echo getUsername($_GET['id']);?> </label>
+</div> 
+</div>
+
+<?php ?>
+
+<div class = 'msgs'>
+
+<?php
 
 while($row = $result->fetch_array(MYSQLI_ASSOC))
 {
+    echo "<div class = 'row text-center'>";
+
+    if (date('d-m-Y ', strtotime($row['date'])) != $day)
+    {
+        echo "<label>".date('d-m-Y ', strtotime($row['date']))."</label>";
+    }
+
+    $day = date('d-m-Y ', strtotime($row['date']));
+    echo "</div>";
+
+    echo "<div class = 'row'>";
     if ($row["fromUserID"]== $_SESSION['UserID'])
-        echo "<b> You: </b> <br>";
+    {
+        echo "<div class = 'outgoing-msg text-right'>";
+        echo "<b> You </b>";
+    }
     else
-        echo "<b>".getUsername($row["fromUserID"]).": </b> <br>";
+    {
+        echo "<div class = 'incoming-msg text-left'>";
+        echo "<b>".getUsername($row["fromUserID"])." </b> <br>";
+    }
+
+    echo "<div class = 'msg-content'>";
 
     if ($row['text'] != NULL)
         echo $row["text"]."<br>";
@@ -79,12 +122,28 @@ while($row = $result->fetch_array(MYSQLI_ASSOC))
         echo "<a href='".$row['link'] ."'>". $row['link']."</a> <br>";
     if ($row['file'] != NULL)
         echo "<img src = '/IS3-Online-Tutoring/uploads/messagesFiles/".$row['file'] ."' width = 300> <br>";
-    echo date('H:i:s d-m-Y ', strtotime($row['date']))."<br> <br>";
+    
+    echo "</div>";
+    echo "<small class='date text-muted'>".date('H:i', strtotime($row['date']))."</small>";
+    echo "</div>";
+    echo "</div>";
 }
+
+echo "</div>";
 
 // Message input
 //-------------------------------------------- Message input --------------------------------------------
-echo "<form action ='' method = 'post'>";
-echo "<textarea name='message' rows='3' cols='100'> </textarea> &nbsp";
-echo "<input type=submit name='submit'> ";
 ?>
+
+<form class='form-inline' action ='' method = 'post'>
+
+<div class = 'row'>
+    <input type = 'text' class='input-field form-control' placeholder = 'Type your message...' name='message'>
+    <button type=submit name='submit' class='btn btn-primary icon-btn'> <i class='fas fa-paper-plane'></i></button>
+</div>
+
+</form>
+
+</div>
+
+</body>

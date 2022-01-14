@@ -7,11 +7,15 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+
 <!-- Rating stars -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/IS3-Online-Tutoring/CSS/chat.css" type="text/css">
 
 <?php
 session_start();
@@ -21,12 +25,25 @@ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
 establishConnection();
 
 isAuditor();
+?>
+<div class = "page-content">
 
+<div class = "side-img col-lg-7">
+<img src='/IS3-Online-Tutoring/uploads/backgroundImages/mail-man.png' width = 1000>
+</div>
+
+<div id="plist" class="people-list col-lg-4">
+    <div class='row title-section'>
+        <h3 class='title'>Chats:</h3>
+    </div>
+    <ul class="list-unstyled chat-list mt-2 mb-0">
+
+<?php
 
 $adminID = $_GET['admin'];
 
 //-------------------------------- All users who chated with this admin ---------------------------
-echo "<b>All chats for:".getUsername($adminID). "</b> <br> <br>";
+echo "<b>All chats for: ".getUsername($adminID). "</b> <br> <br>";
 
 $query = "SELECT DISTINCT toUserID from messages WHERE fromUserID = '".$adminID ."'";
 $result = $conn->query($query);
@@ -39,14 +56,19 @@ try{
    echo"Message:", $e->getMessage();  
 }
 
-echo "<table border = 1> <tr> <th> Learner </th> </tr>";
-while($row = $result->fetch_array(MYSQLI_ASSOC)){
-    echo "<tr>";
-    echo "<td> <a href = /IS3-Online-Tutoring/src/actions/auditor/auditorChat.php?learner=".$row['toUserID']."&admin=".$adminID.">".getUsername($row['toUserID'])."</a> </td>";
-	echo "</tr>";
 
+while($row = $result->fetch_array(MYSQLI_ASSOC)){
+
+    $target = getProfilePicture($row['toUserID']);
+    echo "<a href = /IS3-Online-Tutoring/src/actions/auditor/auditorChat.php?learner=".$row['toUserID']."&admin=".$adminID.">";
+
+    echo "<li class='clearfix'>";
+    echo "<img src=$target alt='avatar'>";
+    echo "<div class='about'>";
+    echo "<div class='read-chat'>".getUsername($row['toUserID'])."</div>";
+    echo "</div> </li>";
+    echo "</a>";
 }
-echo "</table>";
 
 
 //-------------------------------- All commented messages for this admin ---------------------------
@@ -71,3 +93,8 @@ while($row = $result->fetch_array(MYSQLI_ASSOC)){
 }
 
 ?>
+
+</ul>
+</div>
+
+</div>

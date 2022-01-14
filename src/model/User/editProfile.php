@@ -15,6 +15,16 @@ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
 <?php
 establishConnection();
 
+if(empty($_SESSION['UserID']))
+{
+    ?>
+    <div class="alert alert-warning">
+        <strong>Warning!</strong> This page needs authentication.
+    </div>
+    <?php
+    exit();
+}
+
 //--------------------------------------- Update User ---------------------------------------
 if(isset($_POST['submit'])){
     $UserName = $_POST['UserName'];

@@ -1,3 +1,19 @@
+.title-section{
+    height: 100px;
+    padding: 2%;
+    color: #2596be;
+}
+
+.title{
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size:x-large;
+    padding: 2px;
+    max-width: 60%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
 .incoming-msg{
     background-color:  #E8F4FA;
     border-radius: 20px;
@@ -34,6 +50,16 @@
     top: 50%;
     transform: translate(-50%, -50%);
     padding: 10px;
+    background-color: white;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.chat-page{
+    background-image: url("/IS3-Online-Tutoring/uploads/backgroundImages/chatBackground2.png");
+    z-index: -100;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
 }
 
 .msg-content{
@@ -82,7 +108,7 @@ input[type=text].input-field, input[type=url].input-field {
 /* People List */
 
 .card {
-    background: #fff;
+    background: white;
     transition: .5s;
     border: 0;
     margin-bottom: 30px;
@@ -97,13 +123,21 @@ input[type=text].input-field, input[type=url].input-field {
     -moz-transition: .5s;
     -o-transition: .5s;
     -webkit-transition: .5s;
-    transition: .5s
+    transition: .5s;
+    border-radius: 20px;
+    max-width: 50%;
+    margin: auto;
+    margin-bottom: 10px;
+    padding: 2%;
+
 }
 
 .people-list .chat-list li {
     padding: 10px 15px;
     list-style: none;
-    border-radius: 3px
+    border-bottom: gainsboro solid thin;
+    
+
 }
 
 .people-list .chat-list li:hover {
@@ -146,6 +180,10 @@ input[type=text].input-field, input[type=url].input-field {
     padding-left: 8px
 }
 
+.side-img{
+    z-index: -10;
+}
+
 
 .clearfix:after {
     visibility: hidden;
@@ -155,3 +193,43 @@ input[type=text].input-field, input[type=url].input-field {
     clear: both;
     height: 0
 }
+
+.chat-header {
+    padding: 15px 20px;
+    border-bottom: 2px solid #E8F4FA;
+}
+
+.chat-header-img {
+    float: left;
+    border-radius: 40px;
+    width: 40px
+}
+
+.chat-header .chat-about {
+    float: left;
+    padding-left: 10px
+}
+
+.chat-header label{
+    margin-left: 10px;
+    margin-top: auto;
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size:large;
+}
+
+.gray{
+    background-color: #f7f7f7;
+}
+
+
+.reply-btn{
+
+    border-top-right-radius: 0px;
+    margin-left: auto;
+    margin-right: 0px;
+    margin-bottom: 10px;
+    padding: 2%;
+}
+
+

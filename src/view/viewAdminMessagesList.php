@@ -25,9 +25,16 @@ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
 establishConnection();
 isAdmin();
 ?>
+<div class = "page-content">
 
+<div class = "side-img col-lg-7">
+<img src='/IS3-Online-Tutoring/uploads/backgroundImages/mail-man.png' width = 1000>
+</div>
 
-<div id="plist" class="people-list">
+<div id="plist" class="people-list col-lg-4">
+    <div class='row title-section'>
+        <h3 class='title'>Chats:</h3>
+    </div>
     <ul class="list-unstyled chat-list mt-2 mb-0">
 
 <?php
@@ -43,11 +50,15 @@ try{
    echo"Message:", $e->getMessage();  
 }
 
+echo "Unread chats: ";
+echo mysqli_num_rows($result);
+
 while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
 
+    $target = getProfilePicture($row['fromUserID']);
     echo "<a href = /IS3-Online-Tutoring/src/actions/adminstrator/adminChat.php?id=".$row['fromUserID'].">";
     echo "<li class='clearfix'>";
-    echo "<img src='https://bootdey.com/img/Content/avatar/avatar1.png' alt='avatar'>";
+    echo "<img src=$target alt='avatar'>";
     echo "<div class='about'>";
     echo "<div class='unread-chat'>".getUsername($row['fromUserID'])."</div>";
     echo "</div> </li>";
@@ -72,9 +83,10 @@ try{
 }
 
 while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+    $target = getProfilePicture($row['fromUserID']);
     echo "<a href = /IS3-Online-Tutoring/src/actions/adminstrator/adminChat.php?id=".$row['fromUserID'].">";
     echo "<li class='clearfix'>";
-    echo "<img src='https://bootdey.com/img/Content/avatar/avatar1.png' alt='avatar'>";
+    echo "<img src=$target alt='avatar'>";
     echo "<div class='about'>";
     echo "<div class='read-chat'>".getUsername($row['fromUserID'])."</div>";
     echo "</div> </li>";
@@ -83,4 +95,6 @@ while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
 ?>
 
 </ul>
+</div>
+
 </div>
