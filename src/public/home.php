@@ -136,20 +136,6 @@ $result = $conn->query($getCoursesQuery);
     </div>
 
 
-    <div class="Banner">
-        <div class="BannerElements">
-            <div class="BannerText">
-                <h1> Experienced Tutors,<br> World-class customer service. </h1>
-                <h2> Courses taught by real-world experts from €13.99<br> — through January </h2>
-            </div>
-            <div class="BannerButtons">
-                <a href="/IS3-Online-Tutoring/src/view/viewApprovedCourses.php"><button class="BannerButton"><span>View All Courses </span></button></a>
-                <a href="/IS3-Online-Tutoring/src/public/RegisterForm.php"><button id="BB2" class="BannerButton"><span>Sign Up </span></button></a>
-            </div>
-        </div>
-        <img src="../../resources/images/homeIllustration.jpg">
-    </div>
-
 
 
 
