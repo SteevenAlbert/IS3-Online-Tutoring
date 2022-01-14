@@ -16,21 +16,24 @@
 <script>
     $usernameValid = false;
     $passValid=false;
+    $passMatch=false;
    /*--------------Username Responsive Check-----------*/
     function UserNameCheck(str) {
-        document.getElementById("submit").disabled = false;
         if (str.length==0) {
             document.getElementById("usernameMessage").innerHTML="";
-            document.getElementById("submit").disabled = true;
+            $usernameValid=false;
             return;
         }
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange=function() {
             if (this.readyState==4 && this.status==200) {
                 document.getElementById("usernameMessage").innerHTML=this.responseText;
-                if(this.responseText!="Available" || $passValid==false){
-                    document.getElementById("submit").disabled = true;
+                if(this.responseText!="Available"){
+                    $usernameValid=false;      
+                }else{
+                    $usernameValid=true;
                 }
+                toggleButton();
             }
         }
         xmlhttp.open("GET","/<?php echo $root?>/lib/ajax/checkUsername.php?un="+str,true);
@@ -43,28 +46,44 @@
         var special_characters = /([~,!,@,#,$,%,^,&,*,-,_,+,=,?,>,<])/;
         if ($('#password1').val().length<1){
             $('#passCheckMessage').html("");
+            $passValid=false;
             return;
         }
         if ($('#password1').val().length > 6 && $('#password1').val().match(number) && $('#password1').val().match(alphabets) && $('#password1').val().match(special_characters)) {
             $('#passCheckMessage').html("Strong");
-            document.getElementById("submit").disabled = false;
+            $passValid=true;
         } else {
             $('#passCheckMessage').html("Not Strong Enough - Password should include alphabets, numbers and special characters.)");
-            document.getElementById("submit").disabled = true;
+         
+            $passValid=false;
         }
+        toggleButton()
+        checkPassMatch()
     }
 
      /*--------------Password Match Check-----------*/
      function checkPassMatch(){
         if ($('#password2').val().length==0){
             $('#checkMatchMessage').html("");
+            $passMatch=false;
             return;
         }
          if($('#password1').val() == $('#password2').val()){
             document.getElementById("checkMatchMessage").innerHTML = "Password Match";
+            $passMatch=true;
          }else{
             document.getElementById("checkMatchMessage").innerHTML = "Passwords do not Match";
+            $passMatch=false;
          }
+         toggleButton();
+     }
+
+     function toggleButton(){
+         if($usernameValid==true && $passValid==true && $passMatch==true){
+            document.getElementById("submit").disabled = false;
+        }else{
+            document.getElementById("submit").disabled = true;
+        }
      }
      /*------------- Image Upload --------------------*/
      function triggerClick() {
@@ -118,7 +137,7 @@
             <div class="row">
 			    <div class="col-lg-6">
 			    	<label style="color:black;">Name:</label>
-			    	<input type="text" name='Fname' id="Fname" placeholder="First Name" class="form-control" required><i class="fas fa-user icon-color"></i>
+			    	<input type="text" name='Fname' id="Fname" placeholder="First Name" class="form-control" required>
 			    </div>
 			    <div class="col-lg-6" style="margin-bottom:3%">
 			    	<label><br></label>
@@ -129,21 +148,22 @@
             <div class="row">
 				<div class="col-lg-12" style="margin-bottom:3%">
 					<label style="color:black;">Email:</label>
-					<input type="text" name='Email' id="Email" placeholder="Smith@email.com" class="form-control" ><i class="fas fa-envelope emailIcon-color"></i>
+					<input type="text" name='Email' id="Email" placeholder="Smith@email.com" class="form-control" >
 				</div>
    		    </div>
 
             <div class="row">
 				<div class="col-lg-12" style="margin-bottom:3%">
 					<label style="color:black;">Username:</label>
-					<input type='text' name='UserName' id="UserName" placeholder="smith@123" onkeyup="UserNameCheck(this.value)" class="form-control" required><i class="fas fa-user emailIcon-color"></i>
-				</div>
+					<input type='text' name='UserName' id="UserName" placeholder="smith@123" onkeyup="UserNameCheck(this.value)" class="form-control" required>
+                    <div id="usernameMessage"></div> <div id="usernameMessage"></div>
+                </div>
    		    </div>
 
                <div class="row">
 				<div class="col-lg-6">
 					<label style="color:black;">Password:</label>
-					<input type="Password" name='Password' id="password1" placeholder="Enter Password" onkeyup="passCheck(this.value)" class="form-control" required><i class="fas fa-lock icon-color"></i> 
+					<input type="Password" name='Password' id="password1" placeholder="Enter Password" onkeyup="passCheck(this.value)" class="form-control" required> 
 				</div>
 				<div class="col-lg-6" style="margin-bottom:3%">
 					<label><br></label>
@@ -157,7 +177,7 @@
             <div class="row">
 				<div class="col-lg-6" style="margin-bottom:3%">
 					<label style="color:black;">Phone Number:</label>
-                    <input type="text" name='PhoneNo' id="PhoneNo" class="form-control"><i class="fas fa-mobile-alt icon-color"></i>
+                    <input type="text" name='PhoneNo' id="PhoneNo" class="form-control">
 				</div>
 				<div class="col-lg-6">
 					<label>Country:</label>
@@ -179,12 +199,13 @@
    		    </div> 
                
                <?php  
+           
             if($_GET['id']=="learner") { 
                 ?>
                 <input type="hidden" name="UserType" value="Learner">
-                
+                    
                 <?php 
-                echo 
+              
             }       
         
             else if($_GET['id']=="tutor") { 

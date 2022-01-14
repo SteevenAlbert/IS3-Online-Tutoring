@@ -63,7 +63,7 @@ $result = $conn->query($getCoursesQuery);
                     <?php }
                 }else{?>
                 <a href="/IS3-Online-Tutoring/src/view/viewApprovedCourses.php"><button class="BannerButton"><span>View All Courses </span></button></a>
-                <a href="/IS3-Online-Tutoring/src/public/RegisterForm.php"><button id="BB2" class="BannerButton"><span>Sign Up </span></button></a>
+                <a href="/IS3-Online-Tutoring/src/public/RegisterForm.php?id=learner"><button id="BB2" class="BannerButton"><span>Sign Up </span></button></a>
                 <?php } ?>
             </div>
         </div>

@@ -14,6 +14,80 @@ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
 <html>
 <head>
 	<title>Create administrator</title>
+
+	<script>
+    $usernameValid = false;
+    $passValid=false;
+    $passMatch=false;
+   /*--------------Username Responsive Check-----------*/
+    function UserNameCheck(str) {
+        if (str.length==0) {
+            document.getElementById("usernameMessage").innerHTML="";
+            $usernameValid=false;
+            return;
+        }
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange=function() {
+            if (this.readyState==4 && this.status==200) {
+                document.getElementById("usernameMessage").innerHTML=this.responseText;
+                if(this.responseText!="Available"){
+                    $usernameValid=false;      
+                }else{
+                    $usernameValid=true;
+                }
+                toggleButton();
+            }
+        }
+        xmlhttp.open("GET","/<?php echo $root?>/lib/ajax/checkUsername.php?un="+str,true);
+        xmlhttp.send();
+    }
+    /*--------------Password Responsive Check-----------*/
+    function passCheck() {
+        var number = /([0-9])/;
+        var alphabets = /([a-zA-Z])/;
+        var special_characters = /([~,!,@,#,$,%,^,&,*,-,_,+,=,?,>,<])/;
+        if ($('#password1').val().length<1){
+            $('#passCheckMessage').html("");
+            $passValid=false;
+            return;
+        }
+        if ($('#password1').val().length > 6 && $('#password1').val().match(number) && $('#password1').val().match(alphabets) && $('#password1').val().match(special_characters)) {
+            $('#passCheckMessage').html("Strong");
+            $passValid=true;
+        } else {
+            $('#passCheckMessage').html("Not Strong Enough - Password should include alphabets, numbers and special characters.)");
+         
+            $passValid=false;
+        }
+        toggleButton()
+        checkPassMatch()
+    }
+
+     /*--------------Password Match Check-----------*/
+     function checkPassMatch(){
+        if ($('#password2').val().length==0){
+            $('#checkMatchMessage').html("");
+            $passMatch=false;
+            return;
+        }
+         if($('#password1').val() == $('#password2').val()){
+            document.getElementById("checkMatchMessage").innerHTML = "Password Match";
+            $passMatch=true;
+         }else{
+            document.getElementById("checkMatchMessage").innerHTML = "Passwords do not Match";
+            $passMatch=false;
+         }
+         toggleButton();
+     }
+
+     function toggleButton(){
+         if($usernameValid==true && $passValid==true && $passMatch==true){
+            document.getElementById("submit").disabled = false;
+        }else{
+            document.getElementById("submit").disabled = true;
+        }
+     }
+	 </script>
 </head>
 <body>
 
@@ -26,82 +100,80 @@ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
 	<!------------------------------------------ Administrator registration form ---------------------------------------->
 	<form class="form-group text-left" method = "post" action = "/IS3-Online-Tutoring/src/model/User/Adminstrator/applyCreateAdministrator.php" onsubmit="return validatePasswords(this);">
 													   
-    	<div class="row">
-			<!-- <div class="form-group text-left"> -->
-			<div class="col-lg-6">
-				<label style="color:black;">Name:</label>
-				<input type = text name = "firstName" placeholder = "First Name" class="form-control" required><i class="fas fa-user icon-color"></i>
-			</div>
-			<div class="col-lg-6" style="margin-bottom:3%">
-				<label><br></label>
-				<input type = text name = "lastName" placeholder = "Last Name" class="form-control" required></i>
-			</div>
-		<!-- </div> -->
-   		</div>
 
-		<div class="row">
-			<!-- <div class="form-group text-left"> -->
+            <div class="row">
+			    <div class="col-lg-6">
+			    	<label style="color:black;">Name:</label>
+			    	<input type="text" name='Fname' id="Fname" placeholder="First Name" class="form-control" required>
+			    </div>
+			    <div class="col-lg-6" style="margin-bottom:3%">
+			    	<label><br></label>
+			    	<input type="text" name='Lname' id="Lname" placeholder="Last Name" class="form-control">
+			    </div>
+   		    </div>
+
+            <div class="row">
 				<div class="col-lg-12" style="margin-bottom:3%">
 					<label style="color:black;">Email:</label>
-					<input type = email name = "email"placeholder = "johnsmith@gmail.com" class="form-control" required><i class="fas fa-envelope emailIcon-color"></i>
+					<input type="text" name='Email' id="Email" placeholder="Smith@email.com" class="form-control" >
 				</div>
-		<!-- </div> -->
-   		</div>
-		
-		<div class="row">
-			<!-- <div class="form-group text-left"> -->
+   		    </div>
+
+            <div class="row">
 				<div class="col-lg-12" style="margin-bottom:3%">
 					<label style="color:black;">Username:</label>
-					<input type = text name = "username" id = "username" placeholder = "John97" class="form-control" required><i class="fas fa-user emailIcon-color"></i>
-				</div>
-			<!-- </div> -->
-   		</div>
+					<input type='text' name='UserName' id="UserName" placeholder="smith@123" onkeyup="UserNameCheck(this.value)" class="form-control" required>
+                    <div id="usernameMessage"></div> <div id="usernameMessage"></div>
+                </div>
+   		    </div>
 
-		<div class="row">
-			<!-- <div class="form-group text-left"> -->
+               <div class="row">
 				<div class="col-lg-6">
 					<label style="color:black;">Password:</label>
-					<input type = password name = "password" id = "password1" placeholder="Enter Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
-        				   title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" class="form-control" required><i class="fas fa-lock icon-color"></i> 
+					<input type="Password" name='password1' id="password1" placeholder="Enter Password" onkeyup="passCheck(this.value)" class="form-control" required> 
 				</div>
 				<div class="col-lg-6" style="margin-bottom:3%">
 					<label><br></label>
-					<input type = password name = "password2" id = "password2" placeholder="Re-Enter Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
-        				   title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" class="form-control" required>
-        				   <span id = "passwordText"></span>
+					<input type="Password" name='password2' id="password2" placeholder="Re-Enter Password" onkeyup="checkPassMatch(this.value)" class="form-control" required>
+                    <div id="passCheckMessage"></div> <div id="checkMatchMessage"></div>
 				</div>
-			<!-- </div> -->
-   		</div>
+   		    </div>
 
-		<div class="row">
-			<!-- <div class="form-group text-left"> -->
+        
+
+            <div class="row">
 				<div class="col-lg-6" style="margin-bottom:3%">
 					<label style="color:black;">Phone Number:</label>
-					<input type = tel name = "phoneNumber"  placeholder = "+201009876523" class="form-control" required><i class="fas fa-mobile-alt icon-color"></i>
+                    <input type="text" name='PhoneNo' id="PhoneNo" class="form-control">
 				</div>
 				<div class="col-lg-6">
 					<label>Country:</label>
-					<?php countriesList(); ?>
+                    <select name='Country' class="form-control">
+        <?php
+           $countries = array("","Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla", "Antarctica", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia and Herzegowina", "Botswana", "Bouvet Island", "Brazil", "British Indian Ocean Territory", "Brunei Darussalam", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Cayman Islands", "Central African Republic", "Chad", "Chile", "China", "Christmas Island", "Cocos (Keeling) Islands", "Colombia", "Comoros", "Congo", "Congo, the Democratic Republic of the", "Cook Islands", "Costa Rica", "Cote d'Ivoire", "Croatia (Hrvatska)", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Falkland Islands (Malvinas)", "Faroe Islands", "Fiji", "Finland", "France", "France Metropolitan", "French Guiana", "French Polynesia", "French Southern Territories", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guadeloupe", "Guam", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Heard and Mc Donald Islands", "Holy See (Vatican City State)", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran (Islamic Republic of)", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea, Democratic People's Republic of", "Korea, Republic of", "Kuwait", "Kyrgyzstan", "Lao, People's Democratic Republic", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libyan Arab Jamahiriya", "Liechtenstein", "Lithuania", "Luxembourg", "Macau", "Macedonia, The Former Yugoslav Republic of", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Martinique", "Mauritania", "Mauritius", "Mayotte", "Mexico", "Micronesia, Federated States of", "Moldova, Republic of", "Monaco", "Mongolia", "Montserrat", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "Netherlands Antilles", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Niue", "Norfolk Island", "Northern Mariana Islands", "Norway", "Oman", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Pitcairn", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russian Federation", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Seychelles", "Sierra Leone", "Singapore", "Slovakia (Slovak Republic)", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Georgia and the South Sandwich Islands", "Spain", "Sri Lanka", "St. Helena", "St. Pierre and Miquelon", "Sudan", "Suriname", "Svalbard and Jan Mayen Islands", "Swaziland", "Sweden", "Switzerland", "Syrian Arab Republic", "Taiwan, Province of China", "Tajikistan", "Tanzania, United Republic of", "Thailand", "Togo", "Tokelau", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks and Caicos Islands", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "United States Minor Outlying Islands", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Virgin Islands (British)", "Virgin Islands (U.S.)", "Wallis and Futuna Islands", "Western Sahara", "Yemen", "Yugoslavia", "Zambia", "Zimbabwe");
+        for($i=0; $i<count($countries); $i++){?>
+         <option><?php echo $countries[$i]?> </option>
+        <?php } ?>    
+        </select>
 				</div>
-			<!-- </div> -->
-   		</div>
+   		    </div>  
 
-		<div class="row">
-			<!-- <div class="form-group text-left"> -->
+               <div class="row">
 				<div class="col-lg-6" style="margin-bottom:3%">
 					<label style="color:black;">Birth Date:</label>
-					<input type = date name = "birthdate" class="form-control" required>
+					<input type="date" name='BOD' id="BOD"  min="1920-01-01" max="2021-12-31"  class="form-control">
 				</div>
-			<!-- </div> -->
-   		</div>
-		   
-		<div class="row">
-			<!-- <div class="form-group text-left"> -->
-				<input type = "submit" name = "submit" class="form-control btn btn-primary btn-block btn-lg" style="margin-bottom:2%"> 
-				<input type = "reset"  class="form-control">
-			<!-- </div> -->
-   		</div>
+   		    </div> 
+               
+               <?php  
+           
+       
+            ?>
 
+            <!-- <input type="hidden" name="UserType" value="Learner"> -->
+            <label style="color:black;">I Agree to Terms and Conditions</label> <input type='checkbox' name='agree' required>
+            <input type='submit' id="submit" value="Register" class="btn btn-primary btn-block btn-lg" disabled>
+     
 	</div>
 	</div>
 

@@ -37,7 +37,7 @@ if(password_verify($password, $hashedPass)){
     $_SESSION['Country']=$userData[7];
     $_SESSION['BirthDate']=$userData[8];
     $_SESSION['UserType']=$userData[9];
-    
+    $_SESSION['PP']="default.png";
     // Get Profile Picture
     if($_SESSION['UserType']=="Tutor"){
         $getPPQuery = "SELECT * FROM tutors WHERE UserID ='".$_SESSION['UserID']."'";
@@ -64,6 +64,10 @@ if(password_verify($password, $hashedPass)){
 
     if($row){
       $_SESSION['PP']=$row[1];
+    }
+
+    if($_SESSION['PP']==""){
+        $_SESSION['PP']="default.png";
     }
     
     echo "success";

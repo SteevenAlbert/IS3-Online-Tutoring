@@ -33,14 +33,14 @@
                                 </li>
                             </ul> 
 
-                    
+                            <?php echo "SESSION:". $_SESSION['PP'] ?>
                             <ul class="nav navbar-nav navbar-right">
                                 <li> <a href="/<?php echo $root ?>/src/model/Cart/cart.php"><img class="navbar-icons" src="\<?php echo $root ?>\resources\images\icons\cart.png"></a></li> 
                                 <li> <a href="/<?php echo $root ?>/src/view/ViewNotifications.php"><img class="navbar-icons" src="\<?php echo $root ?>\resources\images\icons\notification.png"></a></li>       
                                 <li> <a href="/<?php echo $root ?>/src/view/viewEnrolledCourses.php"><button class="button2"><span>My Courses</span></button></a> </li>
                                 <li>
                                     <div class="dropdown dropdown-custom">
-                                        <img class="dropdown-toggle dropdown-toggle-custom" src="/<?php echo $root?>/uploads/profile_pictures/<?php echo $_SESSION['PP'] ?>" alt="dropdown image" data-toggle="dropdown" class="img-responsive">
+                                        <img class="dropdown-toggle dropdown-toggle-custom" src="/<?php echo $root?>/uploads/profile_pictures/<?php echo $_SESSION['PP'] ?>" data-toggle="dropdown" class="img-responsive">
                                         <ul class="dropdown-menu dropdown-menu-custom" role="menu" aria-labelledby="imageDropdown">
                                             <h3> <?php echo $_SESSION['FirstName'] ." ". $_SESSION['LastName'] ?> </h3>
                                             <li role="presentation" class="divider"></li>
@@ -247,9 +247,9 @@
                     </ul> 
                     <ul class="nav navbar-nav navbar-right">
                         <li class="nav-item"> <a href="/<?php echo $root ?>/src/public/home.php">Featured</a> </li>
-                        <li class="nav-item"> <a href="/<?php echo $root ?>/src/model/User/Tutor/TutorRegisterForm.php">Teach on IS3</a> </li>
+                        <li class="nav-item"> <a href="/<?php echo $root ?>/src/public/RegisterForm.php?id=tutor">Teach on IS3</a> </li>
                         <li class="nav-item"> <a href="/<?php echo $root ?>/src/public/loginForm.php">Sign in</a> </li>
-                       <li> <a href="/<?php echo $root ?>/src/public/RegisterForm.php"><button class="button"><span>Sign Up </span></button></a> </li>
+                       <li> <a href="/<?php echo $root ?>/src/public/RegisterForm.php?id=learner"><button class="button"><span>Sign Up </span></button></a> </li>
                        
                    </ul>
                     <form class = "navbar-form " action = "/<?php echo $root ?>/src/actions/courseSearch.php" method = 'post'> 
