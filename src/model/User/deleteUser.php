@@ -13,17 +13,21 @@ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
 	
 <body>
 
-	<form method = "post" action="applyDeleteAdministrator.php">
+	<form method = "post" action="/IS3-Online-Tutoring/src/model/User/Adminstrator/applyDeleteAdministrator.php">
 	 <?php 
         establishConnection();
 
             //----------------------------- Display user to delete details -----------------------------
             $query = "SELECT * FROM users WHERE UserID = '" .$_GET["id"]."'";
             $results = $conn-> query($query);
-
-            if(!$results)
-                die("Fatal error in executing".$query);
-
+            try{
+                if(!$results){     
+                    throw new Exception("Error Occured");   
+                }
+                
+            }catch(Exception $e){  
+               echo"Message:", $e->getMessage();  
+            }
 
             while($row = $results->fetch_array(MYSQLI_ASSOC)) {
 

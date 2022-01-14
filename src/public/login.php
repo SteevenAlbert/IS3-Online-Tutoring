@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once "is3library.php";
+include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/filters.php";
 establishConnection();
 
 $username = $_POST['username'];
@@ -8,13 +9,17 @@ $password = $_POST['password'];
 
 //-------------------------------------------- Get user data --------------------------------------------
 $getUserQuery = "SELECT * FROM users WHERE Username ='$username' AND Password='$password'";
-if(!$conn->query($getUserQuery))
-    echo mysqli_errno($conn).": " .mysqli_error($conn);
-
 $result = $conn->query($getUserQuery);
+try{
+    if(!$result){     
+        throw new Exception("Error Occured");   
+    }
+    
+}catch(Exception $e){  
+   echo"Message:", $e->getMessage();  
+}
+
 $userData = mysqli_fetch_array($result);
-
-
 
 if($userData){
     // Update session 
@@ -31,10 +36,18 @@ if($userData){
     
     // Get Profile Picture
     $getPPQuery = "SELECT * FROM learners WHERE UserID ='".$_SESSION['UserID']."'";
-    if(!$conn->query($getPPQuery))
-        echo mysqli_errno($conn).": " .mysqli_error($conn);
-    
     $result2 = $conn->query($getPPQuery);
+
+    try{
+        if(!$result2){
+        throw new Exception("Error Occured");
+        }
+    }
+    catch(Exception $e){
+        throw new Exception("Error Occured"); 
+    }
+    
+    
     $row = mysqli_fetch_array($result2);
 
     if($row){

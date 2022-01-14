@@ -11,7 +11,14 @@
 /*---------------------------------------------------GET LEARNER NAME--------------------------------------------------*/
     $getTutorID = "SELECT * ,FirstName FROM survey,users WHERE survey.toTutorID=users.UserID GROUP BY toTutorID";
     $result = $conn->query($getTutorID);
-
+    try{
+        if (!$result){
+            throw new Exception("Error Occured"); 
+        }
+                    
+    }catch(Exception $e){  
+       echo"Message:", $e->getMessage();  
+    }
     while($row = $result->fetch_assoc()) {
         $getSurveyCourseByID = "SELECT * FROM survey where toTutorID='".$row["toTutorID"]."'";
         $result2 = $conn->query($getSurveyCourseByID);
@@ -59,18 +66,31 @@
     <?php
         $getCoursesQuery = "SELECT enroll.*,Title FROM enroll,courses WHERE enroll.CourseID=courses.CourseID GROUP BY CourseID";
         $result = $conn->query($getCoursesQuery);
+        try{
+            if (!$result){
+                throw new Exception("Error Occured"); 
+            }
+                        
+        }catch(Exception $e){  
+           echo"Message:", $e->getMessage();  
+        }
         
         while($row = $result->fetch_assoc()) {
             $getCoursesbyCategory = "SELECT * FROM enroll where CourseID='".$row["CourseID"]."'";
         
         
             $result2 = $conn->query($getCoursesbyCategory);
-        
-            if (!$result2)
-            die ("Query error. $getCoursesbyCategory");
+            try{
+                if (!$result2){
+                    throw new Exception("Error Occured"); 
+                }
+                            
+            }catch(Exception $e){  
+               echo"Message:", $e->getMessage();  
+            }
+    
         
             //------------------------------------ Display Courses by categorie ------------------------------------
-            else{
                     echo "<br><br><br>";
                     echo "<table border=3 ><th>".$row["Title"]."</th></table>";
                     echo "<table border=1 >
@@ -86,7 +106,7 @@
                     
                 }
                 echo "</table>";
-            }
+            
         }
     ?>
  </html>

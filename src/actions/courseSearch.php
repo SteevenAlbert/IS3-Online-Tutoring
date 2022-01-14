@@ -16,7 +16,16 @@ $query = "select * from courses where approved = 1 AND ( Code LIKE '%".$_POST['s
 
 $result = $conn->query($query);
 
-if (!$result) die ("Fatal error in executing query $query");
+
+try{
+    if (!$result){
+        throw new Exception("Error Occured"); 
+    }
+                
+}catch(Exception $e){  
+   echo"Message:", $e->getMessage();  
+}
+
 if (mysqli_num_rows($result)<=0)
 {
     echo "No results for your search: ". $_POST['search'];

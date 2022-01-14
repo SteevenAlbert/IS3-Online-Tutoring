@@ -9,8 +9,14 @@ establishConnection();
 //-------------------------------------------- Set read to true --------------------------------------------
 $query = "UPDATE messages SET isReadAuditor = 1 WHERE fromUserID ='".$_GET['learner']."' OR (fromUserID = '".$_GET['admin']."' AND toUserID = '".$_GET['learner']."')";
     $result = $conn->query($query);
-    if (!$result)
-        die ("Query error. $query");
+    try{
+        if (!$result){
+            throw new Exception("Error Occured"); 
+        }
+                    
+    }catch(Exception $e){  
+       echo"Message:", $e->getMessage();  
+    }
 
 
 //-------------------------------------------- Get messages history --------------------------------------------
@@ -19,11 +25,27 @@ $query = "UPDATE messages SET isReadAuditor = 1 WHERE fromUserID ='".$_GET['lear
             JOIN users u ON (m.fromUserID ='".$_GET['learner']."' OR m.toUserID = '".$_GET['learner']."') AND (u.UserID=m.fromUserID)";
     
     $result = $conn->query($query);
-    if (!$result)
-    die ("Query error. $query");
+    try{
+        if (!$result){
+            throw new Exception("Error Occured"); 
+        }
+                    
+    }catch(Exception $e){  
+       echo"Message:", $e->getMessage();  
+    }
+
+
 
     $query2="SELECT UserID FROM users WHERE UserType='Auditor' ";
     $result2 = $conn->query($query2);
+    try{
+        if (!$result2){
+            throw new Exception("Error Occured"); 
+        }
+                    
+    }catch(Exception $e){  
+       echo"Message:", $e->getMessage();  
+    }
     
 
     while($row = $result->fetch_array(MYSQLI_ASSOC)){
@@ -72,8 +94,14 @@ if(isset($_POST['submitReply'])){
         $replyQuery = "INSERT INTO messages(fromUserID, toUserID, text, isRead, date,parentMessageID) 
         VALUES ('".$_SESSION['UserID']."','".$_GET['admin']."','".$_POST['message']."',0, now(),'".$_POST['replyTo']."')";
             $replyResult = $conn->query($replyQuery);
-            if (!$replyResult)
-                die ("Query error. $replyQuery");
+            try{
+                if (!$replyResult){
+                    throw new Exception("Error Occured"); 
+                }
+                            
+            }catch(Exception $e){  
+               echo"Message:", $e->getMessage();  
+            }
     }
 }
 

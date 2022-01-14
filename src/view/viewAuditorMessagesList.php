@@ -11,8 +11,14 @@ where m.fromUserID = u.UserID
 AND u.UserType = 'Administrator'
 AND m.isReadAuditor IS NULL ORDER BY m.date DESC";
 $result = $conn->query($query);
-if (!$result)
-    die ("Query error. $query");
+try{
+    if (!$result){
+        throw new Exception("Error Occured"); 
+    }
+                
+}catch(Exception $e){  
+   echo"Message:", $e->getMessage();  
+}
 
 echo mysqli_num_rows($result);
 
@@ -34,8 +40,14 @@ AND NOT EXISTS (SELECT m2.fromUserID FROM messages as m2 WHERE m2.isReadAuditor 
 
 
 $result = $conn->query($query);
-if (!$result)
-    die ("Query error. $query");
+try{
+    if (!$result){
+        throw new Exception("Error Occured"); 
+    }
+                
+}catch(Exception $e){  
+   echo"Message:", $e->getMessage();  
+}
 
 echo "<table border = 1> <tr> <th> Learner </th> </tr>";
 while ($row = $result->fetch_array(MYSQLI_ASSOC)) {

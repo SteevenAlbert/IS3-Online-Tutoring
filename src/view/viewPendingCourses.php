@@ -11,12 +11,26 @@ $getCourses = "SELECT * FROM courses";
 
 $result = $conn->query($getCoursesQuery);
 $result3 = $conn->query($getCourses);
+try{
+    if (!$result){
+        throw new Exception("Error Occured"); 
+    }
+                
+}catch(Exception $e){  
+   echo"Message:", $e->getMessage();  
+}
 
-if (!$result)
- die ("Query error. $getUserQuery");
+try{
+    if (!$result3){
+        throw new Exception("Error Occured"); 
+    }
+                
+}catch(Exception $e){  
+   echo"Message:", $e->getMessage();  
+}
 
  //--------------------------- Display all pending courses -------------------------
-else if($_SESSION["UserType"]=="Administrator" || $_SESSION["UserType"]=="Auditor"){
+if($_SESSION["UserType"]=="Administrator" || $_SESSION["UserType"]=="Auditor"){
     echo "<table border=1 >
         <th>Code</th> 
         <th>Title</th> 
@@ -71,10 +85,14 @@ echo "</table>";
             $updatePending="update courses set Approved='1' where Code='".$row["Code"]."'";
             
             $result4=mysqli_query($conn,$updatePending);
-            if(!$result4){
-                echo $conn->error;
-                die("Unable to execute query");
+            try{
+                if (!$result){
+                    throw new Exception("Error Occured"); 
                 }
+                            
+            }catch(Exception $e){  
+               echo"Message:", $e->getMessage();  
+            }
             }
         }
     }

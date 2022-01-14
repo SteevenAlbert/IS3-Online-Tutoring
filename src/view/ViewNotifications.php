@@ -8,8 +8,14 @@ establishConnection();
 //---------------------------------GET NOTIFICATIONS-------------------------------------------
 $getNotificationsQuery = "SELECT * FROM Notifications where ToUserID='".$_SESSION['UserID']."'";
 $result = $conn->query($getNotificationsQuery);
-if (!$result)
-    die (mysqli_errno($conn).": " .mysqli_error($conn));
+try{
+    if (!$result){
+        throw new Exception("Error Occured"); 
+    }
+                
+}catch(Exception $e){  
+   echo"Message:", $e->getMessage();  
+}
 
 //---------------------------------SHOW NOTIFICATIONS-------------------------------------------
 while($row = $result->fetch_array(MYSQLI_ASSOC))
@@ -17,6 +23,14 @@ while($row = $result->fetch_array(MYSQLI_ASSOC))
     //getCourseName
     $getCourseName = "SELECT Title FROM courses where CourseID='".$row['CourseID']."'";
     $CourseNameResult = $conn->query($getCourseName);
+    try{
+        if (!$CourseNameResult){
+            throw new Exception("Error Occured"); 
+        }
+                    
+    }catch(Exception $e){  
+       echo"Message:", $e->getMessage();  
+    }
     $name = $CourseNameResult->fetch_array(MYSQLI_ASSOC);
 
     echo "<b> ".$name['Title']." </b> <br>";

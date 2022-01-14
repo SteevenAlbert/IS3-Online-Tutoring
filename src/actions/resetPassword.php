@@ -10,8 +10,13 @@ $code=$_GET["code"];
 
 $emailQuery="SELECT email FROM resetpassword WHERE code='$code'";
 $result = $conn->query($emailQuery);
-if (!$result){
-   die ("Query error. $emailQuery");
+try{
+    if (!$result){
+        throw new Exception("Error Occured"); 
+    }
+                
+}catch(Exception $e){  
+   echo"Message:", $e->getMessage();  
 }
 
 if(mysqli_num_rows($result)==0){
@@ -25,15 +30,26 @@ if(isset($_POST["password1"])){
 
     $updateQuery="UPDATE users SET Password='$pass' WHERE email='$email'";
     $result_update = $conn->query($updateQuery);
-    if (!$result_update){
-      die ("Query error. $updateQuery");
+    try{
+        if (!$result_update){
+            throw new Exception("Error Occured"); 
+        }
+                    
+    }catch(Exception $e){  
+       echo"Message:", $e->getMessage();  
     }
 
     if($updateQuery){
         $deleteQuery="DELETE FROM resetpassword WHERE code='$code'";
         $result_delete = $conn->query($deleteQuery);
-        if (!$result_update)
-          die ("Query error. $deleteQuery");
+        try{
+            if (!$result_delete){
+                throw new Exception("Error Occured"); 
+            }
+                        
+        }catch(Exception $e){  
+           echo"Message:", $e->getMessage();  
+        }
 
       exit("Password Updated");
     

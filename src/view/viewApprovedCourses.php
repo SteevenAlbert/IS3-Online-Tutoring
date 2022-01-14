@@ -30,10 +30,16 @@ $GLOBALS['conn'] = $conn;
 $getCoursesQuery = "SELECT * FROM courses where Approved='1'";
 $result = $conn->query($getCoursesQuery);
 
-if (!$result)
-    die ("Query error. $getUserQuery");
+try{
+    if (!$result){
+        throw new Exception("Error Occured"); 
+    }
+                
+}catch(Exception $e){  
+   echo"Message:", $e->getMessage();  
+}
 //------------------------------------ Display Approved courses for Learner ------------------------------------
-else if($_SESSION["UserType"]=="Learner"){  
+if($_SESSION["UserType"]=="Learner"){  
     // Display overall rating
     while($row = $result->fetch_array(MYSQLI_ASSOC)) {
         displayCourse($row);
@@ -76,8 +82,6 @@ function getRating($row, &$averageRating, &$reviewCount)
     $getReviewsQuery = "SELECT * FROM ratings WHERE CourseID=".$row["CourseID"];
     $reviews = $GLOBALS['conn']->query($getReviewsQuery);
     
-    if (!$reviews)
-        die ("Query error. $getReviewsQuery");
 
     $reviewsTotal=0;
     while($review= $reviews->fetch_array(MYSQLI_ASSOC)){

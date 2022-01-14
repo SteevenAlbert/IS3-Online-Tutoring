@@ -16,9 +16,14 @@ if(isset($_POST["email"])){
     $emailTO=$_POST["email"];
     $code=uniqid(true);
     $query="INSERT INTO resetpassword (code,email) VALUES ('$code','$emailTO')";
-    $result = $conn->query($query);
-    if (!$result)
-      die ("Query error. $query");
+    try{
+      if (!$result){
+          throw new Exception("Error Occured"); 
+      }
+                  
+  }catch(Exception $e){  
+     echo"Message:", $e->getMessage();  
+  }
 
     //Create an instance; passing `true` enables exceptions
  $mail = new PHPMailer(true);

@@ -1,10 +1,12 @@
- <?php
+<?php
+ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
+
 
     function filterEmail($email){
         
         $sanitizeEmail = filter_var($email,FILTER_SANITIZE_EMAIL);
 
-        if(!filter_var($sanitizeEmail , FILTER_VALIDATE_EMAIL )=== false)
+        if(!filter_var($sanitizeEmail , FILTER_VALIDATE_EMAIL )=== false && $email==$sanitizeEmail)
         {
             echo "Valid Email"."<br>";
             return true;
@@ -28,4 +30,24 @@
             return false;
         }
     }
+
+    function myErrorHandler($errno, $errstr)
+    {
+          //   mysql connect etc here...
+             $servername = "localhost";
+            $username = "root";
+            $password = "";
+            $database = "is3 online tutoring";
+            $conn = new mysqli($servername, $username, $password, $database);
+        $sql = "INSERT INTO error_log (error_msg, error_level) values('$errstr',$errno)";
+        $result = $conn->query($sql);
+        if (!$result)
+          die ("Query error. $sql");
+        // Don't execute PHP internal error handler
+        return true;
+    }
+    
+    // set to the user defined error handler 
+   set_error_handler("myErrorHandler");
+
 ?>

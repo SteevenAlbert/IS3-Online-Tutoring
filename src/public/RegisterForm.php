@@ -61,10 +61,24 @@
          }
      }
 </script>
-<title>Registeration</title>
+
+<?php  
+    if(isset($_GET['learner'])) { 
+        ?>
+        <h1>Learner Registeration</h1>
+        <?php
+    }       
+
+    else if(isset($_GET['tutor'])) { 
+        ?>
+        <h1>Tutor Registeration</h1>
+        <?php
+    }       
+    ?>
+
 </head>
 <body>
-    <h1>REGISTER</h1>
+
     <!------------------------------- User info form ------------------------------->
     <form method ="post" action = "/<?php echo $root ?>/src/model/User/Register.php" enctype="multipart/form-data">
 
@@ -114,7 +128,20 @@
         <?php } ?>    
         </select>   
 
+        <?php  
+    if(isset($_GET['learner'])) { 
+        ?>
         <input type="hidden" name="UserType" value="Learner">
+        <?php
+    }       
+
+    else if(isset($_GET['tutor'])) { 
+        ?>
+        <input type="hidden" name="UserType" value="Tutor">
+        <?php
+    }       
+    ?>
+
 
         <br><br>
         I Agree to Terms and Conditions <input type='checkbox' name='agree' required>
@@ -124,7 +151,6 @@
         
     </form>
 
-  
 
 </body>
 </html>

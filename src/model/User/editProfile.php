@@ -32,9 +32,14 @@ if(isset($_POST['submit'])){
             WHERE UserID='".$_SESSION['UserID'] ."' ";
 
     $result = $conn->query($query);
-    if (!$result)
-        die ("Query error. $query");
-    else{
+    try{
+       if (!$result)
+          throw new Exception("Error Occured");
+    }
+    catch(Exception $e){  
+        echo"Message:", $e->getMessage();  
+     }
+     
         echo "Updated Successfully";
         $_SESSION['username'] = $UserName;
         $_SESSION['FirstName'] = $Fname;
@@ -43,9 +48,8 @@ if(isset($_POST['submit'])){
         $_SESSION['PhoneNo'] = $PhoneNo;
         $_SESSION['Country'] = $Country;
         $_SESSION['Birthdate'] = $BirthDate;
-    }
 
-    if ($_SESSION['UserType'] == 'Learner')
+    // if ($_SESSION['UserType'] == 'Learner')
 
     // Update Profile Picture
     if($_FILES["pp"]["size"]!=0){
@@ -56,24 +60,35 @@ if(isset($_POST['submit'])){
         $target='/xampp/htdocs/IS3-Online-Tutoring/uploads/profile_pictures/'.$fileName;
         $UserID = $_SESSION['UserID'];
         $query = "SELECT * FROM learners WHERE UserID ='$UserID'";
-        if(!$conn->query($query))
-            echo mysqli_errno($conn).": " .mysqli_error($conn);
         $result = $conn->query($query);
+        try{
+            if (!$result)
+               throw new Exception("Error Occured");
+         }
+         catch(Exception $e){  
+             echo"Message:", $e->getMessage();  
+          }
        
   
         if(!empty($row = $result->fetch_array(MYSQLI_ASSOC))){
             $deleteTarget='/xampp/htdocs/IS3-Online-Tutoring/uploads/profile_pictures/'.$row['profile_picture'];
             $query = "UPDATE learners SET profile_picture='$fileName' WHERE UserID = '$UserID'";
-            if(!$conn->query($query))
-                echo mysqli_errno($conn).": " .mysqli_error($conn);
-            else{
+            try{
+                if(!$conn->query($query))
+                   throw new Exception("Error Occured");
+             }
+             catch(Exception $e){  
+                 echo"Message:", $e->getMessage();  
+              }
+        
+            
                 echo "Profile Picture Updated\n"; 
                 echo "<br>";
                 echo "<a href=home.php>CONTINUE</a>";
                 unlink($deleteTarget);
                 move_uploaded_file($TempImageName, $target);
                 $_SESSION['PP'] = $fileName;
-            }
+            
         }
     }
 }
@@ -89,14 +104,16 @@ if(isset($_POST['submit'])){
     $PhoneNo = $_SESSION['PhoneNo'];
     $Country = $_SESSION['Country'];
     $BirthDate = $_SESSION['BirthDate'];
-    $PP = $_SESSION['PP'];
-    $target ="/IS3-Online-Tutoring/uploads/profile_pictures/".$_SESSION['PP'];
+    if($_SESSION['UserType']=="Learner" && $_SESSION['UserType']=="Tutor"){
+      $PP = $_SESSION['PP'];
+      $target ="/IS3-Online-Tutoring/uploads/profile_pictures/".$_SESSION['PP'];
+    }
 ?>	
 
 <form method ="POST" action = "" enctype="multipart/form-data" >
     
     <!--------------------------------------- Display Profile Picture --------------------------------------->
-    <?php if($_SESSION['UserType']=="Learner"){?>
+    <?php if($_SESSION['UserType']=="Learner" && $_SESSION['UserType']=="Tutor"){?>
     <h3> Change Profile Picture </h3>
     <img  style="width:auto; height:200px" src=<?php echo $target ?>>
 

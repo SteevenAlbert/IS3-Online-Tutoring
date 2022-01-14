@@ -5,10 +5,16 @@ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
 establishConnection();
 echo "<h1>Chapter ".$_GET['ch']."</h1>";
 $query = "SELECT * FROM chaptermaterials WHERE courseID=".$_GET['id']." AND chapter=".$_GET['ch'];
-if(!$conn->query($query))
-    echo mysqli_errno($conn).": " .mysqli_error($conn);
     echo "<h2>Videos</h2>";
 $result = $conn->query($query);
+try{
+    if (!$result){
+        throw new Exception("Error Occured"); 
+    }
+                
+}catch(Exception $e){  
+   echo"Message:", $e->getMessage();  
+}
 while($row = $result->fetch_array(MYSQLI_ASSOC)){
     echo "<h3>".$row['Title']."</h3>";
     echo $row['Description']."<br>";

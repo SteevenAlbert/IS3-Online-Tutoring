@@ -8,15 +8,27 @@ $user=$_SESSION['UserID'];
 $id = $_GET['id'];
 $query = "SELECT * FROM enroll WHERE UserID ='$user' AND CourseID='$id'";
 $result = $conn->query($query);
-if (!$result)
-    die(mysqli_errno($conn).": " .mysqli_error($conn));
+try{
+    if (!$result){
+        throw new Exception("Error Occured"); 
+    }
+                
+}catch(Exception $e){  
+   echo"Message:", $e->getMessage();  
+}
 $enrolled = mysqli_fetch_array($result);
 
 if($enrolled){
     $getCoursesQuery = "SELECT * FROM courses WHERE CourseID=".$_GET["id"];
     $result = $conn->query($getCoursesQuery);
-    if (!$result)
-        die ("Query error. $getCoursesQuery");
+    try{
+        if (!$result){
+            throw new Exception("Error Occured"); 
+        }
+                    
+    }catch(Exception $e){  
+       echo"Message:", $e->getMessage();  
+    }
 
     $row = $result->fetch_array(MYSQLI_ASSOC);
 
@@ -31,6 +43,14 @@ if($enrolled){
         echo mysqli_errno($conn).": " .mysqli_error($conn);
 
     $result = $conn->query($query);
+    try{
+        if (!$result){
+            throw new Exception("Error Occured"); 
+        }
+                    
+    }catch(Exception $e){  
+       echo"Message:", $e->getMessage();  
+    }
     while($row =$result->fetch_array(MYSQLI_ASSOC)){
         $title= $row['Title'];
         $chapterID= $row['chapter'];

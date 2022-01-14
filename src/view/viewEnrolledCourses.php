@@ -29,6 +29,14 @@ $user = $_SESSION['UserID'];
 echo "<h3 class='title'>Your Courses</h3>";
 $query2="SELECT * FROM courses c, enroll e where e.CourseID=c.CourseID AND e.UserID='$user'";
 $result2=mysqli_query($conn,$query2);
+try{
+    if (!$result2){
+        throw new Exception("Error Occured"); 
+    }
+                
+}catch(Exception $e){  
+   echo"Message:", $e->getMessage();  
+}
 while($row = $result2->fetch_array(MYSQLI_ASSOC)){
     displayCourse($row);
     ?> 

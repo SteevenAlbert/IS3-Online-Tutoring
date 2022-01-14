@@ -17,12 +17,15 @@
 		}
 		
 		$result = $conn->query($query);
-
-		if (!$result)
-			die ("Fatal error in executing  $query");
-		else
-			header("/xampp/htdocs/Location:IS3-Online-Tutoring/src/public/home.php");
-
+		try{
+			if (!$result)
+			  throw new Exception("Error Occured"); 
+		}
+		catch(Exception $e){  
+	       echo"Message:", $e->getMessage();  
+	    }
+		echo "Successfully created.....<br>";
+		   header("Location: /IS3-Online-Tutoring/src/public/home.php");
 		
 	?>
 

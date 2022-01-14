@@ -9,6 +9,14 @@ $getEnrolledQuery = "SELECT * FROM enroll WHERE CourseID= '$CourseID'";
         echo mysqli_errno($conn).": " .mysqli_error($conn);
 
 $result = $conn->query($getEnrolledQuery);
+try{
+    if (!$result){
+        throw new Exception("Error Occured"); 
+    }
+                
+}catch(Exception $e){  
+   echo"Message:", $e->getMessage();  
+}
 ?>
 <table border = 1>
 <tr>
@@ -28,6 +36,14 @@ while($row = $result->fetch_array(MYSQLI_ASSOC)) {
     if(!$conn->query($getRatedQuery))
         echo mysqli_errno($conn).": " .mysqli_error($conn);
     $return = $conn->query($getRatedQuery);
+    try{
+        if (!$return){
+            throw new Exception("Error Occured"); 
+        }
+                    
+    }catch(Exception $e){  
+       echo"Message:", $e->getMessage();  
+    }
     $row2 = $return->fetch_array(MYSQLI_ASSOC);
     
     echo "<tr>";

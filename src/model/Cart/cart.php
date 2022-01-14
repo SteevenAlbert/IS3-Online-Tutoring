@@ -10,11 +10,24 @@ $query1="SELECT c1.title, c2.CourseID FROM courses c1,cartcourses c2 WHERE c2.Co
 $query2="SELECT SUM(price) FROM courses c1,cartcourses c2 WHERE c2.CourseID=c1.CourseID AND c2.UserID='$user'";
 $result1=mysqli_query($conn,$query1);
 $result2=mysqli_query($conn,$query2);
+try{
+    if (!$result1){
+        throw new Exception("Error Occured"); 
+    }
+                
+}catch(Exception $e){  
+   echo"Message:", $e->getMessage();  
+}
 
 
-if(!$result1)
-    echo"fatal error in executing the query <br>";
-
+try{
+    if (!$result2){
+        throw new Exception("Error Occured"); 
+    }
+                
+}catch(Exception $e){  
+   echo"Message:", $e->getMessage();  
+}
 
 echo "<table border=1>     
   <th>Course Title</th> 
@@ -39,6 +52,23 @@ function Remove($conn) {
     $sql2= "DELETE FROM ordercourses WHERE CourseID=".$get_id;
     $result_sql1=mysqli_query($conn,$sql1);
     $result_sql2=mysqli_query($conn,$sql2);
+    try{
+        if (!$result_sql1){
+            throw new Exception("Error Occured"); 
+        }
+                    
+    }catch(Exception $e){  
+       echo"Message:", $e->getMessage();  
+    }
+
+    try{
+        if (!$result_sql2){
+            throw new Exception("Error Occured"); 
+        }
+                    
+    }catch(Exception $e){  
+       echo"Message:", $e->getMessage();  
+    }
 }
 
 if (isset($_GET["id"])) {

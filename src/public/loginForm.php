@@ -42,10 +42,11 @@
     
     
     Not a member?
-    <a href="RegisterForm.php">REGISTER HERE</a>
+    <a href="RegisterForm.php?learner">REGISTER HERE</a>
     
     <br>
     Register as a tutor
-    <a href="TutorRegisterForm.php">TUTOR REGISTERATION</a>
+    <a href="RegisterForm.php?tutor">TUTOR REGISTERATION</a>
+
 </body>
 </html>

@@ -8,9 +8,15 @@ establishConnection();
 // Set read to true
 //-------------------------------------------- Set read to true --------------------------------------------
 $query = "UPDATE messages SET isRead = 1 WHERE fromUserID ='".$_GET['id']."'";
-    $result = $conn->query($query);
-    if (!$result)
-        die ("Query error. $query");
+$result = $conn->query($query);
+        try{
+            if (!$result){
+                throw new Exception("Error Occured"); 
+            }
+                        
+        }catch(Exception $e){  
+           echo"Message:", $e->getMessage();  
+        }
 
 // Send message
 //-------------------------------------------- Send message --------------------------------------------
@@ -19,16 +25,28 @@ if (isset($_POST['submit']))
     $text_msg = $conn->real_escape_string($_POST['message']);
     $query = "INSERT INTO messages(fromUserID, toUserID, text, date) VALUES ('".$_SESSION['UserID']."','".$_GET['id']."','".$text_msg."', now())";
     $result = $conn->query($query);
-    if (!$result)
-        die ("Query error. $query");
+    try{
+        if (!$result){
+            throw new Exception("Error Occured"); 
+        }
+                    
+    }catch(Exception $e){  
+       echo"Message:", $e->getMessage();  
+    }
 }
 
 // Get messages history
 //-------------------------------------------- Get messages history --------------------------------------------
 $query = "SELECT * FROM messages WHERE fromUserID = '".$_GET['id']."' OR toUserID = '".$_GET['id']."'";
 $result = $conn->query($query);
-if (!$result)
-    die ("Query error. $query");
+try{
+    if (!result_sql1){
+        throw new Exception("Error Occured"); 
+    }
+                
+}catch(Exception $e){  
+   echo"Message:", $e->getMessage();  
+}
 
 
 while($row = $result->fetch_array(MYSQLI_ASSOC))

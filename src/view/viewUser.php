@@ -21,12 +21,27 @@
 		//query for learners(profile picture)
 		$query = "SELECT u.*, l.profile_picture from users u, learners l where u.UserID = '".$_GET["id"]."' AND u.UserID=l.UserID";
 		$result = $conn->query($query);
+		try{
+			if (!$result){
+				throw new Exception("Error Occured"); 
+			}
+						
+		}catch(Exception $e){  
+		   echo"Message:", $e->getMessage();  
+		}
 
 		//query for admins
 		$query_admin = "SELECT * from users where UserID = '".$_GET["id"]."'";
 		$result_admin = $conn->query($query_admin);
 
-		if (!$result) die ("Fatal error in executing query $query");
+		try{
+			if (!$result_admin){
+				throw new Exception("Error Occured"); 
+			}
+						
+		}catch(Exception $e){  
+		   echo"Message:", $e->getMessage();  
+		}
 
 		//------------------------------ Display user info ---------------------------------------
 		while ($row = $result->fetch_array(MYSQLI_ASSOC))

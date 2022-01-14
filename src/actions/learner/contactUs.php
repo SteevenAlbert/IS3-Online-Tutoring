@@ -15,8 +15,10 @@ if (isset($_POST['submit']))
     $fileMove = move_uploaded_file($fileTempName, $target);
 
     // Insert file in Database if move was successful 
-    if(filterLink($_POST['link'])){
-        $_POST['link'] = filter_var($_POST['link'],FILTER_SANITIZE_URL);
+    if(!empty($_POST['link'])){
+        if(filterLink($_POST['link'])){
+            $_POST['link'] = filter_var($_POST['link'],FILTER_SANITIZE_URL);
+        }
     }
       $text_msg = $conn->real_escape_string($_POST['message']);
       
@@ -24,8 +26,14 @@ if (isset($_POST['submit']))
 
             $query = "INSERT INTO messages(fromUserID, text, link, file, isRead, date) VALUES ('".$_SESSION['UserID']."','$text_msg','".$_POST['link']."', '$fileName', 0, now())";
             $result = $conn->query($query);
-            if (!$result)
-                die ("Query error. $query");
+            try{
+                if (!$result){
+                    throw new Exception("Error Occured"); 
+                }
+                            
+            }catch(Exception $e){  
+               echo"Message:", $e->getMessage();  
+            }
         }
         else{
             $query = "INSERT INTO messages(fromUserID, text, link, isRead, date) VALUES ('".$_SESSION['UserID']."','$text_msg','".$_POST['link']."', 0, now())";
@@ -39,8 +47,14 @@ if (isset($_POST['submit']))
 //--------------------------------------------- Messages history ---------------------------------------------
 $query = "SELECT * FROM messages WHERE fromUserID = '".$_SESSION['UserID']."' OR toUserID = '".$_SESSION['UserID']."'";
 $result = $conn->query($query);
-if (!$result)
-    die ("Query error. $query");
+try{
+    if (!$result){
+        throw new Exception("Error Occured"); 
+    }
+                
+}catch(Exception $e){  
+   echo"Message:", $e->getMessage();  
+}
 
 while($row = $result->fetch_array(MYSQLI_ASSOC))
 {

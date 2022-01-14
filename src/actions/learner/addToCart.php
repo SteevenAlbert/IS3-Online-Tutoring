@@ -11,9 +11,13 @@ $course = $_GET['id'];
 $message1="Course already in cart";
 $checkInCart= "SELECT CourseID FROM cartcourses WHERE UserID='".$user."' AND CourseID=".$course;
 $result_checkCart = mysqli_query($conn,$checkInCart);
-
-if(!$result_checkCart){
-    die ("Error. $checkInCart");
+try{
+    if (!$result_checkCart){
+        throw new Exception("Error Occured"); 
+    }
+                
+}catch(Exception $e){  
+   echo"Message:", $e->getMessage();  
 }
 
 $row1 = mysqli_num_rows($result_checkCart);
@@ -26,8 +30,13 @@ if($row1!=0){
 $message2="You are already enrolled in this course";
 $checkInEnroll= "SELECT CourseID FROM enroll WHERE UserID='$user' AND CourseID=".$course;
 $result_checkEnroll = mysqli_query($conn,$checkInEnroll);
-if(!$result_checkEnroll){
-    die ("Error. $checkInEnroll");
+try{
+    if (!$result_checkEnroll){
+        throw new Exception("Error Occured"); 
+    }
+                
+}catch(Exception $e){  
+   echo"Message:", $e->getMessage();  
 }
 
 $row2 = mysqli_num_rows($result_checkEnroll);
@@ -39,8 +48,13 @@ else{
     VALUES ('".$user."','".$course."')";
 
     $result_insertCart = mysqli_query($conn,$insertCartQuery);
-    if(!$result_insertCart){
-        die ("Error. $insertCartQuery");
+    try{
+        if (!$result_insertCart){
+            throw new Exception("Error Occured"); 
+        }
+                    
+    }catch(Exception $e){  
+       echo"Message:", $e->getMessage();  
     }
     header("Location:/IS3-Online-Tutoring/src/view/viewApprovedCourses.php");
 }

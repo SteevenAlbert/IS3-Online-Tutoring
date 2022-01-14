@@ -13,8 +13,14 @@
 //---------------------------------- Show Course Details ----------------------------------
  $getCoursesQuery = "SELECT * FROM courses WHERE CourseID=".$_GET["id"];
  $result = $conn->query($getCoursesQuery);
- if (!$result)
- die ("Query error. $getUserQuery");
+ try{
+  if (!$result){
+      throw new Exception("Error Occured"); 
+  }
+              
+}catch(Exception $e){  
+ echo"Message:", $e->getMessage();  
+}
 
  $row = $result->fetch_array(MYSQLI_ASSOC)
 ?>
@@ -31,8 +37,14 @@
   if(isset($_SESSION['UserID'])){
   $Query_enroll="SELECT * FROM enroll WHERE courseID=".$_GET['id']." AND UserID=".$_SESSION['UserID'];
    $result_Query=$conn->query($Query_enroll);
-   if(!$result_Query){
-    die ("Error. $Query_enroll");
+   try{
+    if (!$result_Query){
+        throw new Exception("Error Occured"); 
+    }
+                
+}catch(Exception $e){  
+   echo"Message:", $e->getMessage();  
+}
   }
   
 ?>
@@ -61,7 +73,7 @@
   </div>
 </div>
 </form>
-<?php } } }?>
+<?php  } }?>
 
 <!------------------------------------ Course Overview  --------------------------------------->
 <h2>Course Overview</h2>
@@ -71,6 +83,14 @@
        echo mysqli_errno($conn).": " .mysqli_error($conn);
        else{
            $result = $conn->query($query);
+           try{
+            if (!$result){
+                throw new Exception("Error Occured"); 
+            }
+                        
+        }catch(Exception $e){  
+           echo"Message:", $e->getMessage();  
+        }
            $row =  $result->fetch_array(MYSQLI_ASSOC);
        }
   ?>
@@ -84,6 +104,14 @@
     if(!$conn->query($query))
         echo mysqli_errno($conn).": " .mysqli_error($conn);
     $result = $conn->query($query);
+    try{
+      if (!$result){
+          throw new Exception("Error Occured"); 
+      }
+                  
+  }catch(Exception $e){  
+     echo"Message:", $e->getMessage();  
+  }
     $chaptersCount=0;
     while($row =$result->fetch_array(MYSQLI_ASSOC)){
         $chaptersCount+=1;
@@ -98,8 +126,15 @@
   $reviewsRating = array_fill(1,5,0);
   $getReviewsQuery = "SELECT * FROM ratings WHERE courseID=".$_GET["id"];
   $reviews = $conn->query($getReviewsQuery);
-  if (!$reviews)
-    die ("Query error. $getReviewsQuery");
+
+try{
+    if (!$result){
+        throw new Exception("Error Occured"); 
+    }
+                
+}catch(Exception $e){  
+   echo"Message:", $e->getMessage();  
+}
     $reviewCount=0;
     $reviewsTotal=0;
   while($review= $reviews->fetch_array(MYSQLI_ASSOC)){
@@ -142,8 +177,14 @@
   //--------------------------------------- Show Individual Reviews -----------------------------------------*/
     $getCoursesQuery = "SELECT r.*,u.Username FROM ratings r, users u WHERE r.userID=u.userID AND CourseID=".$_GET["id"];
     $result = $conn->query($getCoursesQuery);
-    if (!$result)
-       die ("Query error. $getCoursesQuery");
+    try{
+      if (!$result){
+          throw new Exception("Error Occured"); 
+      }
+                  
+  }catch(Exception $e){  
+     echo"Message:", $e->getMessage();  
+  }
     while($row= $result->fetch_array(MYSQLI_ASSOC)){
       echo "<b>".$row['Username']."</b><br>";
       $name=$row['UserID'];

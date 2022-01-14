@@ -36,10 +36,15 @@
 
 //------------------------------ Display current tutor pending courses ------------------------------
  echo "<h3 class='title'>Pending Courses</h3>";
- if (!$result){
-    die ("Query error. $getUserQuery");
+ try{
+    if (!$result){
+        throw new Exception("Error Occured"); 
+    }
+                
+}catch(Exception $e){  
+   echo"Message:", $e->getMessage();  
 }
-else {
+
     while($row = $result->fetch_assoc()) {
         displayCourse($row);
         ?>
@@ -52,14 +57,18 @@ else {
         </div>
         <?php
     }
-}
 
  //------------------------------ Display current tutor approved courses ------------------------------
 echo "<h3 class='title'>Approved Courses</h3>";
-if (!$result2){
-    die ("Query error. $getUserQuery");
+try{
+    if (!$result){
+        throw new Exception("Error Occured"); 
+    }
+                
+}catch(Exception $e){  
+   echo"Message:", $e->getMessage();  
 }
-else {
+
     while($row = $result2->fetch_assoc()) {
         displayCourse($row);
         ?>
@@ -74,7 +83,7 @@ else {
         </div>
         <?php
     }
-}
+
 
 function displayCourse($row)
 {

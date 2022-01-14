@@ -16,16 +16,17 @@ if(isset($_POST["UserName"], $_POST["Password"],$_POST['Fname'],$_POST['LName'],
     $Country = $_POST['Country'];
     $Birthdate = $_POST['BOD'];
     $UserType = $_POST['UserType'];
+    $profileImageName = time() .'_'.$_FILES['profileImage']['name'];
+    $TempImageName = $_FILES['profileImage']['tmp_name'];
+    $target='/xampp/htdocs/IS3-Online-Tutoring/uploads/profile_pictures/'.$profileImageName;
+    $result = move_uploaded_file($TempImageName, $target);
 
-    if ($UserType == 'Learner'){
-        $profileImageName = time() .'_'.$_FILES['profileImage']['name'];
-        $TempImageName = $_FILES['profileImage']['tmp_name'];
-
-        $target='/xampp/htdocs/IS3-Online-Tutoring/uploads/profile_pictures/'.$profileImageName;
+    if($fileType=="jpg" || $fileType=="jpeg" || $fileType=="png"){
         $result = move_uploaded_file($TempImageName, $target);
     }
     else
     {
+        echo "Only JPG, JPEG & PNG files are allowed <br>";      
         $result = false;
     }
 
@@ -36,25 +37,18 @@ if(isset($_POST["UserName"], $_POST["Password"],$_POST['Fname'],$_POST['LName'],
     if(filterEmail($Email)){
         $Email= filter_var($Email,FILTER_SANITIZE_EMAIL);
     if($result){
-        echo "Image Uploaded Successfully\n"; 
+        echo "Image Uploaded Successfully<br>"; 
         $query = "INSERT INTO users (Username, Password, FirstName, LastName, Email, PhoneNumber, Country, Birthdate, UserType)
         VALUES ('$UserName', '$Password', '$Fname','$LName', '$Email', '$PhoneNo', '$Country', '$Birthdate', '$UserType')";
         $query2 = true;
     }else{
-         echo "Image Upload Failed\n";
+         echo "Image Upload Failed<br>";      
         $query = "INSERT INTO users (Username, Password, FirstName, LastName, Email, PhoneNumber, Country, Birthdate, UserType)
         VALUES ('$UserName', '$Password', '$Fname','$LName', '$Email', '$PhoneNo', '$Country', '$Birthdate', '$UserType')";
+        trigger_error("user tried to upload wrong file format", E_USER_WARNING);
         $query2 = false;
     }   
     
-    
-if($UserType == "Learner"){
-    $query2 = "INSERT INTO learners (Username) VALUES ('$UserName')";
-}else{
-    $query2 = "INSERT INTO tutors (Username) VALUES ('$UserName')";
-}
-
-
 
 if(!$conn->query($query))
 {
@@ -75,10 +69,16 @@ else{
 
     if ($query2)
     {
-        $query2 = "INSERT INTO learners (UserID, profile_picture) VALUES ('$UserID','$profileImageName')"; 
+        if($UserType=="Learner")
+           $query2 = "INSERT INTO learners (UserID, profile_picture) VALUES ('$UserID','$profileImageName')"; 
+        else
+           $query2 = "INSERT INTO tutors (UserID, profile_picture) VALUES ('$UserID','$profileImageName')";
     }
     else{
-        $query2 = "INSERT INTO tutors (UserID) VALUES ('$UserID')";
+        if($UserType=="Learner")
+           $query2 = "INSERT INTO learners (UserID) VALUES ('$UserID')";
+        else
+          $query2 = "INSERT INTO tutors (UserID) VALUES ('$UserID')";
     }
 
     if (!$conn->query($query2))

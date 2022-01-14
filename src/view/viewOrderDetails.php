@@ -9,6 +9,7 @@ $get_id=$_GET['id'];
 $query = "SELECT * FROM ORDERS WHERE OrderID = ".$get_id;
 $order =$conn->query($query);
 
+
 while ($row = $order->fetch_array(MYSQLI_ASSOC))
 {
   // Get order info
@@ -23,8 +24,14 @@ while ($row = $order->fetch_array(MYSQLI_ASSOC))
   WHERE o.CourseID = c.CourseID AND o.orderID =".$row["orderID"];
   $orderResult =$GLOBALS['conn']->query($getOrderQuery);
 
-  if (!$orderResult)
-  die("Cannot process query $getOrderID");
+  try{
+    if (!$result){
+        throw new Exception("Error Occured"); 
+    }
+                
+}catch(Exception $e){  
+   echo"Message:", $e->getMessage();  
+}
 
   echo "<table border = 1>";
   echo "<tr> <th> Code </th>  <th> Title </th>  <th> Category </th>   
