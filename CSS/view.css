@@ -1,0 +1,9 @@
+table {
+    text-align: center;
+    margin-top: 50px;
+}
+th{
+    text-align: center;
+}
+
+table td + td { border-left:1px solid rgb(194, 191, 191); }
