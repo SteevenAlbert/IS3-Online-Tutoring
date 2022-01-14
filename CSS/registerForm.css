@@ -1,0 +1,77 @@
+
+body {
+    background-color: rgb(255, 255, 255);
+  }
+#register{
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 50px;
+    opacity:0.8;
+    text-align: center;
+}
+#register label,h1{
+    color: #fff;
+}
+#centerForm{
+    position: absolute;
+    left: 57%;
+    top: 10%;
+}
+#centerLoginForm{
+    position: absolute;
+    left: 70%;
+    top: 30%;
+}
+#centerFormAdmin{
+    position: absolute;
+    left: 20%;
+}
+#learnerImage{
+    position: absolute;
+    top: 100px;
+    left: 5%;
+    -webkit-transform: scaleX(-1.2);
+    transform: scaleX(-1.2);
+}
+#tutorsImage{
+    position: absolute;
+    top: 100px;
+    left: 2%;
+}
+#adminImage{
+    position: absolute;
+    top: 100px;
+    left: 2%;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+#loginImage{
+    position: absolute;
+    top: 100px;
+    left:15%;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+#submit{
+    background-color: #2596be;
+}
+#submit:hover{
+    background-color: #01073b;
+}
+.icon-color{
+    margin-top:-11% ;
+    padding-left:90%;
+    font-size: 18px;
+    color: #2596be;
+}
+.emailIcon-color{
+    margin-top:-5% ;
+    padding-left:95%;
+    font-size: 18px;
+    color: #2596be;
+}
+#profileDisplay {
+    display: block;
+    margin: 10px auto;
+    border-radius: 50%;
+}
