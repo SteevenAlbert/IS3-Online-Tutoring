@@ -125,8 +125,14 @@ $result = $conn->query($getCoursesQuery);
                             <a href="/IS3-Online-Tutoring/src/view/viewCourseDetails.php?id=<?php echo $row['CourseID']?>" class="block-20 d-flex align-items-start" style="background-image: url(<?php echo $thumbnail ?>);">
                             </div></a>
                             
-                            <a href=home.php?id=<?php echo $row['CourseID']?>><button class="btn-primary button" ><i class="fas fa-shopping-cart icon"></i>Add To Cart</button></a>
-              
+                            <?php 
+                            if(isset($_SESSION['UserType'])){
+                                if($_SESSION['UserType']=="Learner"){?>
+                                    <a href=home.php?id=<?php echo $row['CourseID']?>><button class="btn-primary button" ><i class="fas fa-shopping-cart icon"></i>Add To Cart</button></a>
+                            <?php } 
+                                }else{?>
+                                    <a href=/IS3-Online-Tutoring/src/public/loginForm.php><button class="btn-primary button" ><i class="fas fa-shopping-cart icon"></i>Add To Cart</button></a>
+                            <?php } ?>
                             <?php displayCourse($row); ?>    
                     </div>
                 <?php } ?>

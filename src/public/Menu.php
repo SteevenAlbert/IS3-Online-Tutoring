@@ -43,7 +43,7 @@
                                         <ul class="dropdown-menu dropdown-menu-custom" role="menu" aria-labelledby="imageDropdown">
                                             <h3> <?php echo $_SESSION['FirstName'] ." ". $_SESSION['LastName'] ?> </h3>
                                             <li role="presentation" class="divider"></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">My Profile</a></li>   
+                                         
                                             <li role="presentation"><a role="menuitem" tabindex="-1" href="/<?php echo $root ?>/src/model/user/editProfile.php">Edit Profile</a></li>       
                                             <li role="presentation" class="divider"></li>
                                             <li role="presentation"><a role="menuitem" tabindex="-1" href="/<?php echo $root ?>/src/actions/learner/contactUs.php">Contact Us</a></li>
@@ -81,8 +81,7 @@
                                         <img class="dropdown-toggle dropdown-toggle-custom" src="/<?php echo $root?>/uploads/profile_pictures/<?php echo $_SESSION['PP'] ?>" alt="dropdown image" data-toggle="dropdown" class="img-responsive">
                                         <ul class="dropdown-menu dropdown-menu-custom" role="menu" aria-labelledby="imageDropdown">
                                             <h3> <?php echo $_SESSION['FirstName'] ." ". $_SESSION['LastName'] ?> </h3>
-                                            <li role="presentation" class="divider"></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">My Profile</a></li>   
+                                            <li role="presentation" class="divider"></li> 
                                             <li role="presentation"><a role="menuitem" tabindex="-1" href="/<?php echo $root ?>/src/model/user/editProfile.php">Edit Profile</a></li>
                                             <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Sent Notifications</a></li>         
                                             <li role="presentation" class="divider"></li>
@@ -133,8 +132,7 @@
                                       
                                         <ul class="dropdown-menu dropdown-menu-custom" role="menu" aria-labelledby="imageDropdown">
                                             <h3> <?php echo $_SESSION['FirstName'] ." ". $_SESSION['LastName'] ?> </h3>
-                                            <li role="presentation" class="divider"></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">My Profile</a></li>   
+                                            <li role="presentation" class="divider"></li>  
                                             <li role="presentation"><a role="menuitem" tabindex="-1" href="/<?php echo $root ?>/src/model/user/editProfile.php">Edit Profile</a></li>
                                             <li role="presentation" class="divider"></li>
                                             <li role="presentation"><a role="menuitem" tabindex="-1" href="/<?php echo $root ?>/src/model/Course/addCourse.php">Add Course</a></li>   
@@ -195,8 +193,7 @@
                             <ul class="nav navbar-nav navbar-right">
                           
                                 <li> <a href="/<?php echo $root ?>/src/view/viewAuditorMessagesList.php">Messages</a> </li>
-                                <li> <a href="/<?php echo $root ?>/src/view/viewStatistics.php">Statistics</a> </li>
-                              
+                             
                                 <li>
                                     <div class="dropdown">
                                             <button class="btn btn-custom btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" >   
@@ -205,18 +202,8 @@
                                       
                                         <ul class="dropdown-menu dropdown-menu-custom" role="menu" aria-labelledby="imageDropdown">
                                             <h3> <?php echo $_SESSION['FirstName'] ." ". $_SESSION['LastName'] ?> </h3>
-                                            <li role="presentation" class="divider"></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">My Profile</a></li>   
+                                            <li role="presentation" class="divider"></li>  
                                             <li role="presentation"><a role="menuitem" tabindex="-1" href="/<?php echo $root ?>/src/model/user/editProfile.php">Edit Profile</a></li>
-                                            <li role="presentation" class="divider"></li>
-
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="/<?php echo $root ?>/src/view/viewApprovedCourses.php">View Approved Courses</a></li>
-                 
-                                            <li role="presentation" class="divider"></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="/<?php echo $root ?>/src/model/User/Adminstrator/createAdministrator.php">Create Adminstrator</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="/<?php echo $root ?>/src/view/ViewAdministrators.php">View Adminstrators</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="/<?php echo $root ?>/src/view/ViewLearners.php">View Learners</a></li>
-                                           
                                             <li role="presentation" class="divider"></li>
                                             <li role="presentation"><a role="menuitem" tabindex="-1" href="/<?php echo $root ?>/src/public/logout.php">Logout</a></li>
                                         </ul>

@@ -79,7 +79,7 @@
      }
 
      function toggleButton(){
-         if($usernameValid==true && $passValid==true && $passMatch==true){
+         if(true){
             document.getElementById("submit").disabled = false;
         }else{
             document.getElementById("submit").disabled = true;

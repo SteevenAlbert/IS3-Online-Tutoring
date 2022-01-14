@@ -14,6 +14,49 @@
 <link rel="stylesheet" href="../../CSS/courses.css" type="text/css">
 <link rel="stylesheet" href="../../CSS/ratings.css" type="text/css">
 <link rel="stylesheet" href="../../CSS/courseDetails.css" type="text/css">
+
+
+<script>
+        $(document).ready(function(){
+        $("#submit").click(function(e){
+            e.preventDefault();
+            var CourseID = <?php echo $_GET["id"]; ?>;
+            var UserID = <?php echo $_SESSION['UserID'];?>;
+            var review = $("#review").val().trim();
+            var rating = "";
+            var selected = $("input[type='radio'][name='rating']:checked");
+            if (selected.length > 0) {
+                rating = selected.val();
+            }
+            if(rating != ""){
+                $.ajax({
+                    url:'/IS3-Online-Tutoring/lib/ajax/checkReviews.php',
+                    type:'post',
+                    data:{UserID:UserID,CourseID:CourseID,rating:rating,review:review},
+                    success:function(response){
+                        var msg = response;     
+                        $("#message").html(response);
+                        if(response==="success"){
+                            window.location = "viewCourseDetails.php?id=" + CourseID;
+                        }else{
+                          ShowAlert("Ops!", "You Already Reviewed This Course.", "warning");
+                        }
+                    }
+             
+                });
+            }
+        });
+    });
+
+    function ShowAlert(msg_title, msg_body, msg_type) {
+      var AlertMsg = $('div[role="alert"]');
+      $(AlertMsg).find('strong').html(msg_title);
+      $(AlertMsg).find('p').html(msg_body);
+      $(AlertMsg).removeAttr('class');
+      $(AlertMsg).addClass('alert alert-' + msg_type);
+      $(AlertMsg).show();
+  }
+</script>
 </head>
 <body>
 
@@ -60,15 +103,24 @@ $GLOBALS['conn'] = $conn;
         <h5> <?php echo "Created By: <b>" . getUsername($row['CreatedBy']) ?></b></h5>
     </div>
   </div>
-
+  <div id="message"></div>
+  <!--Hovering Course Card-->
   <div class="card card-custom">
     <video class="card-img-top" src="/IS3-Online-Tutoring/resources/CoursesContent/Videos/<?php echo $row['Overview']?>" autoplay controls> </video>
       <div class="card-section1">
         <h1 class="card-title"><?php echo "E£".$row['Price']?></h1>
         <div class="card-body text-center">
-        <form action = '' method = 'post'>
-        <input type =submit name = "AddToCart"value = "Add To Cart" class="card-button">
-        </form>
+        
+          <?php
+        if(isset($_SESSION['UserType'])){
+            if($_SESSION['UserType']=="Learner"){?>
+             <form action = '' method = 'post'>
+                <input type =submit name = "AddToCart" value = "Add To Cart" class="card-button">
+            </form>     
+            <?php } 
+              }else{?>
+                  <a href=/IS3-Online-Tutoring/src/public/loginForm.php?id=<?php echo $row['CourseID']?>><button class="card-button" >Add To Cart</button></a>
+              <?php } ?>
         <a href=""><button class="card-button" id="card-button2" >View Reviews</button></a>
         <p class="card-text">30-Day Money-Back Guarantee</p>
       </div>
@@ -117,7 +169,7 @@ $GLOBALS['conn'] = $conn;
   ?>
 
 
-<!---------SHOW REVIEWS----->
+    <!---------SHOW REVIEWS----->
     <h2> Reviews </h2>
     <?php for($j=5; $j>=1; $j--){
       echo "<div class=showGeneralRating>";
@@ -147,7 +199,7 @@ $GLOBALS['conn'] = $conn;
            echo "<h4> Leave a Review </h4>";
          if($_SESSION['UserType']=="Learner"){
           ?>
-      <form method ="post" action = "">
+      <form method ="post">
         <div class="feedback">
           <div class="rating">
             <input type="radio" name="rating" value=5 id="rating-05" >
@@ -162,13 +214,16 @@ $GLOBALS['conn'] = $conn;
             <label for="rating-01"></label>
           </div>  
           <textarea class="review" id="review" name ="review" value="review"></textarea>
-          <input type='submit' class="card-button" value="submit">
+          <input type='button' class="card-button" name="submit" id="submit" value="submit">
         </div>
       </form>
 
           <?php } }  }?>
 
-
+          <div class="alert alert-dismissible" role="alert" style="display:none;">
+            <strong>Warning!</strong> 
+            <p>Better check yourself, you're not looking too good.</p>
+          </div>
             <div class="individual-reviews">
         <?php
         //--------------------------------------- Show Individual Reviews -----------------------------------------*/
@@ -211,21 +266,8 @@ $GLOBALS['conn'] = $conn;
 <!----------------------------------------- SUBMIT REVIEW ----------------------------------------->
 <?php
 
-if(isset($_POST['rating'])){
-  
-  $review = $conn->real_escape_string($_POST["review"]);
 
-  $submitReviewQuery = "INSERT INTO ratings (CourseID, UserID, rating, review, date)
-  VALUES ('".$_GET["id"]."', '".$_SESSION["UserID"]."','".$_POST["rating"]."','$review', now())";
-  
-  if(!$conn->query($submitReviewQuery))
-    echo mysqli_errno($conn).": " .mysqli_error($conn);
-
- // header('Location: /IS3-Online-Tutoring/src/view/viewCourseDetails.php?id='.$_GET['id']);
-}
 ?>
-
-
 </div>
 </body>
 </html>
