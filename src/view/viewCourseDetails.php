@@ -125,7 +125,6 @@ $GLOBALS['conn'] = $conn;
       echo "</div>";  
       } ?>
 
-        <h4> Leave a Review </h4>
         <!------------------------------------ REVIEW FORM --------------------------------------->
       <?php
         if(isset($_SESSION['UserID'])){
@@ -133,10 +132,13 @@ $GLOBALS['conn'] = $conn;
         $result_Query=$conn->query($Query_enroll);
         if(!$result_Query){
           die ("Error. $Query_enroll");
-        }
-        
-      ?>
-        <?php if($_SESSION['UserType']=="Learner"){?>
+        } 
+ 
+        $row = mysqli_num_rows($result_Query);
+        if($row!=0){      
+           echo "<h4> Leave a Review </h4>";
+         if($_SESSION['UserType']=="Learner"){
+          ?>
       <form method ="post" action = "">
         <div class="feedback">
           <div class="rating">
@@ -154,10 +156,9 @@ $GLOBALS['conn'] = $conn;
           <textarea class="review" id="review" name ="review" value="review"></textarea>
           <input type='submit' class="card-button" value="submit">
         </div>
-
       </form>
 
-          <?php }  }?>
+          <?php } }  }?>
 
 
             <div class="individual-reviews">
