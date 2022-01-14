@@ -22,11 +22,17 @@ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/Menu.php";
 include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
 establishConnection();
 
+isLearner();
+
 $GLOBALS['conn'] = $conn;
 $user = $_SESSION['UserID'];
 
+
+echo "<div class='title-section'>";
+echo "<h3 class='title'>My courses:</h3>";
+echo "</div>";
+
 //---------------------------- DISPLAY ENROLLED COURSES ---------------------------
-echo "<h3 class='title'>Your Courses</h3>";
 $query2="SELECT * FROM courses c, enroll e where e.CourseID=c.CourseID AND e.UserID='$user'";
 $result2=mysqli_query($conn,$query2);
 try{
@@ -44,8 +50,12 @@ while($row = $result2->fetch_array(MYSQLI_ASSOC)){
     </div></div>
 <?php 
 } 
+?>
 
+</div>
+</div>
 
+<?php
 //------------------------ FUNCTION TO DISPLAY A SINGLE COURSE ---------------------------
 function displayCourse($row)
 {

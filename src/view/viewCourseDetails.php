@@ -1,6 +1,22 @@
 <html>
 <head>
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<!-- Rating stars -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="../../CSS/ratings.css" type="text/css">
+
 </head>
 <body>
 
@@ -9,6 +25,7 @@
  include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/Menu.php";
  include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
  establishConnection();
+
 
 //---------------------------------- Show Course Details ----------------------------------
  $getCoursesQuery = "SELECT * FROM courses WHERE CourseID=".$_GET["id"];
@@ -34,24 +51,24 @@
 
 <?php
   
-  if(isset($_SESSION['UserID'])){
+if(isset($_SESSION['UserID'])){
+
   $Query_enroll="SELECT * FROM enroll WHERE courseID=".$_GET['id']." AND UserID=".$_SESSION['UserID'];
-   $result_Query=$conn->query($Query_enroll);
+  $result_Query=$conn->query($Query_enroll);
    try{
-    if (!$result_Query){
+      if (!$result_Query){
         throw new Exception("Error Occured"); 
+      }         
+    }catch(Exception $e){  
+      echo"Message:", $e->getMessage();  
     }
-                
-}catch(Exception $e){  
-   echo"Message:", $e->getMessage();  
-}
-  }
+
   
 ?>
 <?php 
   $row = mysqli_num_rows($result_Query);
   if($row!=0){
-   if($_SESSION['UserType']=="Learner"){
+    if($_SESSION['UserType']=="Learner"){
   ?>
 <form method ="post" action = "">
 <div class="container">
@@ -73,7 +90,7 @@
   </div>
 </div>
 </form>
-<?php  } }?>
+<?php  } } }?>
 
 <!------------------------------------ Course Overview  --------------------------------------->
 <h2>Course Overview</h2>

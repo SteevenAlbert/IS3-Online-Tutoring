@@ -1,0 +1,157 @@
+.incoming-msg{
+    background-color:  #E8F4FA;
+    border-radius: 20px;
+    border-top-left-radius: 0px;
+    width: fit-content;
+    height: fit-content;
+    margin-left: 0px;
+    margin-right: auto;
+    margin-bottom: 10px;
+    padding: 2%;
+}
+
+.outgoing-msg{
+    background-color:  #f7f7f7;
+    border-radius: 20px;
+    border-top-right-radius: 0px;
+    width: fit-content;
+    height: fit-content;
+    margin-left: auto;
+    margin-right: 0px;
+    margin-bottom: 10px;
+    padding: 2%;
+}
+
+.text-muted{
+    font-family: 'Sora', sans-serif;
+    font-weight: 500;
+    font-size:smaller;
+}
+
+.main-content{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+}
+
+.msg-content{
+    padding-bottom: 2%;
+}
+
+.msgs{
+  overflow-y: scroll;
+  height: 500px;
+  width: 800px;
+}
+
+.row{
+    max-width: 95%;
+    padding-left:2%;
+    padding-right:2%;
+}
+
+
+.btn-primary {
+    background-color: #2596be;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active{
+    background-color: #d3d3d3 !important;
+}
+
+.icon-btn{
+    width: 40px;
+    height: 40px;
+    align-content: center;
+    border-radius: 20%;
+}
+
+.form-control{
+    margin-bottom: 5px;
+}
+
+input[type=text].input-field, input[type=url].input-field {
+    width: 600px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+/* People List */
+
+.card {
+    background: #fff;
+    transition: .5s;
+    border: 0;
+    margin-bottom: 30px;
+    border-radius: .55rem;
+    position: relative;
+    width: 100%;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
+}
+
+
+.people-list {
+    -moz-transition: .5s;
+    -o-transition: .5s;
+    -webkit-transition: .5s;
+    transition: .5s
+}
+
+.people-list .chat-list li {
+    padding: 10px 15px;
+    list-style: none;
+    border-radius: 3px
+}
+
+.people-list .chat-list li:hover {
+    background: #efefef;
+    cursor: pointer
+}
+
+.people-list .chat-list li.active {
+    background: #efefef
+}
+
+.people-list .chat-list li .read-chat {
+    font-family: 'Sora', sans-serif;
+    font-weight: 300;
+    font-size:medium;
+    font-style: italic;
+}
+
+.people-list .chat-list li .unread-chat {
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size:medium;
+    text-decoration: underline;
+}
+
+
+
+.people-list .chat-list img {
+    width: 45px;
+    border-radius: 50%
+}
+
+.people-list img {
+    float: left;
+    border-radius: 50%
+}
+
+.people-list .about {
+    float: left;
+    padding-left: 8px
+}
+
+
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0
+}

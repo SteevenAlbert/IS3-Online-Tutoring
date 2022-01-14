@@ -23,6 +23,8 @@
  include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";;
  
  establishConnection();
+
+ isTutor();
  $GLOBALS['conn'] = $conn;
 
  //------------------------------ Get current tutor pending courses ------------------------------
@@ -35,7 +37,9 @@
 
 
 //------------------------------ Display current tutor pending courses ------------------------------
- echo "<h3 class='title'>Pending Courses</h3>";
+echo "<div class='title-section'>";
+echo "<h3 class='title'>Pending Courses:</h3>";
+echo "</div>";
  try{
     if (!$result){
         throw new Exception("Error Occured"); 
@@ -59,7 +63,9 @@
     }
 
  //------------------------------ Display current tutor approved courses ------------------------------
-echo "<h3 class='title'>Approved Courses</h3>";
+ echo "<div class='title-section'>";
+ echo "<h3 class='title'>Approved Courses:</h3>";
+ echo "</div>";
 try{
     if (!$result){
         throw new Exception("Error Occured"); 
