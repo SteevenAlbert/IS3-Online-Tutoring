@@ -23,21 +23,28 @@ isAdminOrTutor();
 
 ?>
 
+<div class = "col-lg-6">
+<img src="/IS3-Online-Tutoring/resources/images/books.png"  width="550" height="550">
+
+</div>
+
+<div class = "col-lg-4">
+
 <!-------------------------------------- Course Overview -------------------------------------->
 <form method ="post" action = "" enctype="multipart/form-data">
     <h2>Course Overview</h2>
     <input type="file" name="CourseOverview" id="CourseOverview"> <br> <br>
     <h2>Course Thumbnail</h2>
     <input type="file" name="Thumbnail" id="Thumbnail"> <br> <br>
-    <input type="submit" name="submit">
+    <input class="btn btn-primary" type="submit" name="submit" value = "Update">
 </form>
 <br>
 
 <!-------------------------------------- Course Thumbnail -------------------------------------->
 <form method="post">
     <h2>Chapters Contents</h2>
-    <input type="text" name="chapterTitle">
-    <input type="submit" name = "addChapter" value="Add Chapter">
+    <input class="form-control" type="text" name="chapterTitle">
+    <input class="btn btn-primary" type="submit" name = "addChapter" value="Add Chapter">
 </form>
 
 <!-------------------------------------- Display Chapters -------------------------------------->
@@ -51,7 +58,7 @@ isAdminOrTutor();
     while($row =$result->fetch_array(MYSQLI_ASSOC)){
         $chaptersCount+=1;
         $title=  $row['Title'];
-        echo "<a href=/IS3-Online-Tutoring/src/model/Course/Chapter/addChapterContent.php?id=$id&ch=$chaptersCount>Chapter $chaptersCount: $title </a>"; 
+        echo "<a  href=/IS3-Online-Tutoring/src/model/Course/Chapter/addChapterContent.php?id=$id&ch=$chaptersCount>Chapter $chaptersCount: $title </a>"; 
         echo "<br>";
     }
 
@@ -93,7 +100,7 @@ isAdminOrTutor();
                 else{
                     echo "Course Overview Updated\n"; 
                     echo "<br>";
-                    echo "<a href=/IS3-Online-Tutoring/src/public/home.php>CONTINUE</a>";
+                    echo "<a class='btn btn-primary' href=/IS3-Online-Tutoring/src/public/home.php>CONTINUE</a>";
                     unlink($deleteTarget);
                     move_uploaded_file($TempImageName, $target);
                 }
@@ -105,7 +112,7 @@ isAdminOrTutor();
                 else{
                     echo "Course Overview uploaded\n"; 
                     echo "<br>";
-                    echo "<a href=home.php>CONTINUE</a>";
+                    echo "<a class='btn btn-primary' href=home.php>CONTINUE</a>";
                     move_uploaded_file($TempImageName, $target);
                 }
             }
@@ -131,7 +138,7 @@ isAdminOrTutor();
             else{
                 echo "Thumbnail Overview Updated\n"; 
                 echo "<br>";
-                echo "<a href=home.php>CONTINUE</a>";
+                echo "<a class='btn btn-primary' href=home.php>CONTINUE</a>";
                 unlink($deleteTarget);
                 move_uploaded_file($TempImageName, $target);
             }
@@ -143,10 +150,12 @@ isAdminOrTutor();
             else{
                 echo "Thumbnail uploaded\n"; 
                 echo "<br>";
-                echo "<a href=home.php>CONTINUE</a>";
+                echo "<a class='btn btn-primary' href=home.php>CONTINUE</a>";
                 move_uploaded_file($TempImageName, $target);
             }
         }
     }
 }
 ?>
+
+</div>

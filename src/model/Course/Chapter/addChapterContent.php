@@ -30,17 +30,19 @@ if(!$conn->query($query))
     echo mysqli_errno($conn).": " .mysqli_error($conn);
 
 ?>
-<table border=1>
+<table class="table table-hover table-bordered">
+<thead>
     <tr>
-        <th> Title </th>
-        <th> Description </th>
-        <th> courseID </th>
-        <th> Chapter </th>
-        <th> resourceID </th>
-        <th> url </th>
-        <th> Edit </th>
-        <th> Delete </th>
+        <th class="text-center"> Title </th>
+        <th class="text-center"> Description </th>
+        <th class="text-center"> courseID </th>
+        <th class="text-center"> Chapter </th>
+        <th class="text-center"> resourceID </th>
+        <th class="text-center"> url </th>
+        <th class="text-center"> Edit </th>
+        <th class="text-center"> Delete </th>
     </tr>
+</thead>
 <?php
 $result = $conn->query($query);
 while($row= $result->fetch_array(MYSQLI_ASSOC)){
@@ -60,14 +62,20 @@ while($row= $result->fetch_array(MYSQLI_ASSOC)){
 ?>
 </table>
 
+<div class = "col-lg-6">
+<img src="/IS3-Online-Tutoring/resources/images/books.png"  width="550" height="550">
+
+</div>
+
+<div class = "col-lg-4">
 
 <!---------------------------ADD NEW CONTENT---------------------------->
 <form method ="post" action = "" enctype="multipart/form-data">
 <h2>Add Lesson</h2>
-Title:<br> <input type="text" name="videoTitle" id="videoTitle"> <br>
-Description:<br> <textarea rows=4 cols=20  name=description></textarea><br><br>
+Title:<br> <input class="form-control" type="text" name="videoTitle" id="videoTitle"> <br>
+Description:<br> <textarea class="form-control" rows=4 cols=20  name=description></textarea><br><br>
 <input type="file" name="Lesson" id="Lesson"> <br> <br>
-<input type="submit" name="addLesson" value="Upload">
+<input class="btn btn-primary" type="submit" name="addLesson" value="Upload">
 </form>
 
 
@@ -95,9 +103,11 @@ if(isset($_POST['addLesson'])){
 
 <form method="post">
 <h2>Add Document</h2>
-Title:<br> <input type="text" name="videoTitle" id="videoTitle"> <br>
-Description:<br> <textarea rows=4 cols=20  name=description></textarea><br><br>
+Title:<br> <input class="form-control" type="text" name="videoTitle" id="videoTitle"> <br>
+Description:<br> <textarea class="form-control" rows=4 cols=20  name=description></textarea><br><br>
 <input type="file" name="CourseOverview" id="CourseOverview"> <br> <br>
-<input type="submit" name="addDocument" value="Upload">
+<input class="btn btn-primary" type="submit" name="addDocument" value="Upload">
 <br>
 </form>
+
+</div>
