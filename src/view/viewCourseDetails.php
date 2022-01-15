@@ -46,6 +46,30 @@
                 });
             }
         });
+ 
+
+        $("#AddToCart").click(function(e){
+            e.preventDefault();
+            var CourseID = <?php echo $_GET["id"]; ?>;
+            var UserID = <?php echo $_SESSION['UserID'];?>;
+     
+            $.ajax({
+                url:'/IS3-Online-Tutoring/lib/ajax/addToCart.php',
+                type:'post',
+                data:{UserID:UserID,CourseID:CourseID},
+                success:function(response){
+                    var msg = response;     
+                    $("#message").html(response);
+                    if(response==="Success"){
+                        ShowAlert("Congrats!", "Course Added To Cart", "success");
+                    }else{
+                      ShowAlert("Ops!", response, "warning");
+                    }
+                }
+          
+            });
+          
+        });
     });
 
     function ShowAlert(msg_title, msg_body, msg_type) {
@@ -53,6 +77,7 @@
       $(AlertMsg).find('strong').html(msg_title);
       $(AlertMsg).find('p').html(msg_body);
       $(AlertMsg).removeAttr('class');
+      $(AlertMsg).addClass('alert-dismissible');
       $(AlertMsg).addClass('alert alert-' + msg_type);
       $(AlertMsg).show();
   }
@@ -62,12 +87,6 @@
 
 
 <?php
-//--------------------------------- ADD TO CART --------------------------------------
-if (isset($_POST['AddToCart']))
-{
-    addToCart($_SESSION['UserID'], $_GET['id']);
-}
-
 //---------------------------------- Show Course Details ----------------------------------
 $GLOBALS['conn'] = $conn;
 
@@ -103,7 +122,10 @@ $GLOBALS['conn'] = $conn;
         <h5> <?php echo "Created By: <b>" . getUsername($row['CreatedBy']) ?></b></h5>
     </div>
   </div>
-  <div id="message"></div>
+  <div class="alert" role="alert" style="display:none;">
+            <strong>Warning!</strong> 
+            <p>Better check yourself, you're not looking too good.</p>
+          </div>
   <!--Hovering Course Card-->
   <div class="card card-custom">
     <video class="card-img-top" src="/IS3-Online-Tutoring/resources/CoursesContent/Videos/<?php echo $row['Overview']?>" autoplay controls> </video>
@@ -115,11 +137,11 @@ $GLOBALS['conn'] = $conn;
         if(isset($_SESSION['UserType'])){
             if($_SESSION['UserType']=="Learner"){?>
              <form action = '' method = 'post'>
-                <input type =submit name = "AddToCart" value = "Add To Cart" class="card-button">
+                <input type =button name = "AddToCart" id="AddToCart" value = "Add To Cart" class="card-button">
             </form>     
             <?php } 
               }else{?>
-                  <a href=/IS3-Online-Tutoring/src/public/loginForm.php?id=<?php echo $row['CourseID']?>><button class="card-button" >Add To Cart</button></a>
+                  <a href=/IS3-Online-Tutoring/src/public/loginForm.php?>><button class="card-button" >Add To Cart</button></a>
               <?php } ?>
         <a href=""><button class="card-button" id="card-button2" >View Reviews</button></a>
         <p class="card-text">30-Day Money-Back Guarantee</p>
@@ -144,12 +166,20 @@ $GLOBALS['conn'] = $conn;
       if(!$conn->query($query))
           echo mysqli_errno($conn).": " .mysqli_error($conn);
       $result = $conn->query($query);
+      try{
+        if (!$result){
+            throw new Exception("Error Occured"); 
+        }
+                    
+    }catch(Exception $e){  
+       echo"Message:", $e->getMessage();  
+    }
       $chaptersCount=0;
       while($row =$result->fetch_array(MYSQLI_ASSOC)){
         $chaptersCount+=1;
         $title=  $row['Title'];
         echo "<li class='list-group-item list-group-item-action'>Chapter $chaptersCount: $title </a></li>"; 
-        }
+      }
     ?>
     </ul>
 
@@ -220,10 +250,7 @@ $GLOBALS['conn'] = $conn;
 
           <?php } }  }?>
 
-          <div class="alert alert-dismissible" role="alert" style="display:none;">
-            <strong>Warning!</strong> 
-            <p>Better check yourself, you're not looking too good.</p>
-          </div>
+       
             <div class="individual-reviews">
         <?php
         //--------------------------------------- Show Individual Reviews -----------------------------------------*/

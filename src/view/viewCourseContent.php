@@ -1,3 +1,14 @@
+
+<?php
+session_start();
+include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/Menu.php";
+include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
+establishConnection();
+
+isLearner();
+
+?>
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
@@ -12,16 +23,10 @@
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../CSS/courseContent.css" type="text/css">
 
 
 <?php
-session_start();
-include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/Menu.php";
-include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
-establishConnection();
-
-isLearner();
-
 $user=$_SESSION['UserID'];
 $id = $_GET['id'];
 $query = "SELECT * FROM enroll WHERE UserID ='$user' AND CourseID='$id'";
@@ -49,19 +54,28 @@ if($enrolled){
     }
 
     $row = $result->fetch_array(MYSQLI_ASSOC);
-
-    echo "<h1>".$row["Code"]." - ".$row["Title"]."</h1>" ;
-    echo "Level: <b>".$row["Level"]."</b>"."&nbsp&nbsp&nbsp&nbsp&nbsp Hours: <b>".$row["Hours"]."</b>";
-    echo "<p>".$row["Description"]."</p><br>"; 
-
-    echo "<h3>Chapters </h3>";
-    $courseID=$_GET['id'];
-    $query = "SELECT * FROM coursechapters WHERE courseID=".$_GET['id'];
-    if(!$conn->query($query))
-        echo mysqli_errno($conn).": " .mysqli_error($conn);
-
-    $result = $conn->query($query);
-    try{
+?>
+<div class="container-fluid">
+  <div class="Banner">
+    <div class="BannerElements">
+        <h1> <?php echo $row["Code"]." - ".$row["Title"] ?> </h1>
+        <h5> <?php echo "Difficulty: <b>" . $row['Level'] ?></b></h5>
+        <h3> <?php echo $row['Description']?> </h3>
+     
+        <h5> <?php echo "Created By: <b>" . getUsername($row['CreatedBy']) ?></b></h5>
+    </div>
+  </div>
+</div>
+    <div class="course-content">
+    <h2> Course Content </h2>
+    <ul class="list-group">
+    <?php
+      $id = $_GET["id"];
+      $query = "SELECT * FROM coursechapters WHERE CourseID = '$id'";
+      if(!$conn->query($query))
+          echo mysqli_errno($conn).": " .mysqli_error($conn);
+      $result = $conn->query($query);
+      try{
         if (!$result){
             throw new Exception("Error Occured"); 
         }
@@ -69,12 +83,15 @@ if($enrolled){
     }catch(Exception $e){  
        echo"Message:", $e->getMessage();  
     }
-    while($row =$result->fetch_array(MYSQLI_ASSOC)){
-        $title= $row['Title'];
-        $chapterID= $row['chapter'];
-        echo "<a href=viewChapterContent.php?id=$courseID&ch=$chapterID>Chapter $chapterID: $title </a> <br>"; 
-        echo "<br>";
-    }
+      $chaptersCount=0;
+      while($row =$result->fetch_array(MYSQLI_ASSOC)){
+        $chaptersCount+=1;
+        $title=  $row['Title'];
+        echo "<li class='list-group-item list-group-item-action'>Chapter $chaptersCount: $title </a></li>"; 
+      }
+    ?>
+    </ul>
+<?php
 }else{
     echo "<h2>Sorry, You have to be enrolled in this course to view this page</h2>";
 }

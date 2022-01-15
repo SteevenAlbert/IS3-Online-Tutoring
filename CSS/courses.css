@@ -97,13 +97,13 @@
     background-color: #2596be;
     width: 200px;
     border: 0;
-    margin:5px;
+    margin-top: 5px;
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active{
     background-color: #d3d3d3 !important;
     width: 200px;
-    margin:5px;
+    margin-top: 5px;
 }
 
 .deletebtn{

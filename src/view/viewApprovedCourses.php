@@ -42,6 +42,40 @@ if (isset($_POST['Filter']))
         $GLOBALS['maxHours'] = $_POST['hours'];
 }
 ?>
+<script>
+function addToCart(courseID){
+        var CourseID = courseID;
+        var UserID = <?php echo $_SESSION['UserID'];?>;
+
+        $.ajax({
+            url:'/IS3-Online-Tutoring/lib/ajax/addToCart.php',
+            type:'post',
+            data:{UserID:UserID,CourseID:CourseID},
+            success:function(response){
+                var msg = response;     
+                $("#message").html(response);
+                if(response==="Success"){
+                    ShowAlert("Congrats!", "Course Added To Cart", "success");
+                }else{
+                    ShowAlert("Ops!", response, "warning");
+                }
+            }
+        });
+    }
+
+    function ShowAlert(msg_title, msg_body, msg_type) {
+      var AlertMsg = $('div[role="alert"]');
+      $(AlertMsg).find('strong').html(msg_title);
+      $(AlertMsg).find('p').html(msg_body);
+      $(AlertMsg).removeAttr('class');
+      $(AlertMsg).addClass('alert-dismissible');
+      $(AlertMsg).addClass('alert alert-' + msg_type);
+      $(AlertMsg).show();
+  }
+</script>
+
+
+
 
 
 <div class='title-section'>
@@ -84,6 +118,10 @@ if (isset($_POST['Filter']))
         <input  name='Filter' type='submit' class='btn btn-primary whitebtn' value ='Filter'>
 
 </form>
+<div class="alert" role="alert" style="display:none;">
+<strong>Warning!</strong> 
+<p>Better check yourself, you're not looking too good.</p>
+</div>
 </div>
 
  <!-- Main content -->
@@ -122,7 +160,7 @@ else if($_SESSION["UserType"]=="Learner"){
         {
         displayCourse($row, $averageRating, $reviewCount);
         ?>
-        <a href=viewApprovedCourses.php?id=<?php echo $row['CourseID']?> class="btn btn-primary"><i class="fas fa-shopping-cart icon"></i>Add To Cart</a>
+        <button onclick="addToCart(<?php echo $row['CourseID']?>)" class="btn btn-primary"><i class="fas fa-shopping-cart icon"></i>Add To Cart</button>
         </div></div></div>
     <?php
         }
@@ -238,18 +276,10 @@ function displayCourse($row, $averageRating, $reviewCount)
                     echo "<small class='text-muted'> <br><br>($reviewCount reviews)</small>";?>
                 </h5>
 
-
+         
     <?php
-    
 }
-
-//------------------------------ ADD TO CART -----------------------------
-if (isset($_GET['id']))
-{
-    addToCart($_SESSION['UserID'], $_GET['id']);
-}
-
-?>
+?>       
 
 </div>
 </div>

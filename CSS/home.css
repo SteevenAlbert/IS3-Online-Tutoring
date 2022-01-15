@@ -3,6 +3,9 @@ html, body {
     width: 100%;
     margin:0; /* new */
 }
+.container{
+    margin-top: -80px;
+}
 .container-fluid{
     padding: 0 !important;
 }
@@ -11,7 +14,6 @@ html, body {
     width: 100%;
     background-color: #ececf4;
     z-index: -2;
-    
 }
 
 .services{

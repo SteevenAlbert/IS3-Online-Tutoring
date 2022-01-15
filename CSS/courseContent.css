@@ -1,0 +1,175 @@
+.container-fluid{
+    padding: 0 !important;
+}
+h1 { 
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    width: 100%;
+    height: 40px;
+    color:white;
+ }
+h3{
+    color:white;
+    font-family: 'poppins';
+    font-weight: 200;
+    font-size: 20px;
+}
+h4{
+    font-family: 'poppins', sans-serif;
+    font-weight: 700;
+    width: 100%;
+    height: 40px;
+    color:black;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: -10px;
+ }
+
+h5{
+    color:white;
+    font-family: 'poppins';
+    font-weight: 200;
+}
+
+
+
+.Banner{
+    position: relative;
+    width: 100%;
+    height: 400px;
+    background-color: #1c1c1c;
+    padding:60px;
+    padding-left:300px ;
+    margin-top: -5px;
+}
+
+.BannerElements{
+    position: relative;
+    height:max-content;
+    width: 40%;
+}
+
+.BannerElements >h4{
+   margin-bottom: 20px;
+}
+
+
+.course-content{
+    width:1000px;
+    padding-left: 300px;
+}
+.course-content > h2{
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    width: 100%;
+    height: 40px;
+    color:rgb(54, 54, 54);
+}
+
+.card-custom2{
+    box-shadow: 0 4px 30px rgba(0,0,0,.05);
+    padding:25px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    width: 500px;
+}
+.card>h3{
+    color: black;
+    font-size: 14px;
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+}
+.card>h5{
+    color: black;
+    
+}
+.card-custom{
+    position:fixed;
+    top:150px;
+    right:100px;
+    box-shadow: 0 4px 30px rgba(0,0,0,.05);
+    float:right;
+    margin-right: 150px;
+    width:350px;
+}
+.card-title{
+    color:black;
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+}
+
+.card-section1{
+    padding:20px;
+    background-color: white;
+}
+
+.card-body{
+    align-items: center;
+    align-content: center;
+}
+
+.card-button {
+    width: 60%;
+    height: 50px;
+    background-color: #2596be;
+    color: white;
+    transition: all 0.5s;
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    width: 100%;
+    color:white;
+    text-align: center;
+    border: 0px solid rgb(226, 225, 225);
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+
+  .card-button:hover{
+    width: 80%;
+    height: 55px;
+    background-color: #49a3c4;
+    color: white;
+    transition: all 0.5s;
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    width: 100%;
+    color:white;
+    text-align: center;
+  }
+
+  #card-button2{
+    background-color: white;
+    color: black;
+    border: 1px solid rgb(0, 0, 0);
+  }
+
+  .card-contents >h3{
+      color:black
+  }
+  
+  .card > h4{
+      margin-top: 100px;
+  }
+
+  .fa-ul > li{
+      margin-left: -10px;
+      padding-bottom:5px;  
+      font-family: 'poppins';
+      font-weight: 500;
+      width: 100%;
+     
+  }
+
+  .list-group-item{
+    transition: 0.5s;
+}
+
+.list-group-item:hover{
+    background-color: rgb(236, 236, 236);
+    transition: 0.5s;
+}
+
+.individual-reviews{
+    padding-top: 15px;
+}

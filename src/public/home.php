@@ -5,12 +5,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
-<link rel="stylesheet" href="/IS3-Online-Tutoring/CSS/home.css" type="text/css">
+
 <link rel="stylesheet" href="/IS3-Online-Tutoring/CSS/carousel.css">
 <link rel="stylesheet" href="/IS3-Online-Tutoring/CSS/ratings.css">
 <link rel="stylesheet" href="../../CSS/courses.css" type="text/css">
-
-
+<link rel="stylesheet" href="/IS3-Online-Tutoring/CSS/home.css" type="text/css">
 <?php
 session_start();
 include_once "Menu.php";
@@ -23,6 +22,41 @@ $result = $conn->query($getCoursesQuery);
 ?>
 
 <html>
+<head>
+<script>
+
+function addToCart(courseID){
+        var CourseID = courseID;
+        var UserID = <?php echo $_SESSION['UserID'];?>;
+
+        $.ajax({
+            url:'/IS3-Online-Tutoring/lib/ajax/addToCart.php',
+            type:'post',
+            data:{UserID:UserID,CourseID:CourseID},
+            success:function(response){
+                var msg = response;     
+                $("#message").html(response);
+                if(response==="Success"){
+                    ShowAlert("Congrats!", "Course Added To Cart", "success");
+                }else{
+                    ShowAlert("Ops!", response, "warning");
+                }
+            }
+        });
+    }
+
+    function ShowAlert(msg_title, msg_body, msg_type) {
+      var AlertMsg = $('div[role="alert"]');
+      $(AlertMsg).find('strong').html(msg_title);
+      $(AlertMsg).find('p').html(msg_body);
+      $(AlertMsg).removeAttr('class');
+      $(AlertMsg).addClass('alert-dismissible');
+      $(AlertMsg).addClass('alert alert-' + msg_type);
+      $(AlertMsg).show();
+  }
+</script>
+
+</head>
 <body>
 <div class="container-fluid">
     <div class="Banner">
@@ -56,7 +90,7 @@ $result = $conn->query($getCoursesQuery);
                      <a href="/IS3-Online-Tutoring/src/view/viewEnrolledCourses.php"><button class="BannerButton"><span>View My Courses </span></button></a>
                      <a href="/IS3-Online-Tutoring/src/view/viewApprovedCourses.php"><button id="BB2" class="BannerButton"><span>Discover New Courses </span></button></a>                
                      <?php }else if($_SESSION['UserType']=="Tutor"){ ?>
-                        <a href="/IS3-Online-Tutoring/src/view/viewTutorCourses.php"><button class="BannerButton"><span>View My Courses </span></button></a>
+                            <button class="BannerButton"><span>View My Courses </span></button>
                     <?php }else if($_SESSION['UserType']=="Adminstrator"){ ?>
                         <a href="/IS3-Online-Tutoring/src/view/viewAdminMessagesList.php"><button class="BannerButton"><span>View Messages</span></button></a>
                         <a href="/IS3-Online-Tutoring/src/view/viewPendingCourses.php"><button class="BannerButton"><span>Approve New Courses </span></button></a>
@@ -109,7 +143,12 @@ $result = $conn->query($getCoursesQuery);
         </div>
     </div>
  
-    
+    <div class="alert" role="alert" style="display:none;">
+        <strong>Warning!</strong> 
+        <p>Better check yourself, you're not looking too good.</p>
+    </div>
+
+
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-left">
@@ -128,7 +167,7 @@ $result = $conn->query($getCoursesQuery);
                             <?php 
                             if(isset($_SESSION['UserType'])){
                                 if($_SESSION['UserType']=="Learner"){?>
-                                    <a href=home.php?id=<?php echo $row['CourseID']?>><button class="btn-primary button" ><i class="fas fa-shopping-cart icon"></i>Add To Cart</button></a>
+                                    <button onclick="addToCart(<?php echo $row['CourseID']?>)" id= "AddToCart" class="btn-primary button" ><i class="fas fa-shopping-cart icon"></i>Add To Cart</button></a>
                             <?php } 
                                 }else{?>
                                     <a href=/IS3-Online-Tutoring/src/public/loginForm.php><button class="btn-primary button" ><i class="fas fa-shopping-cart icon"></i>Add To Cart</button></a>
@@ -217,12 +256,6 @@ function displayCourse($row)
 
     <?php
     
-}
-
-//--------------------------------- ADD TO CART --------------------------------------
-if (isset($_GET['id']))
-{
-    addToCart($_SESSION['UserID'], $_GET['id']);
 }
 
 ?>
