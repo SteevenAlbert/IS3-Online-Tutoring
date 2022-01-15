@@ -13,19 +13,13 @@
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="/IS3-Online-Tutoring/CSS/resetPassword.css">
+
 <?php
 include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
+include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/Menu.php";
 establishConnection();
 
-if(empty($_SESSION['UserID']))
-{
-    ?>
-    <div class="alert alert-warning">
-        <strong>Warning!</strong> This page needs authentication.
-    </div>
-    <?php
-    exit();
-}
 
 if(!isset($_GET["code"])){
     exit("can't find this page");
@@ -85,9 +79,16 @@ if(isset($_POST["password1"])){
 }
 ?>
 
-    <form method="post" action="">
-<input type="password" name=password1 placeholder="password" autocomplete="off"><br>
-<input type="password" name=password2 placeholder="confirm password" autocomplete="off"><br>
+<div class = 'page-content'>
+
+<div class = "container">
+
+<form method="post" action="">
+<input type="password"  class='input-field form-control' name=password1 placeholder="password" autocomplete="off"><br>
+<input type="password"  class='input-field form-control' name=password2 placeholder="confirm password" autocomplete="off"><br>
 <input type="submit" name="submit1" value="Done">
 
 </form>
+
+</div>
+</div>

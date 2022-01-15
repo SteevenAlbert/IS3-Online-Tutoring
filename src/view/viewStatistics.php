@@ -13,6 +13,7 @@
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="../../CSS/view.css">
 
 <html>
     <?php
@@ -22,10 +23,15 @@
      establishConnection();
 
      isAdmin();
-     ?>
-     <h1>Tutors Statistics</h1>
+?>
+     
+<div class="page-title">
+    <h1>View Statistics </h1>
+</div>
 
-    <?php
+
+
+<?php
 /*---------------------------------------------------GET LEARNER NAME--------------------------------------------------*/
     $getTutorID = "SELECT * ,FirstName FROM survey,users WHERE survey.toTutorID=users.UserID GROUP BY toTutorID";
     $result = $conn->query($getTutorID);
@@ -46,17 +52,20 @@
 
 /*----------------------------------------------Display Survey by Tutor ID-------------------------------------*/
         else{
-                echo "<br>";
-                echo "<table border=4 ><th>".$row["FirstName"]."</th></table>";
-                echo "<table border=2 >
-                     <th>Learner Username</th>
-                     <th>Course  ID</th>
-                     <th>Question 1</th>
-                     <th>Question 2</th>
-                     <th>Question 3</th>
-                     <th>Question 4</th>
+
+                echo "<div class = 'sub-title'><label>".$row["FirstName"]."</label> </div>";
+                echo "<table class='table table-hover'>
+                    <thead>
+                    <tr>
+                     <th class='text-center'>Learner Username</th>
+                     <th class='text-center'>Course  ID</th>
+                     <th class='text-center'>Question 1</th>
+                     <th class='text-center'>Question 2</th>
+                     <th class='text-center'>Question 3</th>
+                     <th class='text-center'>Question 4</th>
                      <th>Total Rating</th>
-                     </tr>";
+                     </tr>
+                     </thead>";
             while($row = $result2->fetch_assoc()) {                
                     ?>
                     <tr>
@@ -79,7 +88,9 @@
 /*------------------------------------------------------------------------------------------------------*/
     /*-----------------------------------------Enrolled Courses-----------------------------------*/    
 ?>
-    <h1>Learners enrolled in Courses</h1>
+    <div class="page-title">
+        <h1>Learners enrolled in Courses</h1>
+    </div>
 
     <?php
         $getCoursesQuery = "SELECT enroll.*,Title FROM enroll,courses WHERE enroll.CourseID=courses.CourseID GROUP BY CourseID";
@@ -109,12 +120,13 @@
     
         
             //------------------------------------ Display Courses by categorie ------------------------------------
-                    echo "<br><br><br>";
-                    echo "<table border=3 ><th>".$row["Title"]."</th></table>";
-                    echo "<table border=1 >
-                    <th>User ID</th> 
-                    <th>Enroll Date</th> 
-                    </tr>";
+                    echo "<div class = 'sub-title'><label>".$row["Title"]."</label> </div>";
+                    echo "<table class='table table-hover'>
+                    <thead>
+                    <tr>
+                    <th class='text-center'>User ID</th> 
+                    <th class='text-center'>Enroll Date</th> 
+                    </tr> </thead";
                 while($row = $result2->fetch_assoc()) {                
                         ?>
                         <tr>

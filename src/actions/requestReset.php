@@ -13,19 +13,13 @@
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="/IS3-Online-Tutoring/CSS/resetPassword.css">
+
 <?php
 include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
+include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/Menu.php";
 establishConnection();
 
-if(empty($_SESSION['UserID']))
-{
-    ?>
-    <div class="alert alert-warning">
-        <strong>Warning!</strong> This page needs authentication.
-    </div>
-    <?php
-    exit();
-}
 
 
 //Import PHPMailer classes into the global namespace
@@ -81,9 +75,14 @@ if(isset($_POST["email"])){
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     $mail->send();
-    echo 'Message has been sent';
+    echo "<div class='alert alert-success'>";
+    echo "<strong>Success!</strong>Message has been sent";
+    echo "</div>";
  } catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+
+    echo "<div class='alert alert-danger'>";
+    echo "<strong>Message could not be sent.</strong> Mailer Error: {$mail->ErrorInfo}";
+    echo "</div>";
  }
 
  exit();
@@ -91,9 +90,16 @@ if(isset($_POST["email"])){
 
 
 ?>
-<form method="post" action="">
-<input type="text" name=email placeholder="Email" autocomplete="off">
-<br>
+
+<div class = 'page-content'>
+
+<div class = "container">
+<label> Enter your email to reset password: </label>
+<form class = "form-inline" method="post" action="">
+<input type="text"  class='input-field form-control' name=email placeholder="Email" autocomplete="off">
+
 <input type="submit" name="submit" value="Reset email">
 
 </form>
+</div>
+</div>
