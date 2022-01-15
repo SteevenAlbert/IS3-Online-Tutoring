@@ -66,6 +66,7 @@ html, body {
     margin-top: -10px;
     border:0px solid rgb(226, 225, 225);
     border-radius: 5px;
+    font-family: poppins;
   }
   
   .button span {
@@ -91,6 +92,8 @@ html, body {
 
   .button2:hover{
     background-color: #1b789a;  
+    margin-top: -6px;
+
   }
   .button:hover span {
     padding-right: 25px;
@@ -165,7 +168,14 @@ html, body {
   line-height: 1.2em;
   display: inline;
 }
-
+.dropdown-menu-custom p{
+  width: 100%;
+  font-weight: 300;
+  font-size: 14px;
+  margin-left: 15px;
+  font: poppins;
+  color: #b8b8b8;
+}
 
 .menuicon{
   max-width: 20px;

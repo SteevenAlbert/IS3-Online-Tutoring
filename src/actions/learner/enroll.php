@@ -16,7 +16,6 @@
 
 <?php
  session_start();
- include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/Menu.php";
  include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
 establishConnection();
 
@@ -29,7 +28,7 @@ $sql_delete2="DELETE FROM cartcourses WHERE UserID='$user'";
 
 // Insert into orders
 $query3= "INSERT INTO orders (UserID, OrderTime, Amount, Total) 
-VALUES ('$user', now(), ".$_POST['amount'].",". $_POST['total'].")";
+VALUES ('$user', now(), ".$_GET['amount'].",". $_GET['total'].")";
 $result3 = mysqli_query($conn,$query3);
 
 try{

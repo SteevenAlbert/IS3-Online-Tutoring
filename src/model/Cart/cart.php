@@ -124,26 +124,22 @@ if (isset($_GET["id"])) {
 }
 
 //------------------------------------ Display total price ------------------------------------
-echo "<div class='col-lg-2>'";
-echo "<form class = 'form-control'action='/IS3-Online-Tutoring/src/actions/learner/enroll.php' method='post'>";
-
-$numberOfCourses = mysqli_num_rows($result1);
-echo "<input hidden type = text name = 'amount' value = $numberOfCourses><br>";
-
-
-while($rows = $result2->fetch_array(MYSQLI_ASSOC)){
-    foreach($rows as $row)
-    echo "<label> Total </label>";
-    echo "<div class = 'total-price'> EGP $row </div>";
-    echo "<input hidden type = text name = 'total' value =".$row." readonly><br>";
-}
-echo"<br>";
-
-//--------------------------------------- Purchase button ------------------------------------
 ?>
-    <input type="submit" value="CHECKOUT" name="Submit1" class="btn btn-primary">
-</form>
+<div class='col-lg-2'>
+    <?php
+    $total=0;
+    $numberOfCourses = mysqli_num_rows($result1);
+    echo "<input hidden type = text name = 'amount' value = $numberOfCourses><br>";
 
+    while($rows = $result2->fetch_array(MYSQLI_ASSOC)){
+        foreach($rows as $row)
+        echo "<label> Total </label>";
+        echo "<div class = 'total-price'> EGP $row </div>";
+        $total=$row;
+    }
+    echo"<br>";
+    ?>
+    <a href="/IS3-Online-Tutoring/src/actions/learner/enroll.php?amount=<?php echo $numberOfCourses?>&total=<?php echo $total?>" class="btn btn-primary button2">CHECKOUT</a>
 </div>
 </div>
 

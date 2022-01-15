@@ -1,11 +1,8 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">	
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vquery/5.0.1/v.min.js"></script>
+
 <link rel="stylesheet" href="/IS3-Online-Tutoring/CSS/menu.css" type="text/css">
 
 <html>
@@ -36,14 +33,14 @@
                             <ul class="nav navbar-nav navbar-right">
                                 <li> <a href="/<?php echo $root ?>/src/model/Cart/cart.php"><img class="navbar-icons" src="\<?php echo $root ?>\resources\images\icons\cart.png"></a></li> 
                                 <li> <a href="/<?php echo $root ?>/src/view/ViewNotifications.php"><img class="navbar-icons" src="\<?php echo $root ?>\resources\images\icons\notification.png"></a></li>       
-                                <li> <a href="/<?php echo $root ?>/src/view/viewEnrolledCourses.php"><button class="button2"><span>My Courses</span></button></a> </li>
+                                <li> <a href="/<?php echo $root ?>/src/view/viewEnrolledCourses.php"><button class="button"><span>My Courses</span></button></a> </li>
                                 <li>
                                     <div class="dropdown dropdown-custom">
                                         <img class="dropdown-toggle dropdown-toggle-custom" src="/<?php echo $root?>/uploads/profile_pictures/<?php echo $_SESSION['PP'] ?>" data-toggle="dropdown" class="img-responsive">
                                         <ul class="dropdown-menu dropdown-menu-custom" role="menu" aria-labelledby="imageDropdown">
                                             <h3> <?php echo $_SESSION['FirstName'] ." ". $_SESSION['LastName'] ?> </h3>
+                                            <p> <?php echo $_SESSION['UserType'] ?> </p>
                                             <li role="presentation" class="divider"></li>
-                                         
                                             <li role="presentation"><a role="menuitem" tabindex="-1" href="/<?php echo $root ?>/src/model/user/editProfile.php">Edit Profile</a></li>       
                                             <li role="presentation" class="divider"></li>
                                             <li role="presentation"><a role="menuitem" tabindex="-1" href="/<?php echo $root ?>/src/actions/learner/contactUs.php">Contact Us</a></li>
@@ -81,9 +78,9 @@
                                         <img class="dropdown-toggle dropdown-toggle-custom" src="/<?php echo $root?>/uploads/profile_pictures/<?php echo $_SESSION['PP'] ?>" alt="dropdown image" data-toggle="dropdown" class="img-responsive">
                                         <ul class="dropdown-menu dropdown-menu-custom" role="menu" aria-labelledby="imageDropdown">
                                             <h3> <?php echo $_SESSION['FirstName'] ." ". $_SESSION['LastName'] ?> </h3>
+                                            <p> <?php echo $_SESSION['UserType'] ?> </p>
                                             <li role="presentation" class="divider"></li> 
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="/<?php echo $root ?>/src/model/user/editProfile.php">Edit Profile</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Sent Notifications</a></li>         
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="/<?php echo $root ?>/src/model/user/editProfile.php">Edit Profile</a></li>       
                                             <li role="presentation" class="divider"></li>
                                             <li role="presentation"><a role="menuitem" tabindex="-1" href="/<?php echo $root ?>/src/public/logout.php">Logout</a></li>
                                         </ul>
@@ -132,6 +129,7 @@
                                       
                                         <ul class="dropdown-menu dropdown-menu-custom" role="menu" aria-labelledby="imageDropdown">
                                             <h3> <?php echo $_SESSION['FirstName'] ." ". $_SESSION['LastName'] ?> </h3>
+                                            <p> <?php echo $_SESSION['UserType'] ?> </p>
                                             <li role="presentation" class="divider"></li>  
                                             <li role="presentation"><a role="menuitem" tabindex="-1" href="/<?php echo $root ?>/src/model/user/editProfile.php">Edit Profile</a></li>
                                             <li role="presentation" class="divider"></li>
@@ -157,24 +155,7 @@
 
                 <?php }
                 else if($_SESSION['UserType']=="Auditor")
-                { /*
-                    echo "Welcome Back, ".$_SESSION['FirstName']."! &nbsp; &nbsp;";
-                    echo"<a href=/$root/src/public/home.php>Home</a>  &nbsp; &nbsp;";
-					echo"<a href=/$root/src/public/categories.php> Categories</a> &nbsp; &nbsp; ";
-                    echo "<a href=/$root/src/view/viewPendingCourses.php>Pending Courses</a> &nbsp; &nbsp;";
-                    echo "<a href=/$root/src/view/viewApprovedCourses.php>View All Courses</a> &nbsp; &nbsp;";
-                    echo "<a href=/$root/src/model/Course/addCourse.php>Add Course</a> &nbsp; &nbsp;";
-                    echo "<a href=/$root/src/model/User/Adminstrator/createAdministrator.php> Create Administrator</a> &nbsp; &nbsp;";
-                    echo "<a href=/$root/src/view/ViewAdministrators.php>View Administrators</a> &nbsp; &nbsp;";
-                    echo "<a href=/$root/src/view/ViewLearners.php>View Learners</a> &nbsp; &nbsp;";
-                    echo "<a href=/$root/src/view/viewOrders.php>View Orders</a> &nbsp; &nbsp;";
-                    echo "<a href=/$root/src/view/viewAuditorMessagesList.php>Messages</a> &nbsp; &nbsp;";
-                    echo "<a href=/$root/src/model/User/editProfile.php>Edit Profile</a> &nbsp; &nbsp;";
-                    echo "<a href=/$root/src/public/logout.php>Logout</a> &nbsp; &nbsp;";
-                    echo"<form action = '/$root/src/actions/courseSearch.php' method = 'post'> 
-                    <input type = 'text' name = 'search' placeholder = 'Search' required> 
-                    <input type = 'submit' value = 'Go'>  </form>";
-                */?>
+                { ?>
                  <nav class="navbar navbar-custom ">
                         <div class="container-fluid">
                             <div class="navbar-header">
@@ -202,6 +183,7 @@
                                       
                                         <ul class="dropdown-menu dropdown-menu-custom" role="menu" aria-labelledby="imageDropdown">
                                             <h3> <?php echo $_SESSION['FirstName'] ." ". $_SESSION['LastName'] ?> </h3>
+                                            <p> <?php echo $_SESSION['UserType'] ?> </p>
                                             <li role="presentation" class="divider"></li>  
                                             <li role="presentation"><a role="menuitem" tabindex="-1" href="/<?php echo $root ?>/src/model/user/editProfile.php">Edit Profile</a></li>
                                             <li role="presentation" class="divider"></li>
