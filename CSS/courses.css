@@ -47,8 +47,6 @@
 }
 
 
-
-
 .card-title{
     font-family: 'Sora', sans-serif;
     font-weight: 700;
@@ -150,7 +148,6 @@
 .form-check-input{
     width: 20px;
 }
-
 
 
 @media screen and (max-width: 1200px) {
