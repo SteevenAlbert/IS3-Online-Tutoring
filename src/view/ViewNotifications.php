@@ -12,8 +12,7 @@
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
-
-
+<link rel="stylesheet" href="../../CSS/notification.css">
 <?php
 session_start();
 include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/Menu.php";
@@ -23,6 +22,9 @@ establishConnection();
 
 isLearner();
 
+?>
+<div class="notify"><h2>Notification</h2></div>
+<?php
 //---------------------------------GET NOTIFICATIONS-------------------------------------------
 $getNotificationsQuery = "SELECT * FROM Notifications where ToUserID='".$_SESSION['UserID']."'";
 $result = $conn->query($getNotificationsQuery);
@@ -50,14 +52,33 @@ while($row = $result->fetch_array(MYSQLI_ASSOC))
        echo"Message:", $e->getMessage();  
     }
     $name = $CourseNameResult->fetch_array(MYSQLI_ASSOC);
+    
+?>
+<div class="blocks">
+<span class="open"><?php echo $name['Title']?></span>
+<div class="gameData">
+    <div class="words">
+ <?php  echo "<a href=survey.php?TutorID=".$row['FromUserID']."&CourseID=".$row['CourseID'].">".$row['Type']."</a><br>";
+ echo $row["Text"]."<br>";
+ if ($row['Link'] != NULL)
+    echo "<a href='".$row['Link'] ."'>". $row['Link']."</a> <br>";
+echo date('H:i d-m-Y ', strtotime($row['Date']))."<br>";?>
+</div>
+</div>
+</div>
+<br>
+ <?php
 
-    echo "<b> ".$name['Title']." </b> <br>";
-    echo "<a href=survey.php?TutorID=".$row['FromUserID']."&CourseID=".$row['CourseID'].">".$row['Type']."</a><br>";
-    echo $row["Text"]."<br>";
-
-    if ($row['Link'] != NULL)
-        echo "<a href='".$row['Link'] ."'>". $row['Link']."</a> <br>";
-        
-    echo date('H:i d-m-Y ', strtotime($row['Date']))."<br> <br>";
 }
 ?>
+
+
+<script>
+$(document).ready(function() {
+  jQuery('.open').on('click', function() {
+    jQuery('.gameData').slideUp('fast');
+    jQuery(this).next('.gameData').slideDown('fast');
+  });
+});
+</script>
+

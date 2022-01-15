@@ -19,7 +19,7 @@
 include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
 include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/Menu.php";
 establishConnection();
-
+session_start();
 
 
 //Import PHPMailer classes into the global namespace
@@ -36,7 +36,10 @@ if(isset($_POST["email"])){
 
     $emailTO=$_POST["email"];
     $code=uniqid(true);
-    $query="INSERT INTO resetpassword (code,email) VALUES ('$code','$emailTO')";
+    $user_id=$_SESSION['UserID'];
+    $query="INSERT INTO resetpassword (userID,code,email) VALUES ('$user_id','$code','$emailTO')";
+    $result=$conn->query($query);
+
     try{
       if (!$result){
           throw new Exception("Error Occured"); 

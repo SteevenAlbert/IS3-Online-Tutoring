@@ -1,0 +1,23 @@
+.block{
+    position:relative;
+}
+
+h3{
+    margin-left: 2%;
+    padding: 12px;
+    color: #2596be;
+}
+
+h4{
+    margin-left: 5%;
+}
+
+.table1{
+    padding-left: 5%;
+}
+
+.details-title{
+    color: #2596be;
+    text-align: center;
+    position: relative;
+}

@@ -39,7 +39,7 @@ try{
 }
 
 if(mysqli_num_rows($result)==0){
-    exit("No row");
+    exit("Opps....Something went wrong");
 } 
 
 if(isset($_POST["password1"])){
@@ -79,16 +79,26 @@ if(isset($_POST["password1"])){
 }
 ?>
 
+
 <div class = 'page-content'>
 
 <div class = "container">
 
 <form method="post" action="">
-<input type="password"  class='input-field form-control' name=password1 placeholder="password" autocomplete="off"><br>
-<input type="password"  class='input-field form-control' name=password2 placeholder="confirm password" autocomplete="off"><br>
-<input type="submit" name="submit1" value="Done">
+<input type="password"  class='input-field form-control' name="password1" id="password1" placeholder="password" required><br>
+<input type="password"  class='input-field form-control' name="password2" id="password2" placeholder="confirm password" required><br>
+<span id='message'></span>
+<br><br>
+<input type="submit" id="submit1" value="Done">
 
 </form>
-
 </div>
 </div>
+<script>
+$('#password1, #password2').on('keyup', function () {
+  if ($('#password1').val() == $('#password2').val()) {
+    $('#message').html('Matching').css('color', 'green');
+  } else 
+    $('#message').html('Not Matching').css('color', 'red');
+});
+</script>

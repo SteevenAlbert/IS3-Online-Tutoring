@@ -278,9 +278,16 @@ function getUsername($UserID)
 
     $sql = "SELECT * FROM users WHERE UserID =". $UserID;
     $result = $GLOBALS['conn']->query($sql);
-    if (!$result)
-        die ("Query error. $sql");
-    
+
+    try{
+        if (!$result){
+            throw new Exception("Error Occured"); 
+        }
+                    
+    }catch(Exception $e){  
+       echo"Message:", $e->getMessage();  
+    }
+ 
     $userData = mysqli_fetch_array($result);
     return $userData[1];
 }
@@ -291,8 +298,14 @@ function getCourseTitle($CourseID)
 
     $sql = "SELECT * FROM courses WHERE CourseID =". $CourseID;
     $result = $GLOBALS['conn']->query($sql);
-    if (!$result)
-        die ("Query error. $sql");
+    try{
+        if (!$result){
+            throw new Exception("Error Occured"); 
+        }
+                    
+    }catch(Exception $e){  
+       echo"Message:", $e->getMessage();  
+    }
     
     $userData = mysqli_fetch_array($result);
     return $userData[1]." ".$userData[2];

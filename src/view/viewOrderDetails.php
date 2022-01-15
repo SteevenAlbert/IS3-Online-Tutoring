@@ -12,6 +12,7 @@
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../CSS/orderDetails.css">
 
 
 <?php
@@ -31,11 +32,16 @@ $order =$conn->query($query);
 while ($row = $order->fetch_array(MYSQLI_ASSOC))
 {
   // Get order info
-  echo "<b> Order Reference number: ".$row["orderID"]."</b><br>";
-  echo getUsername($row["UserID"])."<br>";
-  echo "Amount: ".$row["Amount"]."<br>";
-  echo "Total: ".$row["Total"]."<br>";
-  echo $row["OrderTime"]."<br>";
+  ?>
+  <div class="details-title"><h2>Order Details</h2></div>
+    <div class="block">
+        <h3> Order Reference number:<?php echo $row["orderID"]?></h3>
+        <h4><?php echo getUsername($row["UserID"])?></h4>
+        <h4> Amount:<?php echo $row["Amount"]?></h4>
+        <h4>Total:<?php echo $row["Total"]?></h4>
+</div>
+
+  <?php
 
   // Get order courses
   $getOrderQuery = "SELECT * FROM orderCourses as o, courses as c 
@@ -43,17 +49,19 @@ while ($row = $order->fetch_array(MYSQLI_ASSOC))
   $orderResult =$GLOBALS['conn']->query($getOrderQuery);
 
   try{
-    if (!$result){
+    if (!$orderResult){
         throw new Exception("Error Occured"); 
     }
                 
 }catch(Exception $e){  
    echo"Message:", $e->getMessage();  
 }
-
-  echo "<table border = 1>";
-  echo "<tr> <th> Code </th>  <th> Title </th>  <th> Category </th>   
-  <th> Created By </th> <th> Description </th> <th> Hours </th> <th> Level </th> <th> Price </th>  </tr>";
+?>
+<div class="table1"></div>
+  <table class="table table-hover  table-striped">
+  <tr> <th> Code </th>  <th> Title </th>  <th> Category </th>   
+  <th> Created By </th> <th> Description </th> <th> Hours </th> <th> Level </th> <th> Price </th>  </tr>
+<?php
   while ($orderCourses = $orderResult->fetch_array(MYSQLI_ASSOC))
   {
     echo "<tr>";
@@ -67,7 +75,11 @@ while ($row = $order->fetch_array(MYSQLI_ASSOC))
     echo "<td>". $orderCourses['Price'] ."</td>";
     echo "</tr>";
   }
-  echo "</table>";
+  
+  ?>
+   </table>
+  </div>
+  <?php
 }
 
 echo "<br>";
