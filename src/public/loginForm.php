@@ -53,7 +53,7 @@
 		<form class="form-group text-left">
 			<div class="col-lg-25" style="margin-bottom:3%">
 				<label style="color:black;">Username</label>
-				<input type="text" name ="UserName" id="UserName" placeholder="Username" class="form-control" required><i class="fas fa-user icon-color"></i>
+				<input type="text" name ="UserName" id="UserName" placeholder="Username" class="form-control" required>
 			</div>
         </form>
    	</div>
@@ -62,7 +62,7 @@
 		<form class="form-group text-left">
 			<div class="col-lg-13" style="margin-bottom:15%">
 				<label style="color:black;">Password</label>
-				<input type="password"  name = "Password" id="Password" placeholder="Password" class="form-control" required><i class="fas fa-lock icon-color"></i> 
+				<input type="password"  name = "Password" id="Password" placeholder="Password" class="form-control" required> 
                 <div id="message"></div>
 			</div>
 		</form>

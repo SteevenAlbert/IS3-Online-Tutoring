@@ -14,7 +14,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
 
 <html>
-<link rel="stylesheet" href="../../../CSS/survey.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+<link rel="stylesheet" href="../../CSS/view.css">
+<link rel="stylesheet" href="../../CSS/survey.css">
 <?php
  session_start();
  include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/Menu.php";
@@ -23,9 +28,9 @@
 
  isLearner();
  ?>
-
-    <h1><div style="font-size:50px;">Please fill this survey</div> </h1>
-    <div style="margin-left:280px; font-size:22px;" ><i>1)Strongly Disagree - 5)Strongly Agree</i></div>
+    <img id="surveyImage" src="../../uploads/backgroundImages/surveyImage.jpg" alt="surveyImage" width="500" height="500">
+    <h1><div id="title">Please fill this survey</div> </h1>
+    <div id="selectRatingTitle" ><i>1)Strongly Disagree - 5)Strongly Agree</i></div>
  <?php 
     echo "<br>";
 //--------------------------------------------- Survey Questions ---------------------------------------------    
@@ -35,27 +40,36 @@
         "3) Did the tutor solve many questions?",
         "4) Was the resources and materials good enough?");
     ?>
-    <form method="post" action="">
+    <form class="form-group" method="post" action="">
     <?php   
         $i=0;
         for($i;$i<count($questions);$i++){
-            echo"<h4>".$questions[$i]."</h4>";
             ?>
-                <div style="margin-left:350px;" >
-                     1.<input type="radio" name=<?php echo $i; ?>  value="1" required>
-                     2.<input type="radio" name=<?php echo $i; ?>  value="2">
-                     3.<input type="radio" name=<?php echo $i; ?>  value="3">
-                     4.<input type="radio" name=<?php echo $i; ?>  value="4">
-                     5.<input type="radio" name=<?php echo $i; ?>  value="5">
+            <div id="questions">
+                <?php
+                echo"<h4>".$questions[$i]."</h4>";
+                ?>
+            </div>
+            <?php
+            ?>
+                <div id="selectRating" >
+                     1.     <input type="radio" name=<?php echo $i; ?>  value="1" required>
+                     2.     <input type="radio" name=<?php echo $i; ?>  value="2">
+                     3.     <input type="radio" name=<?php echo $i; ?>  value="3">
+                     4.     <input type="radio" name=<?php echo $i; ?>  value="4">
+                     5.     <input type="radio" name=<?php echo $i; ?>  value="5">
                 </div>
             <?php
+                    echo "<hr>";
                     echo "<br><br>";
                  }
     //--------------------------------------------- Message input ---------------------------------------------
-             echo "remarks:<br>";
-             echo "<textarea name='message' rows='3' cols='100'> </textarea> <br>";
+            ?><div id="remarks"><?php
+            ?><i> <?php echo "remarks:<br>";?></i>
+            <?php echo "<textarea name='message' rows='3' cols='100'> </textarea>";
              ?>
-             <input type='submit' name='submit'>
+             <input class="btn btn-success" type='submit' name='submit'>
+            </div>
     </form>
         <?php
 

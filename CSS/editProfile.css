@@ -1,0 +1,25 @@
+#editProfileDisplay {
+    display: block;
+    margin: 10px auto;
+    border-radius: 50%;
+}
+#centerEditForm{
+    position: absolute;
+    left: 57%;
+    top: 13%;
+}
+#editProfileImage{
+    position: relative;
+    border-radius: 50px;
+    left: 5%;
+}
+#continue{
+    position: absolute;
+    left: 80%;
+    bottom:2%;
+}
+#profilePictureUpdated{
+    position: absolute;
+    left: 80%;
+    bottom:9%;
+}

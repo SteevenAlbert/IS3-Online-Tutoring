@@ -58,18 +58,6 @@ body {
 #submit:hover{
     background-color: #01073b;
 }
-.icon-color{
-    margin-top:-11% ;
-    padding-left:90%;
-    font-size: 18px;
-    color: #2596be;
-}
-.emailIcon-color{
-    margin-top:-5% ;
-    padding-left:95%;
-    font-size: 18px;
-    color: #2596be;
-}
 #profileDisplay {
     display: block;
     margin: 10px auto;

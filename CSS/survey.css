@@ -1,0 +1,36 @@
+
+#title{
+    font-family: 'Sora', sans-serif;
+    font-weight: 900;
+    font-size:50px;
+    margin-left:30%;
+    margin-bottom:3%;
+}
+#selectRatingTitle{
+    background-color: #6abddb;
+    text-align: center;
+    border-radius: 15px;
+    max-width: 28%;
+    margin-left:32%; 
+    font-size:22px;
+}
+#selectRating{
+    margin-top:-2% ;
+    margin-left:40%;
+}
+#questions,#remarks{
+    margin-left:1%;
+}
+hr{
+    font-weight: 900;
+    max-width:30%;
+}
+#surveyImage{
+    position:absolute;
+    border-radius: 50px;
+    top: 25%;
+    left:60%;
+}
+#remarks{
+    margin-top: -2%;
+}
