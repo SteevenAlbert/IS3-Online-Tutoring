@@ -23,7 +23,7 @@
                                 <a class="navbar-brand" href="/<?php echo $root ?>/src/public/home.php">IS3 Tutoring</a>
                             </div>
                             <ul class="nav col-s-4 navbar-nav">
-                                <li class="nav-item"> <a href="/<?php echo $root ?>/src/public/categories.php"> Categories</a> </li>
+                            <li class="nav-item"> <a  data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> Categories</a></li>
                                 <li>
                                 <form class = "navbar-form " action = "/<?php echo $root ?>/src/actions/courseSearch.php" method = 'post'> 
                                     <div class="form-group">
@@ -64,7 +64,7 @@
                                 <a class="navbar-brand" href="/<?php echo $root ?>/src/public/home.php">IS3 Tutoring</a>
                             </div>
                             <ul class="nav col-s-4 navbar-nav">
-                                <li class="nav-item"> <a href="/<?php echo $root ?>/src/public/categories.php"> Categories</a> </li>
+                            <li class="nav-item"> <a  data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> Categories</a></li>
                                 <li>
                                 <form class = "navbar-form " action = "/<?php echo $root ?>/src/actions/courseSearch.php" method = 'post'> 
                                     <div class="form-group">
@@ -109,7 +109,7 @@
                                 <a class="navbar-brand" href="/<?php echo $root ?>/src/public/home.php">IS3 Tutoring</a>
                             </div>
                             <ul class="nav col-s-4 navbar-nav">
-                                <li class="nav-item"> <a href="/<?php echo $root ?>/src/public/categories.php"> Categories</a> </li>
+                            <li class="nav-item"> <a  data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> Categories</a></li>
                                 <li>
                                 <form class = "navbar-form " action = "/<?php echo $root ?>/src/actions/courseSearch.php" method = 'post'> 
                                     <div class="form-group">
@@ -181,7 +181,7 @@
                                 <a class="navbar-brand" href="/<?php echo $root ?>/src/public/home.php">IS3 Tutoring</a>
                             </div>
                             <ul class="nav col-s-4 navbar-nav">
-                                <li class="nav-item"> <a href="/<?php echo $root ?>/src/public/categories.php"> Categories</a> </li>
+                            <li class="nav-item"> <a  data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> Categories</a></li>
                                 <li>
                                 <form class = "navbar-form " action = "/<?php echo $root ?>/src/actions/courseSearch.php" method = 'post'> 
                                     <div class="form-group">
@@ -229,7 +229,7 @@
                         <a class="navbar-brand" href="/<?php echo $root ?>/src/public/home.php">IS3 Tutoring</a>
                     </div>
                     <ul class="nav col-s-4 navbar-nav">
-                        <li class="nav-item"> <a href="/<?php echo $root ?>/src/public/categories.php"> Categories</a> </li>
+                        <li class="nav-item"> <a  data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> Categories</a></li>
                     </ul> 
                     <ul class="nav navbar-nav navbar-right">
                         <li class="nav-item"> <a href="/<?php echo $root ?>/src/public/home.php">Featured</a> </li>
@@ -250,3 +250,27 @@
            <?php } ?>
 	</body>
 </html>
+
+<!-- Show Categories -->
+<div class="collapse" id="collapseExample">
+  <div class="card card-body">
+    <?php
+    establishConnection();
+    $getCategoriesQuery = "SELECT DISTINCT Categories FROM courses WHERE Approved = 1";
+    $result = $conn->query($getCategoriesQuery);
+    try{
+        if (!$result)
+            throw new Exception("Error Occured");
+    }
+    catch(Exception $e){  
+        echo"Message:", $e->getMessage();  
+    }
+
+    while ($row = $result->fetch_assoc())
+    {
+        echo "<p><a href = /IS3-Online-Tutoring/src/view/viewApprovedCourses.php?category=".$row['Categories'].">".$row['Categories']."</a> </p>";
+    }
+
+    ?>
+  </div>
+</div>

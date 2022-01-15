@@ -25,8 +25,6 @@ session_start();
 include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/Menu.php";
 include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
 
-
-
 //------------------------------------ Filter Results form ------------------------------------
 $GLOBALS['maxPrice'] = 3000;
 $GLOBALS['minRating'] = 0;
@@ -139,6 +137,9 @@ if (!$result)
 elseif (empty($_SESSION['UserID'])){
     // Display overall rating
     while($row = $result->fetch_array(MYSQLI_ASSOC)) {
+        if (isset($_GET['category']))
+        if ($row['Categories'] != $_GET['category'])
+            continue;
         getRating($row, $averageRating, $reviewCount);
         
         if ($row['Price'] <= $GLOBALS['maxPrice'] && $averageRating >= $GLOBALS['minRating'] && $row['Hours'] <= $GLOBALS['maxHours'] )
@@ -154,6 +155,9 @@ elseif (empty($_SESSION['UserID'])){
 else if($_SESSION["UserType"]=="Learner"){  
     // Display overall rating
     while($row = $result->fetch_array(MYSQLI_ASSOC)) {
+        if (isset($_GET['category']))
+        if ($row['Categories'] != $_GET['category'])
+            continue;
         getRating($row, $averageRating, $reviewCount);
         
         if ($row['Price'] <= $GLOBALS['maxPrice'] && $averageRating >= $GLOBALS['minRating'] && $row['Hours'] <= $GLOBALS['maxHours'] )
@@ -171,6 +175,10 @@ else if($_SESSION["UserType"]=="Learner"){
 else if($_SESSION["UserType"]=="Tutor" && empty($_GET["id"]) ){
     // Display overall rating
     while($row = $result->fetch_array(MYSQLI_ASSOC)) {
+        if (isset($_GET['category']))
+        if ($row['Categories'] != $_GET['category'])
+            continue;
+
         getRating($row, $averageRating, $reviewCount);
 
         if ($row['Price'] <= $GLOBALS['maxPrice'] && $averageRating >= $GLOBALS['minRating'] && $row['Hours'] <= $GLOBALS['maxHours']  )
@@ -187,6 +195,10 @@ else if($_SESSION["UserType"]=="Tutor" && empty($_GET["id"]) ){
 else if($_SESSION["UserType"]=="Administrator" || $_SESSION["UserType"]=="Auditor"){
     // Display overall rating
     while($row = $result->fetch_array(MYSQLI_ASSOC)) {
+        if (isset($_GET['category']))
+        if ($row['Categories'] != $_GET['category'])
+            continue;
+            
         getRating($row, $averageRating, $reviewCount);
 
         if ($row['Price'] <= $GLOBALS['maxPrice'] && $averageRating >= $GLOBALS['minRating'] && $row['Hours'] <= $GLOBALS['maxHours'] )
@@ -239,7 +251,6 @@ function displayRating($rating)
 //------------------------------------ Display Course ------------------------------------
 function displayCourse($row, $averageRating, $reviewCount)
 {
-
     $thumbnail = "/IS3-Online-Tutoring/resources/CoursesContent/Thumbnails/".$row["Thumbnail"];
 
     // Display course details
