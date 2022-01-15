@@ -21,8 +21,8 @@
 
 <body>
 <?php
-
-	isAdminOrTutor();
+include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
+session_start();
 
 	class applyAdd{
 		public $code;
@@ -62,8 +62,8 @@
 					'".$_POST['level']."',
 					'".$_POST['price']."',
 					'0',
-					'".$_POST['createdBy']."',
-					'".$_POST['categorie']."')";
+					'".$_SESSION['UserID']."',
+					'".$_POST['category']."')";
 			
 			if($conn->query($sql)===TRUE){
 				echo "New course created successfully<br>";
@@ -82,12 +82,12 @@
 	$hours=$_POST['hours'];
 	$level=$_POST['level'];
 	$price=$_POST['price'];
-	$createdBy=$_POST['createdBy'];
-	$categories=$_POST['categorie'];
+	$createdBy=$_SESSION['UserID'];
+	$categories=$_POST['category'];
 
 	$applyAdd=new applyAdd($code, $title, $description,$hours, $level, $price, 0,$createdBy,$categories);
 	$applyAdd->insert();
-	header("Location:/IS3-Online-Tutoring/src/public/viewTutorCourses.php");
+	header("Location:/IS3-Online-Tutoring/src/view/viewTutorCourses.php");
 ?>	
 </body>
 </html>

@@ -1,0 +1,50 @@
+.container{
+    width: 100%;
+}
+.FormPanel{
+width:500px;
+float:right;
+margin-right: 150px;
+}
+.ImagePanel{
+    width: 500px;
+    float:left
+}
+.ImagePanel > img{
+    width: 1000px;
+}
+.button-custom{
+    margin-top:20px;
+    width: 100%;
+}
+.button-custom:hover{
+    background-color: #2db7e9;
+}
+.button-custom2{
+    background-color: #df2222;
+    margin-top: 20px;
+    width: 100%;
+}
+.button-custom2:hover{
+    background-color: #f54b4b;
+    margin-top: 20px;
+    width: 100%;
+}
+h1{
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    width: 100%;
+    height: 40px;
+}
+h3{
+    font-family: 'poppins', sans-serif;
+    font-weight: 300;
+    width: 100%;
+    height: 40px;
+}
+.label{
+    font-family: 'poppins', sans-serif;
+    font-weight: 300;
+    width: 100%;
+    height: 40px;
+}

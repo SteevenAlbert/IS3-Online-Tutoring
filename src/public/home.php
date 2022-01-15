@@ -90,7 +90,7 @@ function addToCart(courseID){
                      <a href="/IS3-Online-Tutoring/src/view/viewEnrolledCourses.php"><button class="BannerButton"><span>View My Courses </span></button></a>
                      <a href="/IS3-Online-Tutoring/src/view/viewApprovedCourses.php"><button id="BB2" class="BannerButton"><span>Discover New Courses </span></button></a>                
                      <?php }else if($_SESSION['UserType']=="Tutor"){ ?>
-                            <button class="BannerButton"><span>View My Courses </span></button>
+                        <a href="/IS3-Online-Tutoring/src/view/viewTutorCourses.php"><button class="BannerButton"><span>View My Courses </span></button></a>
                     <?php }else if($_SESSION['UserType']=="Adminstrator"){ ?>
                         <a href="/IS3-Online-Tutoring/src/view/viewAdminMessagesList.php"><button class="BannerButton"><span>View Messages</span></button></a>
                         <a href="/IS3-Online-Tutoring/src/view/viewPendingCourses.php"><button class="BannerButton"><span>Approve New Courses </span></button></a>

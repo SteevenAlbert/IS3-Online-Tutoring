@@ -22,10 +22,10 @@
        include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
         establishConnection();
 
-        isAdminOrTutor();
+      
 
         //---------------------- Delete current Administrator ----------------------
-        $query = "delete from courses where CourseID =".$_POST["id"];
+        $query = "delete from courses where CourseID =".$_GET["id"];
         $results = $conn-> query($query);
 
         if(!$results)

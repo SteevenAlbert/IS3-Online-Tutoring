@@ -54,9 +54,8 @@ echo "</div>";
         ?>
         <div class="col-lg-3">
             <a href=/IS3-Online-Tutoring/src/model/Course/addCourseContent.php?id=<?php echo $row['CourseID'] ?> class="btn btn-primary">Add/Edit Content</a>
-            <a href=/IS3-Online-Tutoring/src/model/Course/editCourse.php?id=<?php echo $row['CourseID'] ?> class="btn btn-primary">Edit Details</a>
-            <a href=/IS3-Online-Tutoring/src/model/Course/deleteCourse.php?id=<?php echo $row['CourseID'] ?> class="btn btn-primary deletebtn">Delete</a>
-        </div>
+            <a href=/IS3-Online-Tutoring/src/model/Course/editCourse.php?id=<?php echo $row['CourseID'] ?> class="btn btn-primary">Edit/Delete Course</a>
+             </div>
         </div>
         </div>
         <?php
@@ -82,8 +81,8 @@ try{
                     
             <a href=/IS3-Online-Tutoring/src/view/viewStudentsEnrolled.php?id=<?php echo $row['CourseID'] ?> class="btn btn-primary"> Enrolled Learners</a>
             <a href=/IS3-Online-Tutoring/src/model/Course/addCourseContent.php?id=<?php echo $row['CourseID'] ?> class="btn btn-primary">Add/Edit Content</a>
-            <a href=/IS3-Online-Tutoring/src/model/Course/editCourse.php?id=<?php echo $row['CourseID'] ?> class="btn btn-primary">Edit Details</a>
-            <a href=/IS3-Online-Tutoring/src/model/Course/deleteCourse.php?id=<?php echo $row['CourseID'] ?> class="btn btn-primary deletebtn">Delete</a>
+            <a href=/IS3-Online-Tutoring/src/model/Course/editCourse.php?id=<?php echo $row['CourseID'] ?> class="btn btn-primary">Edit/Delete Course</a>
+
         </div>  
         </div>
         </div>
