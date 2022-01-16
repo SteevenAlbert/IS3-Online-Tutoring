@@ -73,8 +73,7 @@ if(isset($_POST['submit'])){
         echo"Message:", $e->getMessage();  
      }
      
-        ?> <div class="alert alert-success" role="alert"> Updated Successfully</div> <?php
-        ?></div><?php
+
         $_SESSION['username'] = $UserName;
         $_SESSION['FirstName'] = $Fname;
         $_SESSION['LastName'] = $LName;
@@ -102,28 +101,48 @@ if(isset($_POST['submit'])){
          catch(Exception $e){  
              echo"Message:", $e->getMessage();  
           }
-       
-  
-        if(!empty($row = $result->fetch_array(MYSQLI_ASSOC))){
-            $deleteTarget='/xampp/htdocs/IS3-Online-Tutoring/uploads/profile_pictures/'.$row['profile_picture'];
-            $query = "UPDATE learners SET profile_picture='$fileName' WHERE UserID = '$UserID'";
-            try{
-                if(!$conn->query($query))
-                   throw new Exception("Error Occured");
-             }
-             catch(Exception $e){  
-                 echo"Message:", $e->getMessage();  
-              }
 
-                // echo "Profile Picture Updated\n";
-                echo "<br>";
-                ?><div id="continue"><?php 
-                // echo "<a href=home.php>CONTINUE</a>";
-                // echo "<a href=/IS3-Online-Tutoring/src/public/home.php>CONTINUE</a>";
-                ?></div><?php
-                unlink($deleteTarget);
-                move_uploaded_file($TempImageName, $target);
-                $_SESSION['PP'] = $fileName;
+
+
+
+        if(!empty($row = $result->fetch_array(MYSQLI_ASSOC))){
+
+
+             $fileType=strtolower(pathinfo($target,PATHINFO_EXTENSION));
+                $accept=false;
+            if($fileType=="jpg" || $fileType=="jpeg" || $fileType=="png"){
+                
+                $result = move_uploaded_file($TempImageName, $target);
+                $accept=true;
+                $deleteTarget='/xampp/htdocs/IS3-Online-Tutoring/uploads/profile_pictures/'.$row['profile_picture'];
+                $query = "UPDATE learners SET profile_picture='$fileName' WHERE UserID = '$UserID'";
+                try{
+                    if(!$conn->query($query))
+                       throw new Exception("Error Occured");
+                 }
+                 catch(Exception $e){  
+                     echo"Message:", $e->getMessage();  
+                  }
+    
+                    // echo "Profile Picture Updated\n";
+                    ?> <div class="alert alert-success" role="alert"> Updated Successfully</div> <?php
+                    ?></div><?php
+                    echo "<br>";
+                    ?><div id="continue"><?php
+                    echo "<a href=home.php>CONTINUE</a>";
+                    ?></div><?php
+                    unlink($deleteTarget);
+                    move_uploaded_file($TempImageName, $target);
+                    $_SESSION['PP'] = $fileName;
+            }
+            else
+            {
+                ?> <div class="alert alert-danger" role="alert"> update failed</div> <?php
+                ?></div><?php    
+                $accept=false;
+            }
+            
+
         }
     }
 }

@@ -12,7 +12,7 @@
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
-
+<link rel="stylesheet" href="/IS3-Online-Tutoring/CSS/pushNotification.css">
 
 <?php
 session_start();
@@ -67,11 +67,23 @@ while($row = $result->fetch_array(MYSQLI_ASSOC))
 //-------------------------------------------- Notification input --------------------------------------------
 ?>
 <form action ='' method = 'post'>
+<div class="dropdown">
 <select name="NotificationType" id="NotificationType">
+  <div class="dropdown-content">
     <option value="Survey">Survey</option>
     <option value="Assignment">Assignment</option>
+  </div>
 </select><br><br>
+</div>
+<br>
+<div class="textbox">
 <textarea name='message' rows='3' cols='100'> </textarea> &nbsp;<br>
-<input type=submit name='submit'> 
+</div>
+
+<input class="btn btn-primary" type=submit name='submit'> 
 </form>
+
+<!-- <div class="suveyimg">
+<img id="surveyimg" src="../../uploads/backgroundImages/survey.jpg">
+</div> -->
 

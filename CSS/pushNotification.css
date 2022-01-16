@@ -1,0 +1,53 @@
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-left: 3%;
+  margin-top: 3%;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+textarea {
+    width: 300px;
+    height: 100px;
+    border-radius: 10px;
+    box-shadow: 0 0 0 1px #000;
+    border: 5px solid transparent;
+}
+.textbox{
+    margin-left: 3%;
+}
+
+input[type=submit]{
+    margin-left: 5%;
+        background-color: #2596be; /* Green */
+        border-radius: 5px;
+        color: white;
+        padding: 7px 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+}
+
+body {
+    background-image: url('../uploads/backgroundImages/survey.jpg');
+    background-repeat: no-repeat;
+    /* background-attachment: fixed; */
+    background-position-x: 90vh;
+    background-position-y: 20vh;
+    background-size: 500px;
+}
