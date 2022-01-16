@@ -72,8 +72,8 @@ if(isset($_POST['submit'])){
     catch(Exception $e){  
         echo"Message:", $e->getMessage();  
      }
-        ?><div id="profilePictureUpdated"><?php
-        echo "Updated Successfully";
+     
+        ?> <div class="alert alert-success" role="alert"> Updated Successfully</div> <?php
         ?></div><?php
         $_SESSION['username'] = $UserName;
         $_SESSION['FirstName'] = $Fname;
@@ -117,8 +117,9 @@ if(isset($_POST['submit'])){
 
                 // echo "Profile Picture Updated\n";
                 echo "<br>";
-                ?><div id="continue"><?php
-                echo "<a href=home.php>CONTINUE</a>";
+                ?><div id="continue"><?php 
+                // echo "<a href=home.php>CONTINUE</a>";
+                // echo "<a href=/IS3-Online-Tutoring/src/public/home.php>CONTINUE</a>";
                 ?></div><?php
                 unlink($deleteTarget);
                 move_uploaded_file($TempImageName, $target);
@@ -150,7 +151,8 @@ if(isset($_POST['submit'])){
     <?php if($_SESSION['UserType']=="Learner" || $_SESSION['UserType']=="Tutor"){?>
     <div class="row">
         <div class="col-lg-12 text-center">
-            <img src="../../../uploads/backgroundImages/imagePlaceholder.jpeg" onclick="triggerClick()" id="editProfileDisplay" width="150" height="150">
+            <!-- <img src="../../../uploads/backgroundImages/imagePlaceholder.jpeg" onclick="triggerClick()" id="editProfileDisplay" width="150" height="150"> -->
+            <img src="<?php echo $target ?>" onclick="triggerClick()" id="editProfileDisplay" width="150" height="150">
             <label for="pp" style="color:black;" >Profile Image</image></label>
             <input type="file" name="pp" onchange="editImage(this)" id="pp" style="display:none;">
         </div>
