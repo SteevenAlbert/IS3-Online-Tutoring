@@ -49,6 +49,10 @@ try{
 }catch(Exception $e){  
    echo"Message:", $e->getMessage();  
 }
+?>
+
+<div class="thiscontainer">
+<?php
 while($row = $result->fetch_array(MYSQLI_ASSOC))
 {
     if ($row["FromUserID"]== $_SESSION['UserID'])
@@ -63,7 +67,10 @@ while($row = $result->fetch_array(MYSQLI_ASSOC))
         echo "<a href='".$row['Link'] ."'>". $row['Link']."</a> <br>";
     echo date('H:i:s d-m-Y ', strtotime($row['Date']))."<br> <br>";
 }
+?>
+</div>
 
+<?php
 //-------------------------------------------- Notification input --------------------------------------------
 ?>
 <form action ='' method = 'post'>

@@ -23,10 +23,10 @@
 <body>
 	
 	<?php
+	session_start();
 	include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
 	establishConnection();
-
-	isAdminOrTutor();
+	
 		
 	//-------------------------------- Update current course --------------------------------
 	$query="update courses set Code=\"".$_POST["code"]."\",
@@ -34,9 +34,8 @@
 	Description=\"".$_POST["description"]."\",
 	Hours=\"".$_POST["hours"]."\",
 	Level=\"".$_POST["level"]."\",
-	Price=\"".$_POST["price"]."\", 
-	Approved=\"".$_POST["approved"]."\", 
-	CreatedBy=\"".$_POST["createdby"]."\" where
+	Price=\"".$_POST["price"]."\",
+	CreatedBy=\"".$_SESSION["UserID"]."\" where
 	CourseID=".$_POST["id"];
 	
 	$results = $conn-> query($query);

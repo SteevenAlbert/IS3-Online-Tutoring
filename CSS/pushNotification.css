@@ -43,6 +43,10 @@ input[type=submit]{
         font-size: 14px;
 }
 
+.thiscontainer{
+    margin-left: 3%;
+}
+
 body {
     background-image: url('../uploads/backgroundImages/survey.jpg');
     background-repeat: no-repeat;

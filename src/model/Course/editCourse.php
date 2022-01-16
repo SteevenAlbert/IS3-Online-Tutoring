@@ -57,7 +57,7 @@ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
 			$category=$row['Categories'];
 			$CreatedBy=$row["CreatedBy"];
 		?>
-		<form  method ="POST" action="applyAddCourse.php">
+		<form  method ="POST" action="applyEditCourse.php">
 			<div class="row">
 				<div class="col-lg-6">
 					<label style="color:black;">Code:</label>
@@ -95,7 +95,7 @@ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
 				</select>
 				</div>
 			</div>
-
+			<?php echo "<input type = hidden name=id value = $ID><br>";?>
 			<div class="row">
 			<div class="col-lg-8">
 					<div class="form-group">
@@ -110,7 +110,7 @@ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
 					</div>
 				</div>
 			</div>
-			<a href="applEditCourse.php">
+			<a href="applyEditCourse.php">
 				<button class="button button-custom">Update Course</button>
 			</a>
 		</form>
