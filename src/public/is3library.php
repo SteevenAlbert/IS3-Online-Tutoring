@@ -292,6 +292,26 @@ function getUsername($UserID)
     return $userData[1];
 }
 
+function userIDSearch($username)
+{
+    establishConnection();
+
+    $sql = "SELECT * FROM users WHERE Username LIKE '%".$username."%'";
+    $result = $GLOBALS['conn']->query($sql);
+    if (!$result)
+        die ("Query error. $sql");
+    elseif (mysqli_num_rows($result) <= 0)
+    {
+        return -1;   
+    }
+    else
+    {
+        $userData = mysqli_fetch_array($result);
+        return $userData[0];
+    }
+        
+}
+
 function getCourseTitle($CourseID)
 {
     establishConnection();

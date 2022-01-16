@@ -1,48 +1,7 @@
 <?php
- session_start();
- include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/Menu.php";
- include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
 
-establishConnection();
+$search = $_POST['search'];
+header("Location: /IS3-Online-Tutoring/src/view/viewApprovedCourses.php?search=$search" );
 
-//--------------------------------------- Get all matching courses ---------------------------------------
-$query = "select * from courses where approved = 1 AND ( Code LIKE '%".$_POST['search'].
-"%' OR Title LIKE '%".$_POST['search'].
-"%' OR Description LIKE '%".$_POST['search'].
-"%' OR Hours LIKE '%".$_POST['search'].
-"%' OR Level LIKE '%".$_POST['search'].
-"%' OR Price LIKE '%".$_POST['search'].
-"%' OR CreatedBy LIKE '%".$_POST['search']."%')";
-
-$result = $conn->query($query);
-
-
-try{
-    if (!$result){
-        throw new Exception("Error Occured"); 
-    }
-                
-}catch(Exception $e){  
-   echo"Message:", $e->getMessage();  
-}
-
-if (mysqli_num_rows($result)<=0)
-{
-    echo "No results for your search: ". $_POST['search'];
-}
-else{
-    // Display matching courses
-    while ($row = $result->fetch_array(MYSQLI_ASSOC))
-    {
-        echo "<a href =/IS3-Online-Tutoring/src/view/viewCourseDetails.php?id=".$row["CourseID"]." >".$row["Code"]."&nbsp".$row["Title"]."</a> <br>";
-        echo $row["Description"]."<br>";
-        echo "Hours: ".$row["Hours"]." <br>";
-        echo "Level: ".$row["Level"]." <br>";
-        echo "Price: ".$row["Price"]." <br>";
-        echo "<i> Created by: ".$row["CreatedBy"]." </i> <br>";
-        echo "<br> <br>";
-
-    }
-}
 
 ?>

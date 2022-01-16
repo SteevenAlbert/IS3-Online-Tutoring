@@ -14,11 +14,12 @@
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="../../CSS/ratings.css" type="text/css">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vquery/5.0.1/v.min.js"></script>
+
 <link rel="stylesheet" href="../../CSS/courses.css" type="text/css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/IS3-Online-Tutoring/CSS/home.css" type="text/css">
-
 <?php
 
 session_start();
@@ -129,11 +130,29 @@ function addToCart(courseID){
 establishConnection();
 $GLOBALS['conn'] = $conn;
 
-$getCoursesQuery = "SELECT * FROM courses where Approved='1'";
+if (empty($_GET['search']))
+    $getCoursesQuery = "SELECT * FROM courses where Approved='1'";
+else
+{
+    $search = $_GET['search'];
+    $getCoursesQuery = "select * from courses where approved = 1 AND ( Code LIKE '%".$search.
+    "%' OR Title LIKE '%".$search.
+    "%' OR Description LIKE '%".$search.
+    "%' OR Hours LIKE '%".$search.
+    "%' OR Level LIKE '%".$search.
+    "%' OR Price LIKE '%".$search.
+    "%' OR CreatedBy LIKE '%".userIDSearch($search)."%')";
+}
 $result = $conn->query($getCoursesQuery);
 
 if (!$result)
     die ("Query error. $getUserQuery");
+elseif(mysqli_num_rows($result)<=0)
+{
+    echo "<div class='alert alert-info' role='alert'>
+        <strong> Sorry! </strong> No results to show.
+    </div>";
+}
 elseif (empty($_SESSION['UserID'])){
     // Display overall rating
     while($row = $result->fetch_array(MYSQLI_ASSOC)) {

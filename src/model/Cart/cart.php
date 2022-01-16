@@ -23,6 +23,11 @@ establishConnection();
 
 isLearner();
 
+if (isset($_GET["id"])) {
+    Remove($conn);
+}
+
+
 //------------------------------------ Get Cart courses ------------------------------------
 $user = $_SESSION['UserID'];
 $query1="SELECT c1.title, c1.code, c1.Categories, c1.Hours, c1.CreatedBy, c1.Thumbnail, c1.price, c2.CourseID FROM courses c1,cartcourses c2 WHERE c2.CourseID=c1.CourseID AND c2.UserID='$user'";
@@ -119,9 +124,6 @@ function Remove($conn) {
     }
 }
 
-if (isset($_GET["id"])) {
-    Remove($conn);
-}
 
 //------------------------------------ Display total price ------------------------------------
 ?>
