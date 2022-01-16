@@ -41,9 +41,7 @@ establishConnection();
 if(empty($_SESSION['UserID']))
 {
     ?>
-    <div class="alert alert-warning">
-        <strong>Warning!</strong> This page needs authentication.
-    </div>
+
     <?php
     exit();
 }
@@ -73,7 +71,8 @@ if(isset($_POST['submit'])){
         echo"Message:", $e->getMessage();  
      }
      
-
+        ?> <?php
+        ?></div><?php
         $_SESSION['username'] = $UserName;
         $_SESSION['FirstName'] = $Fname;
         $_SESSION['LastName'] = $LName;
@@ -128,10 +127,10 @@ if(isset($_POST['submit'])){
                     ?> <div class="alert alert-success" role="alert"> Updated Successfully</div> <?php
                     ?></div><?php
                     echo "<br>";
-                    ?><div id="continue"><?php
-                    echo "<a href=home.php>CONTINUE</a>";
-                    ?></div><?php
-                    unlink($deleteTarget);
+                    ?><?php
+                    if($_SESSION['PP']!="default.png"){
+                       unlink($deleteTarget);
+                    }
                     move_uploaded_file($TempImageName, $target);
                     $_SESSION['PP'] = $fileName;
             }
@@ -163,7 +162,7 @@ if(isset($_POST['submit'])){
       $target ="/IS3-Online-Tutoring/uploads/profile_pictures/".$_SESSION['PP'];
     }
 ?>	
-<img id="editProfileImage" src="../../../uploads/backgroundImages/editProfileImage.jpg" alt="editProfileImage" width="600" height="600">
+<img id="editProfileImage" src="../../../uploads/backgroundImages/editProfileImage.jpg" alt="editProfileImage">
 <form class="form-group" method ="POST" action = "" enctype="multipart/form-data" >
     <div id=centerEditForm>
     <!--------------------------------------- Display Profile Picture --------------------------------------->

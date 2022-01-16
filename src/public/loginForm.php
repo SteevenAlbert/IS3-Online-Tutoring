@@ -21,16 +21,28 @@
                     type:'post',
                     data:{username:username,password:password},
                     success:function(response){
-                        var msg = response;
-                        $("#message").html(response);
                         if(response==="success"){
+                            
                             window.location = "home.php";
+                        }else{
+                            ShowAlert(response, "Please make sure to enter valid UserName and Password.","danger" )
                         }
                     }
                 });
             }
         });
     });
+
+
+    function ShowAlert(msg_title, msg_body, msg_type) {
+      var AlertMsg = $('div[role="alert"]');
+      $(AlertMsg).find('strong').html(msg_title);
+      $(AlertMsg).find('p').html(msg_body);
+      $(AlertMsg).removeAttr('class');
+      $(AlertMsg).addClass('alert-dismissible');
+      $(AlertMsg).addClass('alert alert-' + msg_type);
+      $(AlertMsg).show();
+  }
 </script>
 
 <title>"IS3 Online Tutoring</title>
@@ -67,7 +79,10 @@
 			</div>
 		</form>
    	</div>
-
+    <div class="alert" role="alert" style="display:none;">
+        <strong>Warning!</strong> 
+        <p>Better check yourself, you're not looking too good.</p>
+    </div>
         <input type='submit' value="Login" id="submit" class="form-control" style="margin-bottom:5%;color:white">
 
         <a href="RegisterForm.php?id=learner" style="margin-bottom:3%">Create an account?</a><br>

@@ -72,7 +72,7 @@ if(password_verify($password, $hashedPass)){
     
     echo "success";
 }else{
-    echo "Invalid Login credentials";
+    echo "Invalid credentials";
 }
 
 

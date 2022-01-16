@@ -167,7 +167,7 @@
                                 <form class = "navbar-form " action = "/<?php echo $root ?>/src/actions/courseSearch.php" method = 'post'> 
                                     <div class="form-group">
                                         <input class= "search-box" type = 'text' placeholder = 'Search' name = 'search' required>  
-                                    </div>       
+                                    </div>         
                                 </form> 
                                 </li>
                             </ul> 
