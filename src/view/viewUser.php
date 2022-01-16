@@ -83,20 +83,25 @@
 
 		while ($row = $result->fetch_array(MYSQLI_ASSOC))
 		{
+			
 			if ($row['UserType'] == "Learner"){
+				$target = getProfilePicture($row['UserID']);
+				// $target = $row['profile_picture'];
 				?>
 				<div class="BannerText">
+				<div class="page-title">
 					<h1>Learner</h1>
+				</div>
 				</div>
 				<img id="viewLearnerImage" src="../../uploads/backgroundImages/viewLearnerImage.png" alt="viewLearnerImage" width="600" height="600">
 				<div id="centerViewForm">
 					<form class="form-group text-left" method ="post" action = "/<?php echo $root ?>/src/model/User/Register.php" enctype="multipart/form-data">
 					
-
+					<!-- <?php  ?> -->
 					<div class="row">
 						<div class="col-lg-12">
-							<label>Profile Picture</label>
-							<?php "<img src =.\\images\\". $row["profile_picture"]. " width = 100>"; ?>
+							<label>Profile Picture</label><br>
+							<?php echo "<img src=/IS3-Online-Tutoring/uploads/profile_pictures/$target alt='avatar' width=100>"; ?>
 						</div>
 					<div>	
 
@@ -177,7 +182,9 @@
 			if ($row['UserType'] != "Learner"){
 			?>
 			<div class="BannerText">
+			<div class="page-title">
 					<h1>Admin</h1>
+			</div>
 				</div>
 			<img id="viewAdminImage" src="../../uploads/backgroundImages/viewAdminData.jpg" alt="viewAdminImage" width="600" height="600">
         	<div id="centerViewForm">
