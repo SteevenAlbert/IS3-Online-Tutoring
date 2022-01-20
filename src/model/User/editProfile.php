@@ -2,6 +2,7 @@
 session_start();
 include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/Menu.php";
 include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
+include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/filters.php";
  ?>
 <!doctype html>
 <html>
@@ -136,6 +137,7 @@ if(isset($_POST['submit'])){
             }
             else
             {
+                trigger_error("user tried to upload wrong file format", E_USER_WARNING);
                 ?> <div class="alert alert-danger" role="alert"> update failed</div> <?php
                 ?></div><?php    
                 $accept=false;

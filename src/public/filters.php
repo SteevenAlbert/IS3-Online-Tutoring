@@ -39,15 +39,15 @@
             $password = "";
             $database = "is3 online tutoring";
             $conn = new mysqli($servername, $username, $password, $database);
-        $sql = "INSERT INTO error_log (error_msg, error_level) values('$errstr',$errno)";
+
+            $user_id=$_SESSION['UserID'];
+        $sql = "INSERT INTO error_log (userID,error_msg, error_level) values('$user_id','$errstr',$errno)";
         $result = $conn->query($sql);
         if (!$result)
           die ("Query error. $sql");
-        // Don't execute PHP internal error handler
         return true;
     }
     
-    // set to the user defined error handler 
    set_error_handler("myErrorHandler");
 
 ?>
