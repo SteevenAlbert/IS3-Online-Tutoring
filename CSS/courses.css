@@ -153,6 +153,15 @@
     width: 20px;
 }
 
+.card-custom{
+    padding:20px;
+    border-style: none;
+    border-bottom-style: solid;
+}
+.card-text2{
+    padding-top: 30px;
+}
+
 
 @media screen and (max-width: 1200px) {
     div.side-bar {

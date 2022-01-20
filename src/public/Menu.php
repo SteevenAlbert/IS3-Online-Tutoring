@@ -6,7 +6,28 @@
 <link rel="stylesheet" href="/IS3-Online-Tutoring/CSS/menu.css" type="text/css">
 
 <html>
-	<body>				
+<head>
+<script>
+function showResult(str) {
+  if (str.length==0) {
+    document.getElementById("livesearch").innerHTML="";
+    document.getElementById("livesearch").style.border="0px";
+    return;
+  }
+  var xmlhttp=new XMLHttpRequest();
+  xmlhttp.onreadystatechange=function() {
+    if (this.readyState==4 && this.status==200) {
+      document.getElementById("livesearch").innerHTML=this.responseText;
+      document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+    }
+  }
+  xmlhttp.open("GET","/IS3-Online-Tutoring/src/view/viewSearchResults.php?search="+str,true);
+  xmlhttp.send();
+}
+</script>
+</head>
+	<body>			
+        	
 		<?php
         include_once "is3library.php";
         $root = getRoot();
@@ -21,13 +42,20 @@
                             </div>
                             <ul class="nav col-s-4 navbar-nav">
                             <li class="nav-item"> <a  data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> Categories</a></li>
-                                <li>
-                                <form class = "navbar-form " action = "/<?php echo $root ?>/src/actions/courseSearch.php" method = 'post'> 
-                                    <div class="form-group">
-                                        <input class= "search-box" type = 'text' placeholder = 'Search' name = 'search' required>  
-                                    </div>       
+                  
+                            <li col-s-12>
+                                <form class = "navbar-form" action = "/<?php echo $root ?>/src/actions/courseSearch.php" method = 'post'> 
+                                    <div class="form-group">                   
+                                        <div class="input-wrapper">
+                                            <div class="fa fa-search"></div>
+                                            <input  type = 'text' tabIndex='0' placeholder = 'Search' name = 'search' id = 'searchbar' onkeyup="showResult(this.value)" required>                            
+                                            <div class="fa fa-times"></div>
+                                        </div>
+                                    </div>    
+                                    <div id="livesearch"></div>
                                 </form> 
                                 </li>
+                         
                             </ul> 
 
                             <ul class="nav navbar-nav navbar-right">
@@ -62,11 +90,16 @@
                             </div>
                             <ul class="nav col-s-4 navbar-nav">
                             <li class="nav-item"> <a  data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> Categories</a></li>
-                                <li>
-                                <form class = "navbar-form " action = "/<?php echo $root ?>/src/actions/courseSearch.php" method = 'post'> 
-                                    <div class="form-group">
-                                        <input class= "search-box" type = 'text' placeholder = 'Search' name = 'search' required>  
-                                    </div>       
+                            <li col-s-12>
+                                <form class = "navbar-form" action = "/<?php echo $root ?>/src/actions/courseSearch.php" method = 'post'> 
+                                    <div class="form-group">                   
+                                        <div class="input-wrapper">
+                                            <div class="fa fa-search"></div>
+                                            <input  type = 'text' tabIndex='0' placeholder = 'Search' name = 'search' id = 'searchbar' onkeyup="showResult(this.value)" required>                            
+                                            <div class="fa fa-times"></div>
+                                        </div>
+                                    </div>    
+                                    <div id="livesearch"></div>
                                 </form> 
                                 </li>
                             </ul> 
@@ -91,14 +124,7 @@
                     </nav>
                 <?php }
                 else if($_SESSION['UserType']=="Administrator")
-                { /*
-                    echo"<a href=/$root/src/public/home.php>Home</a>  &nbsp; &nbsp;";
-					echo"<a href=/$root/src/public/categories.php> Categories</a> &nbsp; &nbsp; ";
-                    echo "<a href=/$root/src/view/viewPendingCourses.php>Pending Courses</a> &nbsp; &nbsp;";
-                    echo "<a href=/$root/src/view/viewApprovedCourses.php>View All Courses</a> &nbsp; &nbsp;";
-                   
-                   
-           */
+                { 
                     ?>
                     <nav class="navbar navbar-custom ">
                         <div class="container-fluid">
@@ -107,11 +133,16 @@
                             </div>
                             <ul class="nav col-s-4 navbar-nav">
                             <li class="nav-item"> <a  data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> Categories</a></li>
-                                <li>
-                                <form class = "navbar-form " action = "/<?php echo $root ?>/src/actions/courseSearch.php" method = 'post'> 
-                                    <div class="form-group">
-                                        <input class= "search-box" type = 'text' placeholder = 'Search' name = 'search' required>  
-                                    </div>       
+                            <li col-s-12>
+                                <form class = "navbar-form" action = "/<?php echo $root ?>/src/actions/courseSearch.php" method = 'post'> 
+                                    <div class="form-group">                   
+                                        <div class="input-wrapper">
+                                            <div class="fa fa-search"></div>
+                                            <input  type = 'text' tabIndex='0' placeholder = 'Search' name = 'search' id = 'searchbar' onkeyup="showResult(this.value)" required>                            
+                                            <div class="fa fa-times"></div>
+                                        </div>
+                                    </div>    
+                                    <div id="livesearch"></div>
                                 </form> 
                                 </li>
                             </ul> 
@@ -163,11 +194,16 @@
                             </div>
                             <ul class="nav col-s-4 navbar-nav">
                             <li class="nav-item"> <a  data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> Categories</a></li>
-                                <li>
-                                <form class = "navbar-form " action = "/<?php echo $root ?>/src/actions/courseSearch.php" method = 'post'> 
-                                    <div class="form-group">
-                                        <input class= "search-box" type = 'text' placeholder = 'Search' name = 'search' required>  
-                                    </div>         
+                            <li col-s-12>
+                                <form class = "navbar-form" action = "/<?php echo $root ?>/src/actions/courseSearch.php" method = 'post'> 
+                                    <div class="form-group">                   
+                                        <div class="input-wrapper">
+                                            <div class="fa fa-search"></div>
+                                            <input  type = 'text' tabIndex='0' placeholder = 'Search' name = 'search' id = 'searchbar' onkeyup="showResult(this.value)" required>                            
+                                            <div class="fa fa-times"></div>
+                                        </div>
+                                    </div>    
+                                    <div id="livesearch"></div>
                                 </form> 
                                 </li>
                             </ul> 
@@ -212,6 +248,18 @@
                     </div>
                     <ul class="nav col-s-4 navbar-nav">
                         <li class="nav-item"> <a  data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> Categories</a></li>
+                        <li col-s-12>
+                                <form class = "navbar-form" action = "/<?php echo $root ?>/src/actions/courseSearch.php" method = 'post'> 
+                                    <div class="form-group">                   
+                                        <div class="input-wrapper">
+                                            <div class="fa fa-search"></div>
+                                            <input  type = 'text' tabIndex='0' placeholder = 'Search' name = 'search' id = 'searchbar' onkeyup="showResult(this.value)" required>                            
+                                            <div class="fa fa-times"></div>
+                                        </div>
+                                    </div>    
+                                    <div id="livesearch"></div>
+                                </form> 
+                                </li>
                     </ul> 
                     <ul class="nav navbar-nav navbar-right">
                         <li class="nav-item"> <a href="/<?php echo $root ?>/src/public/home.php">Featured</a> </li>
@@ -220,13 +268,8 @@
                        <li> <a href="/<?php echo $root ?>/src/public/RegisterForm.php?id=learner"><button class="button"><span>Sign Up </span></button></a> </li>
                        
                    </ul>
-                    <form class = "navbar-form " action = "/<?php echo $root ?>/src/actions/courseSearch.php" method = 'post'> 
-                        <div class="form-group">
-                            <input class= "search-box" type = 'text' placeholder = 'Search' name = 'search' required>  
-                        </div>
-                                 
-                    </form>    
-                   
+                  
+                
                </div>
             </nav>
            <?php } ?>

@@ -5,12 +5,14 @@ html, body {
   }
 
 .navbar-custom{
+  position:fixed;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
     font-family: sans-serif;
     height: 80px;
     position: relative;
     padding: 15px;
     margin-bottom: 0px;
+
 }
 .navbar-custom .navbar-brand,
 .navbar-custom .navbar-text {
@@ -19,6 +21,7 @@ html, body {
 
 .navbar-nav {
     color: #000000;
+    
 }
 
 .navbar-custom .navbar-nav > li >a {
@@ -26,6 +29,7 @@ html, body {
     font-size: 16px;
     color:black;
     transition: 0.5s;
+
 }
 
 
@@ -74,6 +78,83 @@ html, body {
     display: inline-block;
     position: relative;
     transition: 0.5s;
+  }
+
+  .input-wrapper {
+    display: flex;
+    align-items: center;
+    width: 800px;
+    height: 50px;
+    justify-content: space-between;
+    background: #ffffff;
+    border-radius: 0.5rem;
+    color: white;
+    box-shadow: 0rem 0.25rem 0rem 0rem #8ad4f0;
+    transition:0.5s;
+    margin-top: -5px;
+  }
+  
+  .input-wrapper:hover, .input-wrapper:focus-within {
+    display: flex;
+    align-items: center;
+    width: 800px;
+    height: 50px;
+    justify-content: space-between;
+    background: #2596be;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    color: white;
+    box-shadow: 0.25rem 0.25rem 0rem #8ad4f0;
+    transition:0.5s
+  }
+
+  .input-wrapper input {
+    margin:  0.5rem 0 0.5rem;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: #ffffff;
+    color: #2596be;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    transition:0.5s
+  }
+
+  .input-wrapper input:hover {
+    margin: 0 1rem 0 1rem;
+    width: 100%;
+    border: none;
+    outline: none;
+    background: #2596be;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    transition: 0.5s
+  }
+  .input-wrapper input:focus {
+    margin: 0 1rem 0 1rem;
+    width: 100%;
+    border: none;
+    outline: none;
+    background: #2596be;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    transition: 0.5s
+  }
+  
+  ::placeholder {
+    color: #8ad4f0;
+  }
+  
+  #livesearch {
+    position: fixed;
+    z-index: 999;
+    background-color: white;
+    border-radius: 10px;
+    width:40%
+
   }
   
   .button span:after {
@@ -126,10 +207,13 @@ html, body {
 
   .search-box{
     border-radius: 20px;
-    width: max-content !important;
+    width: 800px;
     height: 40px;
     padding: 20px;
+    resize: horizontal;
+    overflow: auto;
   }
+
 
 .form-group{
     margin-top: -5px;
@@ -140,16 +224,21 @@ html, body {
 }
 
 .dropdown-toggle-custom{
-  margin-right: 15px;
-  border-radius: 50%;
-  width: 50px;
-  height:50px;
+  display: inline-block; 
+  position: relative; 
+  width: 52px; 
+  height:52px;
+  overflow: hidden; 
+  border-radius: 50%; 
+  text-align: center;
+  
   transition: 0.3s;
+
 }
 .dropdown-toggle-custom:hover{
-  margin-right: 15px;
-  width: 52px;
-  height:52px;
+  width: 54px;
+  height:54px;
+  overflow: hidden; 
   transition: 0.3s;
   opacity: 0.5;
 }
