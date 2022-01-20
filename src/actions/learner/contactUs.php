@@ -45,13 +45,8 @@ if (isset($_POST['submit']))
 
             $query = "INSERT INTO messages(fromUserID, text, link, file, isRead, date) VALUES ('".$_SESSION['UserID']."','$text_msg','".$_POST['link']."', '$fileName', 0, now())";
             $result = $conn->query($query);
-            try{
-                if (!$result){
-                    throw new Exception("Error Occured"); 
-                }
-                            
-            }catch(Exception $e){  
-               echo"Message:", $e->getMessage();  
+            if (!$result){
+                throw new Exception($query); 
             }
         }
         else{
@@ -66,15 +61,9 @@ if (isset($_POST['submit']))
 //--------------------------------------------- Messages history ---------------------------------------------
 $query = "SELECT * FROM messages WHERE fromUserID = '".$_SESSION['UserID']."' OR toUserID = '".$_SESSION['UserID']."'";
 $result = $conn->query($query);
-try{
-    if (!$result){
-        throw new Exception("Error Occured"); 
-    }
-                
-}catch(Exception $e){  
-   echo"Message:", $e->getMessage();  
+if (!$result){
+    throw new Exception($query); 
 }
-
 
 $day ="";
 echo "<body class = 'chat-page'>";

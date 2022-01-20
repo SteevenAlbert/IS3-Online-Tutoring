@@ -31,23 +31,5 @@
         }
     }
 
-    function myErrorHandler($errno, $errstr)
-    {
-          //   mysql connect etc here...
-             $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $database = "is3 online tutoring";
-            $conn = new mysqli($servername, $username, $password, $database);
-
-            $user_id=$_SESSION['UserID'];
-        $sql = "INSERT INTO error_log (userID,error_msg, error_level) values('$user_id','$errstr',$errno)";
-        $result = $conn->query($sql);
-        if (!$result)
-          die ("Query error. $sql");
-        return true;
-    }
     
-   set_error_handler("myErrorHandler");
-
 ?>

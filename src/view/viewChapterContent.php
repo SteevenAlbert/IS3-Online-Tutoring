@@ -25,14 +25,10 @@ echo "<h1>Chapter ".$_GET['ch']."</h1>";
 $query = "SELECT * FROM chaptermaterials WHERE courseID=".$_GET['id']." AND chapter=".$_GET['ch'];
     echo "<h2>Videos</h2>";
 $result = $conn->query($query);
-try{
-    if (!$result){
-        throw new Exception("Error Occured"); 
-    }
-                
-}catch(Exception $e){  
-   echo"Message:", $e->getMessage();  
+if (!$result){
+    throw new Exception($query); 
 }
+
 while($row = $result->fetch_array(MYSQLI_ASSOC)){
     echo "<h3>".$row['Title']."</h3>";
     echo $row['Description']."<br>";

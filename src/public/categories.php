@@ -15,13 +15,8 @@ while($row = $result->fetch_assoc()) {
 
     $result2 = $conn->query($getCoursesbyCategory);
 
-    try{
-        if (!$result2)
-         throw new Exception("Error Occured");
-    }
-    catch(Exception $e){  
-       echo"Message:", $e->getMessage();  
-    }
+    if (!$result2)
+        throw new Exception($getCoursesQuery);
 
 
     //------------------------------------ Display Courses by categorie ------------------------------------

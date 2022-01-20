@@ -37,7 +37,7 @@ isAdminOrTutor();
         $results = $conn-> query($query);
 		
 		if(!$results)
-        die("Fatal error in executing the edit");
+            throw new Exception($query);
 		
 		    $row = $results->fetch_array(MYSQLI_ASSOC);
             ?><video width = "480" src="/IS3-Online-Tutoring/resources/CoursesContent/Videos/<?php echo $row['url']?>" controls> </video>
@@ -62,7 +62,7 @@ isAdminOrTutor();
         $description = $_POST['description'];
         $query = "UPDATE chaptermaterials SET Title='$Title', Description = '$description' WHERE resourceID =".$_GET['id'];
         if(!$conn->query($query))
-            echo mysqli_errno($conn).": " .mysqli_error($conn);
+            throw new Exception($query);
         
          //Update Course Material
         if($_FILES["Lesson"]["size"]!=0){
@@ -71,16 +71,19 @@ isAdminOrTutor();
             $TempImageName = $_FILES['Lesson']['tmp_name'];
             $target='CoursesContent/Videos/'. $fileName;
             $id = $_GET["id"];
+            
             $query = "SELECT * FROM chaptermaterials WHERE resourceID =".$_GET['id'];
-            if(!$conn->query($query))
-                echo mysqli_errno($conn).": " .mysqli_error($conn);
             $result = $conn->query($query);
+            if(!$result)
+                throw new Exception($query);
+            
+            
             $row = $result->fetch_array(MYSQLI_ASSOC);
             if($row['url']!=null){
                 $deleteTarget='CoursesContent/Videos/'.$row['url'];
                 $query = "UPDATE chaptermaterials SET url='$fileName' WHERE resourceID =".$_GET['id'];
                 if(!$conn->query($query))
-                echo mysqli_errno($conn).": " .mysqli_error($conn);
+                    throw new Exception($query);
                 else{
                     echo "Material Updated\n"; 
                     echo "<br>";
@@ -91,7 +94,7 @@ isAdminOrTutor();
             }else{
                 $query = "UPDATE chaptermaterials SET url='$fileName' WHERE ID =".$_GET['id'];
                 if(!$conn->query($query))
-                echo mysqli_errno($conn).": " .mysqli_error($conn);
+                    throw new Exception($query);
                 else{
                     echo "Material uploaded\n"; 
                     echo "<br>";

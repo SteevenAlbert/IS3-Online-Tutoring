@@ -49,25 +49,16 @@ if(isset($_POST["password1"])){
 
     $updateQuery="UPDATE users SET Password='$pass' WHERE email='$email'";
     $result_update = $conn->query($updateQuery);
-    try{
-        if (!$result_update){
-            throw new Exception("Error Occured"); 
-        }
-                    
-    }catch(Exception $e){  
-       echo"Message:", $e->getMessage();  
+    if (!$result_update){
+        throw new Exception($updateQuery); 
     }
+                    
 
     if($updateQuery){
         $deleteQuery="DELETE FROM resetpassword WHERE code='$code'";
         $result_delete = $conn->query($deleteQuery);
-        try{
-            if (!$result_delete){
-                throw new Exception("Error Occured"); 
-            }
-                        
-        }catch(Exception $e){  
-           echo"Message:", $e->getMessage();  
+        if (!$result_delete){
+            throw new Exception($deleteQuery); 
         }
 
       exit("Password Updated");

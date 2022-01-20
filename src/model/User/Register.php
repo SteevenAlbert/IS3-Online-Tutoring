@@ -1,3 +1,20 @@
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+<!-- Rating stars -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+
+
 <html>
 <body>
 
@@ -47,10 +64,11 @@ if(isset($_POST["UserName"], $_POST["Password"],$_POST['Fname'],$_POST['LName'],
    
     //Check That Username doesn't exist in database
     $query = "SELECT * FROM users WHERE Username= '$UserName'";
-    if(!$conn->query($query))
-        echo mysqli_errno($conn).": " .mysqli_error($conn);
-
     $result = $conn->query($query);
+    if(!$result)
+        throw new Exception($query);
+
+    
     $row = $result->fetch_array(MYSQLI_ASSOC);
 
     if($row){
@@ -72,7 +90,7 @@ if(isset($_POST["UserName"], $_POST["Password"],$_POST['Fname'],$_POST['LName'],
         
         if(!$conn->query($query))
         {
-            echo mysqli_errno($conn).": " .mysqli_error($conn);
+            throw new Exception($query);
         }  
         else{
         //---------------- Insert user in learners or tutors table with profile picture ----------------
@@ -84,7 +102,7 @@ if(isset($_POST["UserName"], $_POST["Password"],$_POST['Fname'],$_POST['LName'],
                     $UserID = $row['UserID'];
                 } 
                 else
-                    echo $getID;
+                    throw new Exception($getID);
 
                 if ($query2)
                 {
@@ -101,7 +119,7 @@ if(isset($_POST["UserName"], $_POST["Password"],$_POST['Fname'],$_POST['LName'],
                 }
 
                 if (!$conn->query($query2))
-                    echo mysqli_errno($conn).": " .mysqli_error($conn);
+                    throw new Exception($query2);
                 else
                 {
                     echo "REGISTERED"; 

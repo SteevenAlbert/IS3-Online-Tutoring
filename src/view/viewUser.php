@@ -40,30 +40,25 @@ isAdmin();
 $query = "SELECT u.*, l.profile_picture from users u, learners l where u.UserID = '".$_GET["id"]."' AND u.UserID=l.UserID";
 $result = $conn->query($query);
 
+if (!$result){
+	throw new Exception($query); 
+}
+
 //get Enrolled Courses
 $coursesQuery = "SELECT * FROM enroll WHERE UserID='".$_GET['id']."' ";
 $enrolledCoursesResult = $conn->query($coursesQuery);
 
-try{
-	if (!$result){
-		throw new Exception("Error Occured"); 
-	}
-				
-}catch(Exception $e){  
-	echo"Message:", $e->getMessage();  
+if (!$enrolledCoursesResult){
+	throw new Exception($coursesQuery); 
 }
+
 
 //query for admins
 $query_admin = "SELECT * from users where UserID = '".$_GET["id"]."'";
 $result_admin = $conn->query($query_admin);
 
-try{
-	if (!$result_admin){
-		throw new Exception("Error Occured"); 
-	}
-				
-}catch(Exception $e){  
-	echo"Message:", $e->getMessage();  
+if (!$result_admin){
+	throw new Exception($query_admin); 
 }
 
 //------------------------------ Display user info ---------------------------------------
@@ -140,6 +135,8 @@ while ($row = $result->fetch_array(MYSQLI_ASSOC))
 
 						$getCourseName = "SELECT Title FROM courses where CourseID='$CourseID'";
 						$CourseNameResult = $conn->query($getCourseName);
+						if (!$CourseNameResult)
+							throw new Exception($getCourseName);
 						$nameRow = $CourseNameResult->fetch_array(MYSQLI_ASSOC);
 						$name = $nameRow['Title'];
 						echo "<li class='list-group-item list-group-item-action'> <a  href=viewCourseDetails.php?id=$CourseID> $name </a></li>"; 

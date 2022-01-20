@@ -28,27 +28,18 @@ if (isset($_POST['submit']))
 {
     $query = "INSERT INTO Notifications(fromUserID, toUserID, CourseID,type, text, date) VALUES ('".$_SESSION['UserID']."','".$_GET['UserID']."', '".$_GET['CourseID']."', '".$_POST['NotificationType']."' ,'".$_POST['message']."', now())";
     $result = $conn->query($query);
-    try{
-        if (!$result){
-            throw new Exception("Error Occured"); 
-        }
-                    
-    }catch(Exception $e){  
-       echo"Message:", $e->getMessage();  
+    if (!$result){
+        throw new Exception($query); 
     }
 }
 
 //-------------------------------------------- Get Notifications history --------------------------------------------
 $query = "SELECT * FROM Notifications WHERE fromUserID = '".$_SESSION['UserID']."' AND toUserID = '".$_GET['UserID']."'";
 $result = $conn->query($query);
-try{
-    if (!$result){
-        throw new Exception("Error Occured"); 
-    }
-                
-}catch(Exception $e){  
-   echo"Message:", $e->getMessage();  
+if (!$result){
+    throw new Exception($query); 
 }
+
 ?>
 
 <div class="thiscontainer">

@@ -26,8 +26,10 @@ $chapter = $_GET['ch'];
 
 /*---------------------------VIEW ADDED CONTENT--------------------------------*/
 $query = "SELECT * FROM chaptermaterials WHERE CourseID=$id AND chapter=$chapter";
-if(!$conn->query($query))
-    echo mysqli_errno($conn).": " .mysqli_error($conn);
+$result = $conn->query($query);
+
+if(!$result)
+    throw new Exception($query);
 
 ?>
 <table class="table table-hover table-bordered">
@@ -44,7 +46,7 @@ if(!$conn->query($query))
     </tr>
 </thead>
 <?php
-$result = $conn->query($query);
+
 while($row= $result->fetch_array(MYSQLI_ASSOC)){
 ?>
     <tr>
@@ -90,11 +92,12 @@ if(isset($_POST['addLesson'])){
         $target='/xampp/htdocs/IS3-Online-Tutoring/resources/CoursesContent/Videos/'. $fileName;
         $query = "INSERT INTO chaptermaterials(Title, Description, courseID, chapter, url, type)
         VALUES('$title','$description','$id','$chapter','$fileName','Video' )";
+        
         if(!$conn->query($query))
-         echo mysqli_errno($conn).": " .mysqli_error($conn);
+            throw new Exception($query);
         else{
-        move_uploaded_file($TempName, $target);
-        header('Location: addChapterContent.php?id='.$id.'&ch='.$chapter);
+            move_uploaded_file($TempName, $target);
+            header('Location: addChapterContent.php?id='.$id.'&ch='.$chapter);
         }
     }
 }

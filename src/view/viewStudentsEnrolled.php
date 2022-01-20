@@ -28,18 +28,11 @@ isTutor();
 
 $CourseID = $_GET["id"];
 $getEnrolledQuery = "SELECT * FROM enroll WHERE CourseID= '$CourseID'";
-    if(!$conn->query($getEnrolledQuery))
-        echo mysqli_errno($conn).": " .mysqli_error($conn);
-
 $result = $conn->query($getEnrolledQuery);
-try{
-    if (!$result){
-        throw new Exception("Error Occured"); 
-    }
-                
-}catch(Exception $e){  
-   echo"Message:", $e->getMessage();  
+if (!$result){
+    throw new Exception($getEnrolledQuery); 
 }
+
 ?>
 
 <div class="page-title">
@@ -63,18 +56,12 @@ while($row = $result->fetch_array(MYSQLI_ASSOC)) {
     $EnrollDate = $row['EnrollDate'];
     
     //Check if user rated course
-   $getRatedQuery = "SELECT * FROM Ratings WHERE courseID= '$CourseID' AND UserID = '$UserID'" ;
-    if(!$conn->query($getRatedQuery))
-        echo mysqli_errno($conn).": " .mysqli_error($conn);
+    $getRatedQuery = "SELECT * FROM Ratings WHERE courseID= '$CourseID' AND UserID = '$UserID'" ;
     $return = $conn->query($getRatedQuery);
-    try{
-        if (!$return){
-            throw new Exception("Error Occured"); 
-        }
-                    
-    }catch(Exception $e){  
-       echo"Message:", $e->getMessage();  
+    if (!$return){
+        throw new Exception($getRatedQuery); 
     }
+
     $row2 = $return->fetch_array(MYSQLI_ASSOC);
     
     echo "<tr>";

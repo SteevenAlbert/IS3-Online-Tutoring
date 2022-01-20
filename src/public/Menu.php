@@ -283,13 +283,10 @@ function showResult(str) {
     establishConnection();
     $getCategoriesQuery = "SELECT DISTINCT Categories FROM courses WHERE Approved = 1";
     $result = $conn->query($getCategoriesQuery);
-    try{
-        if (!$result)
-            throw new Exception("Error Occured");
-    }
-    catch(Exception $e){  
-        echo"Message:", $e->getMessage();  
-    }
+
+    if (!$result)
+        throw new Exception($getCategoriesQuery;
+
 
     while ($row = $result->fetch_assoc())
     {

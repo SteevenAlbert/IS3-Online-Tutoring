@@ -86,13 +86,8 @@
                 VALUES ('".$fromLearnerID."','".$toTutorID."','".$courseID."','".$_POST['0']."','".$_POST['1']."','".$_POST['2']."','".$_POST['3']."','".$text_msg."')";
 
                 $result = $conn->query($query);
-                try{
-                    if (!$result){
-                        throw new Exception("Error Occured"); 
-                    }
-                                
-                }catch(Exception $e){  
-                   echo"Message:", $e->getMessage();  
+                if (!$result){
+                    throw new Exception($query); 
                 }
            }
 

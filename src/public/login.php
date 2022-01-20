@@ -41,22 +41,13 @@ if(password_verify($password, $hashedPass)){
     // Get Profile Picture
     if($_SESSION['UserType']=="Tutor"){
         $getPPQuery = "SELECT * FROM tutors WHERE UserID ='".$_SESSION['UserID']."'";
-        if(!$conn->query($getPPQuery))
-            echo mysqli_errno($conn).": " .mysqli_error($conn);
     }else{
         $getPPQuery = "SELECT * FROM learners WHERE UserID ='".$_SESSION['UserID']."'";
-        if(!$conn->query($getPPQuery))
-            echo mysqli_errno($conn).": " .mysqli_error($conn);
     }
     $result2 = $conn->query($getPPQuery);
 
-    try{
-        if(!$result2){
-        throw new Exception("Error Occured");
-        }
-    }
-    catch(Exception $e){
-        throw new Exception("Error Occured"); 
+    if(!$result2){
+        throw new Exception($getPPQuery);
     }
     
     

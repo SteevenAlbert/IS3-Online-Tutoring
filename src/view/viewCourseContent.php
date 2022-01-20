@@ -31,26 +31,18 @@ $user=$_SESSION['UserID'];
 $id = $_GET['id'];
 $query = "SELECT * FROM enroll WHERE UserID ='$user' AND CourseID='$id'";
 $result = $conn->query($query);
-try{
-    if (!$result){
-        throw new Exception("Error Occured"); 
-    }
-                
-}catch(Exception $e){  
-   echo"Message:", $e->getMessage();  
+
+if (!$result){
+    throw new Exception($query); 
 }
+
 $enrolled = mysqli_fetch_array($result);
 
 if($enrolled){
     $getCoursesQuery = "SELECT * FROM courses WHERE CourseID=".$_GET["id"];
     $result = $conn->query($getCoursesQuery);
-    try{
-        if (!$result){
-            throw new Exception("Error Occured"); 
-        }
-                    
-    }catch(Exception $e){  
-       echo"Message:", $e->getMessage();  
+    if (!$result){
+        throw new Exception($getCoursesQuery); 
     }
 
     $row = $result->fetch_array(MYSQLI_ASSOC);
@@ -70,24 +62,20 @@ if($enrolled){
     <h2> Course Content </h2>
     <ul class="list-group">
     <?php
-      $id = $_GET["id"];
-      $query = "SELECT * FROM coursechapters WHERE CourseID = '$id'";
-      if(!$conn->query($query))
-          echo mysqli_errno($conn).": " .mysqli_error($conn);
-      $result = $conn->query($query);
-      try{
+        $id = $_GET["id"];
+        $query = "SELECT * FROM coursechapters WHERE CourseID = '$id'";
+
+        $result = $conn->query($query);
+      
         if (!$result){
-            throw new Exception("Error Occured"); 
+            throw new Exception($query); 
         }
                     
-    }catch(Exception $e){  
-       echo"Message:", $e->getMessage();  
-    }
-      $chaptersCount=0;
-      while($row =$result->fetch_array(MYSQLI_ASSOC)){
-        $chaptersCount+=1;
-        $title=  $row['Title'];
-        echo "<li class='list-group-item list-group-item-action'>Chapter $chaptersCount: $title </a></li>"; 
+        $chaptersCount=0;
+        while($row =$result->fetch_array(MYSQLI_ASSOC)){
+            $chaptersCount+=1;
+            $title=  $row['Title'];
+            echo "<li class='list-group-item list-group-item-action'>Chapter $chaptersCount: $title </a></li>"; 
       }
     ?>
     </ul>

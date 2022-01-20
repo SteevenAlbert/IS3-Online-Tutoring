@@ -40,14 +40,10 @@ isAdmin();
             //----------------------------- Display user to delete details -----------------------------
             $query = "SELECT * FROM users WHERE UserID = '" .$_GET["id"]."'";
             $results = $conn-> query($query);
-            try{
-                if(!$results){     
-                    throw new Exception("Error Occured");   
-                }
+			if(!$results){     
+				throw new Exception($query);   
+			}
                 
-            }catch(Exception $e){  
-               echo"Message:", $e->getMessage();  
-            }
 
             while($row = $results->fetch_array(MYSQLI_ASSOC)) {
                 ?>
@@ -118,15 +114,6 @@ isAdmin();
             <?php
             }
          ?>
-        <!-- Get deletion confirmation -->
-        <!-- <button type="delete"
-                onclick= "if (!confirm('Are you sure you want to delete this administrator?')) 
-                { return false }">
-                <? /*header("Location:approveCourse.php");*/?>
-            
-        Delete </button> -->
- 
-
         
 	</form>
 </body>

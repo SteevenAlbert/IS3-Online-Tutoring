@@ -19,12 +19,16 @@
 <?php
 session_start();
 include_once "Menu.php";
+include_once "is3library.php";
 
 establishConnection();
 $GLOBALS['conn'] = $conn;
 
 $getCoursesQuery = "SELECT * FROM courses where Approved='1'";
 $result = $conn->query($getCoursesQuery);
+if (!$result)
+    throw new Exception($getCoursesQuery);
+
 ?>
 
 <html>
@@ -205,7 +209,7 @@ function getRating($row, &$averageRating, &$reviewCount)
     $reviews = $GLOBALS['conn']->query($getReviewsQuery);
     
     if (!$reviews)
-        die ("Query error. $getReviewsQuery");
+        throw new Exception($getReviewsQuery);
 
     $reviewsTotal=0;
     while($review= $reviews->fetch_array(MYSQLI_ASSOC)){

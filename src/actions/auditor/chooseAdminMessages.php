@@ -47,13 +47,8 @@ echo "<b>All chats for: ".getUsername($adminID). "</b> <br> <br>";
 
 $query = "SELECT DISTINCT toUserID from messages WHERE fromUserID = '".$adminID ."'";
 $result = $conn->query($query);
-try{
-    if (!$result){
-        throw new Exception("Error Occured"); 
-    }
-                
-}catch(Exception $e){  
-   echo"Message:", $e->getMessage();  
+if (!$result){
+    throw new Exception($query); 
 }
 
 
@@ -76,15 +71,9 @@ $query = "SELECT m1.text as Comment, m2.text as Message from messages as m1, mes
 WHERE m1.parentMessageID IS NOT NULL AND m1.toUserID = $adminID
 AND m1.parentMessageID = m2.messageID";
 $result = $conn->query($query);
-try{
-    if (!$result){
-        throw new Exception("Error Occured"); 
-    }
-                
-}catch(Exception $e){  
-   echo"Message:", $e->getMessage();  
+if (!$result){
+    throw new Exception("Error Occured"); 
 }
-
 
 echo "<br> <br>  <br> <b> All comments </b> <br> <br>";
 while($row = $result->fetch_array(MYSQLI_ASSOC)){

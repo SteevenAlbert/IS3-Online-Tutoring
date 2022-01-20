@@ -64,13 +64,9 @@ if(isset($_POST['submit'])){
             WHERE UserID='".$_SESSION['UserID'] ."' ";
 
     $result = $conn->query($query);
-    try{
-       if (!$result)
-          throw new Exception("Error Occured");
-    }
-    catch(Exception $e){  
-        echo"Message:", $e->getMessage();  
-     }
+    if (!$result)
+        throw new Exception($query);
+    
      
         ?> <?php
         ?></div><?php
@@ -92,18 +88,11 @@ if(isset($_POST['submit'])){
         $TempImageName = $_FILES['pp']['tmp_name'];
         $target='/xampp/htdocs/IS3-Online-Tutoring/uploads/profile_pictures/'.$fileName;
         $UserID = $_SESSION['UserID'];
+        
         $query = "SELECT * FROM learners WHERE UserID ='$UserID'";
         $result = $conn->query($query);
-        try{
-            if (!$result)
-               throw new Exception("Error Occured");
-         }
-         catch(Exception $e){  
-             echo"Message:", $e->getMessage();  
-          }
-
-
-
+        if (!$result)
+            throw new Exception($query);
 
         if(!empty($row = $result->fetch_array(MYSQLI_ASSOC))){
 

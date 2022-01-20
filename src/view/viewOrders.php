@@ -113,13 +113,9 @@ else
 function displayOrders($query)
 {
   $result = $GLOBALS['conn']->query($query);
-  try{
-    if (!$result)
-      throw new Exception("Error Occured"); 
-              
-}catch(Exception $e){  
- echo"Message:", $e->getMessage();  
-}
+  if (!$result)
+    throw new Exception($query); 
+
 
   if (mysqli_num_rows($result)<=0)
   {

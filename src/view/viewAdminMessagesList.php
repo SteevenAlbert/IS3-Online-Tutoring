@@ -41,14 +41,10 @@ isAdmin();
 //-------------------------------------------- Show all unread messages (latest first) --------------------------------------------
 $query = "SELECT DISTINCT fromUserID FROM messages WHERE toUserID IS NULL AND isRead = 0 ORDER BY date DESC";
 $result = $conn->query($query);
-try{
-    if (!$result){
-        throw new Exception("Error Occured"); 
-    }
-                
-}catch(Exception $e){  
-   echo"Message:", $e->getMessage();  
+if (!$result){
+    throw new Exception($query); 
 }
+
 
 echo "Unread chats: ";
 echo mysqli_num_rows($result);
@@ -73,14 +69,11 @@ AND NOT EXISTS (SELECT m2.fromUserID FROM messages as m2 WHERE m2.isRead = 0 AND
 
 
 $result = $conn->query($query);
-try{
-    if (!$result){
-        throw new Exception("Error Occured"); 
-    }
-                
-}catch(Exception $e){  
-   echo"Message:", $e->getMessage();  
+
+if (!$result){
+    throw new Exception($query); 
 }
+
 
 while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
     $target = getProfilePicture($row['fromUserID']);

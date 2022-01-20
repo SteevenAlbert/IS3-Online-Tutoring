@@ -34,24 +34,16 @@ $query1="SELECT c1.title, c1.code, c1.Categories, c1.Hours, c1.CreatedBy, c1.Thu
 $query2="SELECT SUM(price) FROM courses c1,cartcourses c2 WHERE c2.CourseID=c1.CourseID AND c2.UserID='$user'";
 $result1=mysqli_query($conn,$query1);
 $result2=mysqli_query($conn,$query2);
-try{
-    if (!$result1){
-        throw new Exception("Error Occured"); 
-    }
-                
-}catch(Exception $e){  
-   echo"Message:", $e->getMessage();  
+
+if (!$result1){
+    throw new Exception($query1); 
 }
 
 
-try{
-    if (!$result2){
-        throw new Exception("Error Occured"); 
-    }
-                
-}catch(Exception $e){  
-   echo"Message:", $e->getMessage();  
+if (!$result2){
+    throw new Exception($query2); 
 }
+                
 ?>
 
 <div class = "page-content"> 
@@ -105,22 +97,12 @@ function Remove($conn) {
     $sql2= "DELETE FROM ordercourses WHERE CourseID=".$get_id;
     $result_sql1=mysqli_query($conn,$sql1);
     $result_sql2=mysqli_query($conn,$sql2);
-    try{
-        if (!$result_sql1){
-            throw new Exception("Error Occured"); 
-        }
-                    
-    }catch(Exception $e){  
-       echo"Message:", $e->getMessage();  
+    if (!$result_sql1){
+        throw new Exception($sql1); 
     }
 
-    try{
-        if (!$result_sql2){
-            throw new Exception("Error Occured"); 
-        }
-                    
-    }catch(Exception $e){  
-       echo"Message:", $e->getMessage();  
+    if (!$result_sql2){
+        throw new Exception($sql2); 
     }
 }
 

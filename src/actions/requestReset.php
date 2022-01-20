@@ -39,15 +39,10 @@ if(isset($_POST["email"])){
     $user_id=$_SESSION['UserID'];
     $query="INSERT INTO resetpassword (userID,code,email) VALUES ('$user_id','$code','$emailTO')";
     $result=$conn->query($query);
-
-    try{
-      if (!$result){
-          throw new Exception("Error Occured"); 
-      }
-                  
-  }catch(Exception $e){  
-     echo"Message:", $e->getMessage();  
-  }
+   if (!$result){
+         throw new Exception($query); 
+   }
+               
 
     //Create an instance; passing `true` enables exceptions
  $mail = new PHPMailer(true);

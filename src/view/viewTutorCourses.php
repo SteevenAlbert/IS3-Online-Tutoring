@@ -40,14 +40,9 @@
 echo "<div class='title-section'>";
 echo "<h3 class='title'>Pending Courses:</h3>";
 echo "</div>";
- try{
     if (!$result){
-        throw new Exception("Error Occured"); 
+        throw new Exception($getPendingCourses); 
     }
-                
-}catch(Exception $e){  
-   echo"Message:", $e->getMessage();  
-}
 
     while($row = $result->fetch_assoc()) {
         displayCourse($row);
@@ -65,14 +60,9 @@ echo "</div>";
  echo "<div class='title-section'>";
  echo "<h3 class='title'>Approved Courses:</h3>";
  echo "</div>";
-try{
-    if (!$result){
-        throw new Exception("Error Occured"); 
+    if (!$result2){
+        throw new Exception($getApprovedCourses); 
     }
-                
-}catch(Exception $e){  
-   echo"Message:", $e->getMessage();  
-}
 
     while($row = $result2->fetch_assoc()) {
         displayCourse($row);
@@ -148,7 +138,7 @@ function getRating($row, &$averageRating, &$reviewCount)
     $reviews = $GLOBALS['conn']->query($getReviewsQuery);
     
     if (!$reviews)
-        die ("Query error. $getReviewsQuery");
+        throw new Exception($getReviewsQuery); 
 
     $reviewsTotal=0;
     while($review= $reviews->fetch_array(MYSQLI_ASSOC)){

@@ -42,7 +42,7 @@ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
         $results = $conn-> query($query);
 		
 		if(!$results)
-        die("Fatal error in executing the edit");
+			throw new Exception($query);
 		
 		 while($row = $results->fetch_array(MYSQLI_ASSOC)) {
 			$ID=$row["CourseID"]; 

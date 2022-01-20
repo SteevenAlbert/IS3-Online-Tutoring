@@ -146,7 +146,7 @@ else
 $result = $conn->query($getCoursesQuery);
 
 if (!$result)
-    die ("Query error. $getUserQuery");
+    throw new Exception($getCoursesQuery);
 elseif(mysqli_num_rows($result)<=0)
 {
     echo "<div class='alert alert-info' role='alert'>
@@ -244,7 +244,7 @@ function getRating($row, &$averageRating, &$reviewCount)
     $reviews = $GLOBALS['conn']->query($getReviewsQuery);
     
     if (!$reviews)
-        die ("Query error. $getReviewsQuery");
+        throw new Exception($getReviewsQuery);
 
     $reviewsTotal=0;
     while($review= $reviews->fetch_array(MYSQLI_ASSOC)){

@@ -51,9 +51,11 @@ isAdminOrTutor();
 <?php
     $id = $_GET["id"];
     $query = "SELECT * FROM coursechapters WHERE CourseID= '$id'";
-    if(!$conn->query($query))
-        echo mysqli_errno($conn).": " .mysqli_error($conn);
     $result = $conn->query($query);
+    if(!$result)
+        throw new Exception($query);
+
+   
     $chaptersCount=0;
     while($row =$result->fetch_array(MYSQLI_ASSOC)){
         $chaptersCount+=1;
@@ -69,7 +71,7 @@ isAdminOrTutor();
         $query = "INSERT INTO coursechapters(CourseID, chapter, Title)
                     VALUES ('$id', '$chaptersCount+1', '$title' )";
         if(!$conn->query($query))
-            echo mysqli_errno($conn).": " .mysqli_error($conn);
+            throw new Exception($query);
             
        
     }
@@ -87,16 +89,16 @@ isAdminOrTutor();
             $id = $_GET["id"];
 
             $query = "SELECT Overview FROM courses WHERE CourseID =".$_GET['id'];
-            if(!$conn->query($query))
-                echo mysqli_errno($conn).": " .mysqli_error($conn);
             $result = $conn->query($query);
+            if(!$result)
+                throw new Exception($query);
             
             $row = $result->fetch_array(MYSQLI_ASSOC);
             if($row['Overview']!=null){
                 $deleteTarget='CoursesContent/Videos/'.$row['Overview'];
                 $query = "UPDATE courses SET Overview='$fileName' WHERE CourseID =".$_GET['id'];
                 if(!$conn->query($query))
-                echo mysqli_errno($conn).": " .mysqli_error($conn);
+                    throw new Exception($query);
                 else{
                     echo "Course Overview Updated\n"; 
                     echo "<br>";
@@ -108,7 +110,7 @@ isAdminOrTutor();
             else{
                 $query = "UPDATE courses SET Overview='$fileName' WHERE CourseID =".$_GET['id'];
                 if(!$conn->query($query))
-                    echo mysqli_errno($conn).": " .mysqli_error($conn);
+                    throw new Exception($query);
                 else{
                     echo "Course Overview uploaded\n"; 
                     echo "<br>";
@@ -125,16 +127,18 @@ isAdminOrTutor();
         $target='/xampp/htdocs/IS3-Online-Tutoring/resources/CoursesContent/Thumbnails/'. $fileName;
         $result = move_uploaded_file($TempImageName, $target);
         $id = $_GET["id"];
+        
         $query = "SELECT Thumbnail FROM courses WHERE CourseID =".$_GET['id'];
         if(!$conn->query($query))
-            echo mysqli_errno($conn).": " .mysqli_error($conn);
+            throw new Exception($query);
         $result = $conn->query($query);
+        
         $row = $result->fetch_array(MYSQLI_ASSOC);
         if($row['Thumbnail']!=null){
             $deleteTarget='/xampp/htdocs/IS3-Online-Tutoring/resources/CoursesContent/Thumbnails/'.$row['Thumbnail'];
             $query = "UPDATE courses SET Thumbnail='$fileName' WHERE CourseID =".$_GET['id'];
             if(!$conn->query($query))
-                echo mysqli_errno($conn).": " .mysqli_error($conn);
+                throw new Exception($query);
             else{
                 echo "Thumbnail Overview Updated\n"; 
                 echo "<br>";
@@ -146,7 +150,7 @@ isAdminOrTutor();
         else{
             $query = "UPDATE courses SET Thumbnail='$fileName' WHERE CourseID =".$_GET['id'];
             if(!$conn->query($query))
-            echo mysqli_errno($conn).": " .mysqli_error($conn);
+                throw new Exception($query);
             else{
                 echo "Thumbnail uploaded\n"; 
                 echo "<br>";

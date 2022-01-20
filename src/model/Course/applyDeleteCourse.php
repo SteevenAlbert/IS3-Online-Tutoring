@@ -29,9 +29,7 @@
         $results = $conn-> query($query);
 
         if(!$results)
-            die("Fatal error in executing the delete $query");
-        else
-            echo "Successfully deleted.....".$query;
+            throw new Exception($query);
             
         header("Location: /IS3-Online-Tutoring/src/view/viewApprovedCourses.php");
     ?>

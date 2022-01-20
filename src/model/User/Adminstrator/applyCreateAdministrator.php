@@ -27,15 +27,10 @@
 		$query = "INSERT INTO users(username, password, firstname, lastname, email, phonenumber, country, birthdate, userType) VALUES ('".$_POST["UserName"]."', '$hashedPassword' ,'".$_POST["Fname"]."','".$_POST["Lname"]."','".$_POST["Email"]."','".$_POST["PhoneNo"]."','".$_POST["Country"]."','".$_POST["BOD"]."', 'Administrator')";
 	
 		$result = $conn->query($query);
-		try{
-			if (!$result)
-			  throw new Exception("Error Occured"); 
-		}
-		catch(Exception $e){  
-	       echo"Message:", $e->getMessage();  
-	    }
-		echo "Successfully created.....<br>";
-		   header("Location: /IS3-Online-Tutoring/src/public/home.php");
+		if (!$result)
+			throw new Exception($query); 
+		
+		header("Location: /IS3-Online-Tutoring/src/public/home.php");
 		
 	?>
 

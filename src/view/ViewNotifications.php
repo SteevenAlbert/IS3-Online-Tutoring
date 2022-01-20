@@ -28,13 +28,8 @@ isLearner();
 //---------------------------------GET NOTIFICATIONS-------------------------------------------
 $getNotificationsQuery = "SELECT * FROM Notifications where ToUserID='".$_SESSION['UserID']."'";
 $result = $conn->query($getNotificationsQuery);
-try{
-    if (!$result){
-        throw new Exception("Error Occured"); 
-    }
-                
-}catch(Exception $e){  
-   echo"Message:", $e->getMessage();  
+if (!$result){
+    throw new Exception($getNotificationsQuery); 
 }
 
 //---------------------------------SHOW NOTIFICATIONS-------------------------------------------
@@ -43,14 +38,10 @@ while($row = $result->fetch_array(MYSQLI_ASSOC))
     //getCourseName
     $getCourseName = "SELECT Title FROM courses where CourseID='".$row['CourseID']."'";
     $CourseNameResult = $conn->query($getCourseName);
-    try{
-        if (!$CourseNameResult){
-            throw new Exception("Error Occured"); 
-        }
-                    
-    }catch(Exception $e){  
-       echo"Message:", $e->getMessage();  
+    if (!$CourseNameResult){
+        throw new Exception($getCourseName); 
     }
+
     $name = $CourseNameResult->fetch_array(MYSQLI_ASSOC);
     
 ?>

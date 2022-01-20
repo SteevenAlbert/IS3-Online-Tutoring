@@ -33,13 +33,8 @@ if(isset($_POST['Approve'])){
             $updatePending="update courses set Approved='1' where CourseID='".$value."'";
             
             $result4=mysqli_query($conn,$updatePending);
-            try{
-                if (!$result){
-                    throw new Exception("Error Occured"); 
-                }
-                            
-            }catch(Exception $e){  
-            echo"Message:", $e->getMessage();  
+            if (!$result4){
+                throw new Exception($updatePending); 
             }
         }
     }
@@ -49,14 +44,8 @@ if(isset($_POST['Approve'])){
 //------------------------------ Get pending courses ------------------------------ 
 $getCoursesQuery = "SELECT * FROM courses where Approved='0'";
 $result = $conn->query($getCoursesQuery);
-
-try{
-    if (!$result){
-        throw new Exception("Error Occured"); 
-    }
-                
-}catch(Exception $e){  
-   echo"Message:", $e->getMessage();  
+if (!$result){
+    throw new Exception($getCoursesQuery); 
 }
 
  //--------------------------- Display all pending courses -------------------------

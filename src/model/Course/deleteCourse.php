@@ -39,7 +39,7 @@ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
         $results = $conn-> query($query);
 
         if(!$results)
-            die("Fatal error in executing the delete");
+            throw new Exception($query);
 
 
         while($row = $results->fetch_array(MYSQLI_ASSOC)) {
@@ -51,7 +51,6 @@ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
             echo "Hours:<br> <input type = text name = hours value=\"".$row["Hours"]."\" readonly><br>";
             echo "Level:<br> <input type = text name = level value=".$row["Level"]." readonly><br>";
             echo "Price:<br> <input type = text name = price value=".$row["Price"]." readonly><br>";
-            //echo "Approved:<br> <input type = checkbox name = approved value=\"".$row["Approved"]."\" readonly><br>";
             echo "Created By:<br> <input type = text name = createdby value=".$row["CreatedBy"]." readonly><br><br>";
         }
     ?>

@@ -51,13 +51,8 @@
 	//------------------------------ Get all learners ---------------------------------------
 	$query = "select * from users where userType = 'learner'";
 	$results = $conn->query($query);
-	try{
-		if (!$results){
-			throw new Exception("Error Occured"); 
-		}
-					
-	}catch(Exception $e){  
-	   echo"Message:", $e->getMessage();  
+	if (!$results){
+		throw new Exception($query); 
 	}
 
 	while ($row = $results->fetch_array(MYSQLI_ASSOC)) {

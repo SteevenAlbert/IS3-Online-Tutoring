@@ -40,9 +40,7 @@
 	$results = $conn-> query($query);
 	
 	if(!$results)
-       die("Fatal error in executing the update statements  $query");		
-	else 
-		echo "Successfully edited and updated...".$query;
+		throw new Exception($query);
         	
     header("Location: /IS3-Online-Tutoring/src/view/viewCourseDetails.php?id=".$_POST["CourseID"]);
 		?>

@@ -93,7 +93,7 @@ $GLOBALS['conn'] = $conn;
  $getCoursesQuery = "SELECT * FROM courses WHERE CourseID=".$_GET["id"];
  $result = $conn->query($getCoursesQuery);
  if (!$result)
- die ("Query error. $getUserQuery");
+  throw new Exception($getCoursesQuery);
 
  $row = $result->fetch_array(MYSQLI_ASSOC);
 ?>
@@ -163,17 +163,11 @@ $GLOBALS['conn'] = $conn;
     <?php
       $id = $_GET["id"];
       $query = "SELECT * FROM coursechapters WHERE CourseID = '$id'";
-      if(!$conn->query($query))
-          echo mysqli_errno($conn).": " .mysqli_error($conn);
       $result = $conn->query($query);
-      try{
         if (!$result){
-            throw new Exception("Error Occured"); 
+            throw new Exception($query); 
         }
-                    
-    }catch(Exception $e){  
-       echo"Message:", $e->getMessage();  
-    }
+
       $chaptersCount=0;
       while($row =$result->fetch_array(MYSQLI_ASSOC)){
         $chaptersCount+=1;
@@ -188,7 +182,8 @@ $GLOBALS['conn'] = $conn;
   $getReviewsQuery = "SELECT * FROM ratings WHERE courseID=".$_GET["id"];
   $reviews = $conn->query($getReviewsQuery);
   if (!$reviews)
-    die ("Query error. $getReviewsQuery");
+    throw new Exception($getReviewsQuery);
+
     $reviewCount=0;
     $reviewsTotal=0;
   while($review= $reviews->fetch_array(MYSQLI_ASSOC)){
@@ -221,7 +216,7 @@ $GLOBALS['conn'] = $conn;
         $Query_enroll="SELECT * FROM enroll WHERE courseID=".$_GET['id']." AND UserID=".$_SESSION['UserID'];
         $result_Query=$conn->query($Query_enroll);
         if(!$result_Query){
-          die ("Error. $Query_enroll");
+          throw new Exception($Query_enroll);
         } 
  
         $row = mysqli_num_rows($result_Query);
@@ -257,7 +252,7 @@ $GLOBALS['conn'] = $conn;
           $getCoursesQuery = "SELECT r.*,u.Username FROM ratings r, users u WHERE r.userID=u.userID AND CourseID=".$_GET["id"];
           $result = $conn->query($getCoursesQuery);
           if (!$result)
-              die ("Query error. $getCoursesQuery");
+              throw new Exception($getCoursesQuery);
             while($row= $result->fetch_array(MYSQLI_ASSOC)){
               ?><div class="card card-custom2"> <?php  
               echo "<b>".$row['Username']."</b><br>";
@@ -306,7 +301,7 @@ function getRating($row, &$averageRating, &$reviewCount)
     $reviews = $GLOBALS['conn']->query($getReviewsQuery);
     
     if (!$reviews)
-        die ("Query error. $getReviewsQuery");
+      throw new Exception($getReviewsQuery);
 
     $reviewsTotal=0;
     while($review= $reviews->fetch_array(MYSQLI_ASSOC)){

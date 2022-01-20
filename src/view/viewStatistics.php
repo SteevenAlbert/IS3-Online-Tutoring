@@ -35,19 +35,15 @@
 /*---------------------------------------------------GET LEARNER NAME--------------------------------------------------*/
     $getTutorID = "SELECT * ,FirstName FROM survey,users WHERE survey.toTutorID=users.UserID GROUP BY toTutorID";
     $result = $conn->query($getTutorID);
-    try{
-        if (!$result){
-            throw new Exception("Error Occured"); 
-        }
-                    
-    }catch(Exception $e){  
-       echo"Message:", $e->getMessage();  
+    if (!$result){
+        throw new Exception($getTutorID); 
     }
+
     while($row = $result->fetch_assoc()) {
         $getSurveyCourseByID = "SELECT * FROM survey where toTutorID='".$row["toTutorID"]."'";
         $result2 = $conn->query($getSurveyCourseByID);
         if (!$result2){
-        die ("Query error. $getSurveyCourseByID");
+            throw new Exception($getSurveyCourseByID);
         }
 
 /*----------------------------------------------Display Survey by Tutor ID-------------------------------------*/
@@ -95,29 +91,18 @@
     <?php
         $getCoursesQuery = "SELECT enroll.*,Title FROM enroll,courses WHERE enroll.CourseID=courses.CourseID GROUP BY CourseID";
         $result = $conn->query($getCoursesQuery);
-        try{
-            if (!$result){
-                throw new Exception("Error Occured"); 
-            }
-                        
-        }catch(Exception $e){  
-           echo"Message:", $e->getMessage();  
+        if (!$result){
+            throw new Exception($getCoursesQuery); 
         }
+
         
         while($row = $result->fetch_assoc()) {
             $getCoursesbyCategory = "SELECT * FROM enroll where CourseID='".$row["CourseID"]."'";
         
-        
             $result2 = $conn->query($getCoursesbyCategory);
-            try{
-                if (!$result2){
-                    throw new Exception("Error Occured"); 
-                }
-                            
-            }catch(Exception $e){  
-               echo"Message:", $e->getMessage();  
+            if (!$result2){
+                throw new Exception($getCoursesbyCategory); 
             }
-    
         
             //------------------------------------ Display Courses by categorie ------------------------------------
                     echo "<div class = 'sub-title'><label>".$row["Title"]."</label> </div>";

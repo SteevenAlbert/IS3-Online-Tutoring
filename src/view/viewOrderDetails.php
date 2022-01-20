@@ -48,14 +48,9 @@ while ($row = $order->fetch_array(MYSQLI_ASSOC))
   WHERE o.CourseID = c.CourseID AND o.orderID =".$row["orderID"];
   $orderResult =$GLOBALS['conn']->query($getOrderQuery);
 
-  try{
-    if (!$orderResult){
-        throw new Exception("Error Occured"); 
-    }
-                
-}catch(Exception $e){  
-   echo"Message:", $e->getMessage();  
-}
+  if (!$orderResult){
+      throw new Exception($getOrderQuery); 
+  }
 ?>
 <div class="table1"></div>
   <table class="table table-hover  table-striped">

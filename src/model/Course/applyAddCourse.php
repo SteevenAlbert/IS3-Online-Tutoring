@@ -52,7 +52,7 @@ session_start();
 			//------------------------ Add Course ------------------------
 			$conn = new mysqli("localhost","root","","is3 online tutoring");
 			if($conn->connect_error)
-			die("Fatal Error - cannot connect to the Database");
+				throw new Exception("Cannot connect to database");
 			
 			$sql = "INSERT INTO courses ( code, title, description,hours, level, price, approved,createdBy,categories) VALUES (
 					'".$_POST['code']."',
@@ -65,11 +65,8 @@ session_start();
 					'".$_SESSION['UserID']."',
 					'".$_POST['category']."')";
 			
-			if($conn->query($sql)===TRUE){
-				echo "New course created successfully<br>";
-			}	 
-			else{
-				echo "Error:".$sql."<br>".$conn->error;
+			if(!$conn->query($sql)){
+				throw new Exception($sql);
 			}
 			$conn->close();
 		}

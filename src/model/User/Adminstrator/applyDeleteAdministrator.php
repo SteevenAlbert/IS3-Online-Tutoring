@@ -14,15 +14,10 @@
         $query = "delete from users where UserID= '".$_POST["UserID"]."'";
         $results = $conn-> query($query);
 
-        try{
-			if (!$result)
-			  throw new Exception("Error Occured"); 
-		}
-		catch(Exception $e){  
-	       echo"Message:", $e->getMessage();  
-	    }
-        echo "Successfully deleted.....<br>";
-            
+        
+        if (!$result)
+            throw new Exception($query); 
+		
         header("Location: /IS3-Online-Tutoring/src/public/home.php");
     ?>
 	

@@ -1,12 +1,283 @@
 <?php
 
+//----------------------------------- Establish database connection -----------------------------------
 $servername = "localhost";
 $username = "root";
 $password = "";
 $database = "is3 online tutoring";
 $conn = "";
 
+function establishConnection()
+{
+    $GLOBALS['conn'] = new mysqli($GLOBALS['servername'], $GLOBALS['username'], $GLOBALS['password'], $GLOBALS['database']);
+        if($GLOBALS['conn']->connect_error)
+            die("fatal error: Cannot connect");
+}
 
+//------------------------------------------- Get files root -----------------------------------------
+function getRoot(){
+    $root = "IS3-Online-Tutoring";
+    return $root;
+}
+
+//----------------------------------- Error and exception handling -----------------------------------
+function myErrorHandler($error_level, $error_message, $error_file, $error_line)
+{
+    echo "<div class='alert alert-danger'> <strong> An error occured!</strong> Please try again later.</div>" ;
+    
+    if (isset($_SESSION['UserID']))
+        $user_id = $_SESSION['UserID'];
+    else
+        $user_id = -1;
+    $msg = $GLOBALS['conn']->real_escape_string($error_message);
+    $file = $GLOBALS['conn']->real_escape_string($error_file);
+
+    $sql = "INSERT INTO error_log (userID, error_level, error_msg, error_file, error_line) 
+    values($user_id,$error_level,'$msg','$file','$error_line')";
+
+    $result = $GLOBALS['conn']->query($sql);
+    if (!$result)
+    {
+        echo $sql;
+        echo "<div class='alert alert-danger'> <strong> An exception occured!</strong> Please try again later.</div>" ;
+        exit();
+    }
+}
+
+set_error_handler("myErrorHandler");
+
+function myExceptionHandler($exception) {
+    echo "<div class='alert alert-danger'> <strong> An exception occured!</strong> Please try again later.</div>" ;
+    
+    if (isset($_SESSION['UserID']))
+        $user_id = $_SESSION['UserID'];
+    else
+        $user_id = -1;
+    
+    $msg = $GLOBALS['conn']->real_escape_string($exception->getMessage());
+    $file = $GLOBALS['conn']->real_escape_string($exception->getFile());
+
+    $sql = "INSERT INTO error_log (userID, isException, error_msg, error_file, error_line) 
+    values($user_id,1,'$msg','$file','". $exception->getLine()."')";
+
+    $result = $GLOBALS['conn']->query($sql);
+    if (!$result)
+    {
+        echo "<div class='alert alert-danger'> <strong> An exception occured!</strong> Please try again later.</div>" ;
+        exit();
+    }
+    
+}
+
+set_exception_handler('myExceptionHandler');
+
+//---------------------------------------- Get info from database --------------------------------------
+function getUsername($UserID)
+{
+    establishConnection();
+
+    $sql = "SELECT * FROM users WHERE UserID =". $UserID;
+    $result = $GLOBALS['conn']->query($sql);
+
+    try{
+        if (!$result){
+            throw new Exception("Error Occured"); 
+        }
+                    
+    }catch(Exception $e){  
+       echo"Message:", $e->getMessage();  
+    }
+ 
+    $userData = mysqli_fetch_array($result);
+    return $userData[1];
+}
+
+function userIDSearch($username)
+{
+    establishConnection();
+
+    $sql = "SELECT * FROM users WHERE Username LIKE '%".$username."%'";
+    $result = $GLOBALS['conn']->query($sql);
+    if (!$result)
+        die ("Query error. $sql");
+    elseif (mysqli_num_rows($result) <= 0)
+    {
+        return -1;   
+    }
+    else
+    {
+        $userData = mysqli_fetch_array($result);
+        return $userData[0];
+    }
+        
+}
+
+function getCourseTitle($CourseID)
+{
+    establishConnection();
+
+    $sql = "SELECT * FROM courses WHERE CourseID =". $CourseID;
+    $result = $GLOBALS['conn']->query($sql);
+    try{
+        if (!$result){
+            throw new Exception("Error Occured"); 
+        }
+                    
+    }catch(Exception $e){  
+       echo"Message:", $e->getMessage();  
+    }
+    
+    $userData = mysqli_fetch_array($result);
+    return $userData[1]." ".$userData[2];
+}
+
+
+function getProfilePicture($UserID)
+{
+    $ppquery = "SELECT * FROM learners WHERE UserID =".$UserID;
+    $ppresult = $GLOBALS['conn']->query($ppquery);
+    try{
+        if (!$ppresult){
+            throw new Exception("Error Occured"); 
+        }
+                    
+    }catch(Exception $e){  
+    echo"Message:", $e->getMessage();  
+    }
+
+
+    while ($pprow = $ppresult->fetch_array(MYSQLI_ASSOC))
+        return "/IS3-Online-Tutoring/uploads/profile_pictures/".$pprow['profile_picture'];
+}
+
+//----------------------------------------- Add course to cart -----------------------------------------
+function addToCart($user, $course)
+{
+    
+        // check wether the course is already in the cart
+        $message1="Course already in cart";
+        $checkInCart= "SELECT CourseID FROM cartcourses WHERE UserID='".$user."' AND CourseID=".$course;
+        $result_checkCart = mysqli_query($GLOBALS['conn'],$checkInCart);
+        
+        try{
+            if (!$result_checkCart){
+                throw new Exception("Error Occured"); 
+            }
+                        
+        }catch(Exception $e){  
+           echo"Message:", $e->getMessage();  
+        }
+        
+        $row1 = mysqli_num_rows($result_checkCart);
+        if($row1!=0){
+            echo "<script>alert('$message1');</script>";
+        }
+        else
+        {
+            //check wether the learner already enrolled in this course
+            $message2="You are already enrolled in this course";
+            $checkInEnroll= "SELECT CourseID FROM enroll WHERE UserID='$user' AND CourseID=".$course;
+            $result_checkEnroll = mysqli_query($GLOBALS['conn'],$checkInEnroll);
+            try{
+                if (!$result_checkEnroll){
+                    throw new Exception("Error Occured"); 
+                }
+                            
+            }catch(Exception $e){  
+               echo"Message:", $e->getMessage();  
+            }
+        
+            $row2 = mysqli_num_rows($result_checkEnroll);
+            if($row2!=0){
+                echo "<script>alert('$message2');</script>";
+            }
+            else{
+                $insertCartQuery= "INSERT INTO cartcourses (UserID,CourseID) 
+                VALUES ('".$user."','".$course."')";
+        
+                $result_insertCart = mysqli_query($GLOBALS['conn'],$insertCartQuery);
+                try{
+                    if (!$result_insertCart){
+                        throw new Exception("Error Occured"); 
+                    }
+                                
+                }catch(Exception $e){  
+                   echo"Message:", $e->getMessage();  
+                }
+                
+            }
+        
+        }
+    
+}
+
+
+//---------------------------------------- User validation -------------------------------------------
+function validateUsername($username)
+{
+    establishConnection();
+
+    $sql = "SELECT * FROM users WHERE username='$username'";
+    $result = mysqli_query($GLOBALS['conn'],$sql) or die("Query unsuccessful") ;
+      if ($result->num_rows > 0) {
+        echo "<script type=\"text/javascript\"> alert('The username is already taken!'); </script>";
+        return false;
+      } else 
+        return true;   
+      
+}
+
+
+function isAdminOrTutor()
+{
+    if(empty($_SESSION['UserID']) || ($_SESSION['UserType'] != "Administrator" && $_SESSION['UserType'] != "Tutor"))
+    {
+        ?>
+        <div class="alert alert-warning">
+            <strong>Warning!</strong> This page needs authentication.
+        </div>
+        <?php
+        exit();
+    }
+}
+
+
+
+function isTutor()
+{
+    isUserType("Tutor");
+}
+
+function isAdmin()
+{
+    isUserType("Administrator");
+}
+
+function isAuditor()
+{
+    isUserType("Auditor");
+}
+
+function isLearner()
+{
+    isUserType("Learner");
+}
+
+function isUserType($type)
+{
+    if(empty($_SESSION['UserID']) || $_SESSION['UserType'] != $type)
+    {
+        ?>
+        <div class="alert alert-warning">
+            <strong>Warning!</strong> This page needs authentication.
+        </div>
+        <?php
+        exit();
+    }
+
+}
+
+//------------------------------------- Countries drop down list ---------------------------------------
 function countriesList()
 {
 	echo ' <select id= "country" name="country" class="form-control">
@@ -258,214 +529,6 @@ function countriesList()
 }
 
 
-function validateUsername($username)
-{
-    establishConnection();
 
-    $sql = "SELECT * FROM users WHERE username='$username'";
-    $result = mysqli_query($GLOBALS['conn'],$sql) or die("Query unsuccessful") ;
-      if ($result->num_rows > 0) {
-        echo "<script type=\"text/javascript\"> alert('The username is already taken!'); </script>";
-        return false;
-      } else 
-        return true;   
-      
-}
-
-function getUsername($UserID)
-{
-    establishConnection();
-
-    $sql = "SELECT * FROM users WHERE UserID =". $UserID;
-    $result = $GLOBALS['conn']->query($sql);
-
-    try{
-        if (!$result){
-            throw new Exception("Error Occured"); 
-        }
-                    
-    }catch(Exception $e){  
-       echo"Message:", $e->getMessage();  
-    }
- 
-    $userData = mysqli_fetch_array($result);
-    return $userData[1];
-}
-
-function userIDSearch($username)
-{
-    establishConnection();
-
-    $sql = "SELECT * FROM users WHERE Username LIKE '%".$username."%'";
-    $result = $GLOBALS['conn']->query($sql);
-    if (!$result)
-        die ("Query error. $sql");
-    elseif (mysqli_num_rows($result) <= 0)
-    {
-        return -1;   
-    }
-    else
-    {
-        $userData = mysqli_fetch_array($result);
-        return $userData[0];
-    }
-        
-}
-
-function getCourseTitle($CourseID)
-{
-    establishConnection();
-
-    $sql = "SELECT * FROM courses WHERE CourseID =". $CourseID;
-    $result = $GLOBALS['conn']->query($sql);
-    try{
-        if (!$result){
-            throw new Exception("Error Occured"); 
-        }
-                    
-    }catch(Exception $e){  
-       echo"Message:", $e->getMessage();  
-    }
-    
-    $userData = mysqli_fetch_array($result);
-    return $userData[1]." ".$userData[2];
-}
-
-
-function getProfilePicture($UserID)
-{
-    $ppquery = "SELECT * FROM learners WHERE UserID =".$UserID;
-    $ppresult = $GLOBALS['conn']->query($ppquery);
-    try{
-        if (!$ppresult){
-            throw new Exception("Error Occured"); 
-        }
-                    
-    }catch(Exception $e){  
-    echo"Message:", $e->getMessage();  
-    }
-
-
-    while ($pprow = $ppresult->fetch_array(MYSQLI_ASSOC))
-        return "/IS3-Online-Tutoring/uploads/profile_pictures/".$pprow['profile_picture'];
-}
-function establishConnection()
-{
-    $GLOBALS['conn'] = new mysqli($GLOBALS['servername'], $GLOBALS['username'], $GLOBALS['password'], $GLOBALS['database']);
-        if($GLOBALS['conn']->connect_error)
-            die("fatal error: Cannot connect");
-}
-
-function getRoot(){
-    $root = "IS3-Online-Tutoring";
-    return $root;
-}
-
-function isAdminOrTutor()
-{
-    if(empty($_SESSION['UserID']) || ($_SESSION['UserType'] != "Administrator" && $_SESSION['UserType'] != "Tutor"))
-    {
-        ?>
-        <div class="alert alert-warning">
-            <strong>Warning!</strong> This page needs authentication.
-        </div>
-        <?php
-        exit();
-    }
-}
-
-function addToCart($user, $course)
-{
-    
-        // check wether the course is already in the cart
-        $message1="Course already in cart";
-        $checkInCart= "SELECT CourseID FROM cartcourses WHERE UserID='".$user."' AND CourseID=".$course;
-        $result_checkCart = mysqli_query($GLOBALS['conn'],$checkInCart);
-        
-        try{
-            if (!$result_checkCart){
-                throw new Exception("Error Occured"); 
-            }
-                        
-        }catch(Exception $e){  
-           echo"Message:", $e->getMessage();  
-        }
-        
-        $row1 = mysqli_num_rows($result_checkCart);
-        if($row1!=0){
-            echo "<script>alert('$message1');</script>";
-        }
-        else
-        {
-            //check wether the learner already enrolled in this course
-            $message2="You are already enrolled in this course";
-            $checkInEnroll= "SELECT CourseID FROM enroll WHERE UserID='$user' AND CourseID=".$course;
-            $result_checkEnroll = mysqli_query($GLOBALS['conn'],$checkInEnroll);
-            try{
-                if (!$result_checkEnroll){
-                    throw new Exception("Error Occured"); 
-                }
-                            
-            }catch(Exception $e){  
-               echo"Message:", $e->getMessage();  
-            }
-        
-            $row2 = mysqli_num_rows($result_checkEnroll);
-            if($row2!=0){
-                echo "<script>alert('$message2');</script>";
-            }
-            else{
-                $insertCartQuery= "INSERT INTO cartcourses (UserID,CourseID) 
-                VALUES ('".$user."','".$course."')";
-        
-                $result_insertCart = mysqli_query($GLOBALS['conn'],$insertCartQuery);
-                try{
-                    if (!$result_insertCart){
-                        throw new Exception("Error Occured"); 
-                    }
-                                
-                }catch(Exception $e){  
-                   echo"Message:", $e->getMessage();  
-                }
-                
-            }
-        
-        }
-    
-}
-
-function isTutor()
-{
-    isUserType("Tutor");
-}
-
-function isAdmin()
-{
-    isUserType("Administrator");
-}
-
-function isAuditor()
-{
-    isUserType("Auditor");
-}
-
-function isLearner()
-{
-    isUserType("Learner");
-}
-
-function isUserType($type)
-{
-    if(empty($_SESSION['UserID']) || $_SESSION['UserType'] != $type)
-    {
-        ?>
-        <div class="alert alert-warning">
-            <strong>Warning!</strong> This page needs authentication.
-        </div>
-        <?php
-        exit();
-    }
-
-}
 
 ?>
