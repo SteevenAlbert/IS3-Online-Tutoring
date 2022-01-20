@@ -33,7 +33,7 @@
         else
             echo "Successfully deleted.....".$query;
             
-        header("Location: /IS3-Online-Tutoring/src/view/viewTutorCourses.php");
+        header("Location: /IS3-Online-Tutoring/src/view/viewApprovedCourses.php");
     ?>
 	
 </body>

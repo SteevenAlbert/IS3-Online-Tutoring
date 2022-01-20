@@ -170,7 +170,7 @@ if(isset($_POST['submit'])){
     <div class="row">
         <div class="col-lg-12 text-center">
             <div class="circular-landscape center-block">
-              <img src="<?php echo $target ?>" onclick="triggerClick()" id="editProfileDisplay">
+              <img src="<?php echo $target ?>" onclick="triggerClick()" id="editProfileDisplay" width="150" height="150">
             </div>
               <label for="pp" style="color:black;" >Profile Image</image></label>
             <input type="file" name="pp" onchange="editImage(this)" id="pp" style="display:none;">

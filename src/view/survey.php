@@ -87,7 +87,7 @@
 
                 $result = $conn->query($query);
                 try{
-                    if (!$result_sql){
+                    if (!$result){
                         throw new Exception("Error Occured"); 
                     }
                                 
