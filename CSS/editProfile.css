@@ -1,7 +1,6 @@
 #editProfileDisplay {
     display: block;
-    margin: 10px auto;
-    border-radius: 50%;
+  
 }
 #centerEditForm{
     position: absolute;
@@ -23,4 +22,17 @@
     position: absolute;
     left: 80%;
     bottom:9%;
+}
+.circular-landscape { 
+
+    position: relative; 
+    width: 150px; 
+    height: 150px; 
+    overflow: hidden; 
+    border-radius: 50%; 
+  
+} 
+.circular-landscape img {
+    width: auto; 
+    height: 100%; 
 }

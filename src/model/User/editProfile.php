@@ -142,8 +142,6 @@ if(isset($_POST['submit'])){
                 ?></div><?php    
                 $accept=false;
             }
-            
-
         }
     }
 }
@@ -171,9 +169,10 @@ if(isset($_POST['submit'])){
     <?php if($_SESSION['UserType']=="Learner" || $_SESSION['UserType']=="Tutor"){?>
     <div class="row">
         <div class="col-lg-12 text-center">
-            <!-- <img src="../../../uploads/backgroundImages/imagePlaceholder.jpeg" onclick="triggerClick()" id="editProfileDisplay" width="150" height="150"> -->
-            <img src="<?php echo $target ?>" onclick="triggerClick()" id="editProfileDisplay" width="150" height="150">
-            <label for="pp" style="color:black;" >Profile Image</image></label>
+            <div class="circular-landscape center-block">
+              <img src="<?php echo $target ?>" onclick="triggerClick()" id="editProfileDisplay">
+            </div>
+              <label for="pp" style="color:black;" >Profile Image</image></label>
             <input type="file" name="pp" onchange="editImage(this)" id="pp" style="display:none;">
         </div>
     </div>

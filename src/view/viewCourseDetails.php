@@ -141,7 +141,7 @@ $GLOBALS['conn'] = $conn;
             </form>     
             <?php } 
               }else{?>
-                  <a href=/IS3-Online-Tutoring/src/public/loginForm.php?>><button class="card-button" >Add To Cart</button></a>
+                  <a href=/IS3-Online-Tutoring/src/public/loginForm.php?><button class="card-button" >Add To Cart</button></a>
               <?php } ?>
         <a href=""><button class="card-button" id="card-button2" >View Reviews</button></a>
         <p class="card-text">30-Day Money-Back Guarantee</p>

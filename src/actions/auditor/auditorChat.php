@@ -126,7 +126,7 @@ $query = "UPDATE messages SET isReadAuditor = 1 WHERE fromUserID ='".$_GET['lear
             echo "<a href='".$row['link'] ."'>". $row['link']."</a> <br>";
         
         if ($row['file'] != NULL)
-            echo "<img src = '/IS3-Online-Tutoring/uploads/messagesFiles/messagesFiles/".$row['file'] ."' width = 300> <br>";
+            echo "<img src = '/IS3-Online-Tutoring/uploads/messagesFiles/".$row['file'] ."' width = 300> <br>";
         
         echo "</div>";
         echo "<small class='date text-muted'>".date('H:i', strtotime($row['date']))."</small>";
