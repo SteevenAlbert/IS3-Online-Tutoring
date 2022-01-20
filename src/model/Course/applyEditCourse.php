@@ -29,14 +29,13 @@
 	
 		
 	//-------------------------------- Update current course --------------------------------
-	$query="update courses set Code=\"".$_POST["code"]."\",
-	Title=\"".$_POST["title"]."\",
-	Description=\"".$_POST["description"]."\",
-	Hours=\"".$_POST["hours"]."\",
-	Level=\"".$_POST["level"]."\",
-	Price=\"".$_POST["price"]."\",
-	CreatedBy=\"".$_SESSION["UserID"]."\" where
-	CourseID=".$_POST["id"];
+	$query="update courses set Code='".$_POST["code"]."',
+	Title='".$_POST["title"]."',
+	Description='".$_POST["description"]."',
+	Hours='".$_POST["hours"]."',
+	Level='".$_POST["level"]."',
+	Price='".$_POST["price"]."' where
+	CourseID=".$_POST["CourseID"];
 	
 	$results = $conn-> query($query);
 	
@@ -45,7 +44,7 @@
 	else 
 		echo "Successfully edited and updated...".$query;
         	
-    header("Location: /IS3-Online-Tutoring/src/view/viewTutorCourses.php");
+    header("Location: /IS3-Online-Tutoring/src/view/viewCourseDetails.php?id=".$_POST["CourseID"]);
 		?>
 
 </body>

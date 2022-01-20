@@ -21,8 +21,6 @@ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
 <link rel="stylesheet" href="/IS3-Online-Tutoring/CSS/addCourse.css" type="text/css">
 
 
-
-
 <!doctype html>
 <html>
 <head>
@@ -73,7 +71,7 @@ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
 				<div class="col-lg-12">
 					<div class="form-group">
 						<label for="description">Description:</label>
-							<textarea class="form-control" value ="<?php echo $Description ?>" rows="5"  name="description" id="description"></textarea>
+							<textarea class="form-control" rows="5"  name="description" id="description"><?php echo $Description ?></textarea>
 						</div>
 					</div>
 				</div>
@@ -95,7 +93,7 @@ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
 				</select>
 				</div>
 			</div>
-			<?php echo "<input type = hidden name=id value = $ID><br>";?>
+			<?php echo "<input type = text hidden name='CourseID' value = $ID><br>";?>
 			<div class="row">
 			<div class="col-lg-8">
 					<div class="form-group">
