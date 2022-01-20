@@ -25,16 +25,31 @@ establishConnection();
 
 isAdmin();
 
-echo "<div class='title-section'>";
-echo "<h3 class='title'>Approve Courses:</h3>";
-echo "</div>";
+//------------------------------ Approve selected courses ------------------------------ 
+if(isset($_POST['Approve'])){
+      
+    if(!empty($_POST['courses'])) {    
+        foreach($_POST['courses'] as $value){
+            $updatePending="update courses set Approved='1' where CourseID='".$value."'";
+            
+            $result4=mysqli_query($conn,$updatePending);
+            try{
+                if (!$result){
+                    throw new Exception("Error Occured"); 
+                }
+                            
+            }catch(Exception $e){  
+            echo"Message:", $e->getMessage();  
+            }
+        }
+    }
+            
+}
 
 //------------------------------ Get pending courses ------------------------------ 
 $getCoursesQuery = "SELECT * FROM courses where Approved='0'";
-$getCourses = "SELECT * FROM courses";
-
 $result = $conn->query($getCoursesQuery);
-$result3 = $conn->query($getCourses);
+
 try{
     if (!$result){
         throw new Exception("Error Occured"); 
@@ -44,16 +59,11 @@ try{
    echo"Message:", $e->getMessage();  
 }
 
-try{
-    if (!$result3){
-        throw new Exception("Error Occured"); 
-    }
-                
-}catch(Exception $e){  
-   echo"Message:", $e->getMessage();  
-}
-
  //--------------------------- Display all pending courses -------------------------
+echo "<div class='title-section'>";
+echo "<h3 class='title'>Approve Courses:</h3>";
+echo "</div>";
+
 if($_SESSION["UserType"]=="Administrator" || $_SESSION["UserType"]=="Auditor"){
     echo "<form action ='' method = 'post'>";
     echo "<div class='overlay-section'> <input  name='Approve' type='submit' class='btn btn-primary' value ='Approve'> </div>";
@@ -65,10 +75,10 @@ if($_SESSION["UserType"]=="Administrator" || $_SESSION["UserType"]=="Auditor"){
     // Display course details
     ?>
 
-    <div class="card border-primary mb-3 course">
+    <div class="card border-primary mb-3 course clickable-course">
         <div class="row form-check">
             <div class="checkbox-section col-lg-1">
-                <input hidden class="form-check-input" type="checkbox" value=<?php echo$row["Code"]?> name = "courses[]">    
+                <input hidden class="form-check-input" type="checkbox" value=<?php echo$row["CourseID"]?> name = "courses[]">    
             </div>
             <div class="col-lg-3">
                 <img src=<?php echo $thumbnail?> width = 200>
@@ -108,34 +118,6 @@ if($_SESSION["UserType"]=="Administrator" || $_SESSION["UserType"]=="Auditor"){
 
 ?>
 
-
- <?php
- 
-//------------------------------ Approve selected courses ------------------------------ 
-
-    establishConnection();
-
-    if(isset($_POST['Approve'])){
-        $_SESSION['courses']=$_POST['courses'];
-    while($row = $result3->fetch_assoc()){
-        for($i=0;$i<count($_SESSION["courses"]);$i++){
-            if($_SESSION["courses"][$i]===$row["Code"]){   
-            $updatePending="update courses set Approved='1' where Code='".$row["Code"]."'";
-            
-            $result4=mysqli_query($conn,$updatePending);
-            try{
-                if (!$result){
-                    throw new Exception("Error Occured"); 
-                }
-                            
-            }catch(Exception $e){  
-               echo"Message:", $e->getMessage();  
-            }
-            }
-        }
-    }
-       header("Location:viewApprovedCourses.php");
-    }?>
 
 
 <script>
