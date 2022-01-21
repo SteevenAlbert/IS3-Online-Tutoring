@@ -66,9 +66,6 @@ establishConnection();
 
 if(empty($_SESSION['UserID']))
 {
-    ?>
-
-    <?php
     exit();
 }
 
@@ -81,6 +78,14 @@ if(isset($_POST['submit'])){
     $PhoneNo = $_POST['PhoneNo'];
     $Country = $_POST['Country'];
     $BirthDate = $_POST['BOD'];
+
+    filterString($UserName); 
+    filterEmail($Email);
+    filterString($Fname); 
+    filterString($LName);
+    filterString($PhoneNo);
+    filterString($Country);
+    filterString($Birthdate);
 
     $query = "UPDATE users 
             SET  UserName = '$UserName', FirstName = '$Fname',

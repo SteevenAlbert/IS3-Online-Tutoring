@@ -74,8 +74,15 @@ if(isset($_POST["UserName"], $_POST["Password"],$_POST['Fname'],$_POST['LName'],
     if($row){
         echo "Username Taken ";
     }else{
-        if(filterEmail($Email)){
-            $Email= filter_var($Email,FILTER_SANITIZE_EMAIL);
+        filterString($UserName); 
+        filterEmail($Email);
+        filterString($Fname); 
+        filterString($LName);
+        filterString($PhoneNo);
+        filterString($Country);
+        filterString($Birthdate);
+        filterString($UserType);
+            
         if($accept){
             // echo "Image Uploaded Successfully<br>"; 
             $query = "INSERT INTO users (Username, Password, FirstName, LastName, Email, PhoneNumber, Country, Birthdate, UserType)
@@ -129,7 +136,7 @@ if(isset($_POST["UserName"], $_POST["Password"],$_POST['Fname'],$_POST['LName'],
                     header("Location:/IS3-Online-Tutoring/src/public/home.php");
                 }
             }
-        }
+        
     }
 }else
     echo "Required Data is Not Complete";

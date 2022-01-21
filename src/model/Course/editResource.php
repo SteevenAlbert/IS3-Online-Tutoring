@@ -18,6 +18,7 @@
 session_start();
 include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/Menu.php";
 include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
+include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/filters.php";
 establishConnection();
 
 isAdminOrTutor();
@@ -59,7 +60,11 @@ isAdminOrTutor();
     if(isset($_POST["submit"])){
   
         $Title = $_POST['titles'];
+        filterString($Title);
+
         $description = $_POST['description'];
+        filterString($description);
+
         $query = "UPDATE chaptermaterials SET Title='$Title', Description = '$description' WHERE resourceID =".$_GET['id'];
         if(!$conn->query($query))
             throw new Exception($query);

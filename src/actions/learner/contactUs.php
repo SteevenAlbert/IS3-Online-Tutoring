@@ -33,28 +33,30 @@ if (isset($_POST['submit']))
     $target='/xampp/htdocs/IS3-Online-Tutoring/uploads/messagesFiles/'. $fileName;
     $fileMove = move_uploaded_file($fileTempName, $target);
 
+    $text_msg = $conn->real_escape_string($_POST['message']);
+    filterString($text_msg);
+
+    $link = "";
     // Insert file in Database if move was successful 
     if(!empty($_POST['link'])){
-        if(filterLink($_POST['link'])){
-            $_POST['link'] = filter_var($_POST['link'],FILTER_SANITIZE_URL);
+        $link = $_POST['link'];
+        filterLink($link);
+    }
+      
+    if($fileMove){
+
+        $query = "INSERT INTO messages(fromUserID, text, link, file, isRead, date) VALUES ('".$_SESSION['UserID']."','$text_msg','".$link."', '$fileName', 0, now())";
+        $result = $conn->query($query);
+        if (!$result){
+            throw new Exception($query); 
         }
     }
-      $text_msg = $conn->real_escape_string($_POST['message']);
-      
-        if($fileMove){
-
-            $query = "INSERT INTO messages(fromUserID, text, link, file, isRead, date) VALUES ('".$_SESSION['UserID']."','$text_msg','".$_POST['link']."', '$fileName', 0, now())";
-            $result = $conn->query($query);
-            if (!$result){
-                throw new Exception($query); 
-            }
-        }
-        else{
-            $query = "INSERT INTO messages(fromUserID, text, link, isRead, date) VALUES ('".$_SESSION['UserID']."','$text_msg','".$_POST['link']."', 0, now())";
-            $result = $conn->query($query);
-            if (!$result)
-                die ("Query error. $query");
-        }
+    else{
+        $query = "INSERT INTO messages(fromUserID, text, link, isRead, date) VALUES ('".$_SESSION['UserID']."','$text_msg','".$link."', 0, now())";
+        $result = $conn->query($query);
+        if (!$result)
+            die ("Query error. $query");
+    }
     
 }
 

@@ -21,9 +21,25 @@
 		establishConnection();
 		
 		//--------------------------------- Insert Administrator ---------------------------------
-		// Filter email first
+		$UserName = $_POST["UserName"];
+		$Fname = $_POST["Fname"];
+		$Lname = $_POST["Lname"];
+		$Email = $_POST["Email"];
+		$PhoneNo= $_POST["PhoneNo"];
+		$Country = $_POST["Country"];
+		$Birthdate = $_POST["BOD"];
+		
+		filterString($UserName); 
+        filterEmail($Email);
+        filterString($Fname); 
+        filterString($Lname);
+        filterString($PhoneNo);
+        filterString($Country);
+        filterString($Birthdate);
+
 		$hashedPassword =  password_hash($_POST["password1"], PASSWORD_DEFAULT);
-		$query = "INSERT INTO users(username, password, firstname, lastname, email, phonenumber, country, birthdate, userType) VALUES ('".$_POST["UserName"]."', '$hashedPassword' ,'".$_POST["Fname"]."','".$_POST["Lname"]."','".$_POST["Email"]."','".$_POST["PhoneNo"]."','".$_POST["Country"]."','".$_POST["BOD"]."', 'Administrator')";
+		$query = "INSERT INTO users(username, password, firstname, lastname, email, phonenumber, country, birthdate, userType) 
+		VALUES ('".$UserName."', '$hashedPassword' ,'".$Fname."','".$Lname."','".$Email."','".$PhoneNo."','".$Country."','".$Birthdate."', 'Administrator')";
 	
 		$result = $conn->query($query);
 		if (!$result)

@@ -17,6 +17,7 @@
 session_start();
 include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/Menu.php";
 include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
+include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/filters.php";
 establishConnection();
 
 isAdminOrTutor();
@@ -85,11 +86,16 @@ Description:<br> <textarea class="form-control" rows=4 cols=20  name=description
 //Add a Video Lesson to a chapter 
 if(isset($_POST['addLesson'])){
     $title= $_POST['videoTitle'];
+    filterString($title);
+
     $description =$_POST['description'];
+    filterString($description);
+
     if($_FILES["Lesson"]["size"]!=0){
         $fileName = time().'_'.$_FILES['Lesson']['name'];
         $TempName = $_FILES['Lesson']['tmp_name'];
         $target='/xampp/htdocs/IS3-Online-Tutoring/resources/CoursesContent/Videos/'. $fileName;
+        
         $query = "INSERT INTO chaptermaterials(Title, Description, courseID, chapter, url, type)
         VALUES('$title','$description','$id','$chapter','$fileName','Video' )";
         
