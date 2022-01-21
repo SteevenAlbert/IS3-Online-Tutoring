@@ -104,8 +104,7 @@ isAdminOrTutor();
                 else{
                     echo "Course Overview Updated\n"; 
                     echo "<br>";
-                    echo "<a class='btn btn-primary' href=/IS3-Online-Tutoring/src/public/home.php>CONTINUE</a>";
-                    unlink($deleteTarget);
+                   unlink($deleteTarget);
                     move_uploaded_file($TempImageName, $target);
                 }
             }
@@ -116,7 +115,6 @@ isAdminOrTutor();
                 else{
                     echo "Course Overview uploaded\n"; 
                     echo "<br>";
-                    echo "<a class='btn btn-primary' href=home.php>CONTINUE</a>";
                     move_uploaded_file($TempImageName, $target);
                 }
             }
@@ -142,9 +140,9 @@ isAdminOrTutor();
             if(!$conn->query($query))
                 throw new Exception($query);
             else{
-                echo "Thumbnail Overview Updated\n"; 
+                echo "Thumbnail Updated\n"; 
                 echo "<br>";
-                echo "<a class='btn btn-primary' href=home.php>CONTINUE</a>";
+         
                 unlink($deleteTarget);
                 move_uploaded_file($TempImageName, $target);
             }
@@ -156,7 +154,7 @@ isAdminOrTutor();
             else{
                 echo "Thumbnail uploaded\n"; 
                 echo "<br>";
-                echo "<a class='btn btn-primary' href=home.php>CONTINUE</a>";
+          
                 move_uploaded_file($TempImageName, $target);
             }
         }

@@ -44,7 +44,7 @@ if (!$result){
 <tr>
 <th class="text-center">Student</th> 
 <th class="text-center">Enroll Date</th> 
-<th class="text-center">Rated</th> 
+<th class="text-center">Reviewed</th> 
 <th class="text-center">Send Survey</th>  
 </tr>
 </thead>
@@ -69,12 +69,11 @@ while($row = $result->fetch_array(MYSQLI_ASSOC)) {
     echo "<td> $EnrollDate </td> ";
     if($row2){       
         echo "<td>Done</td>";
-        echo "<td> -------</td>";
-    }else{
-        echo "<td> x</td>";
-        ?><td> <a href="/IS3-Online-Tutoring/src/actions/PushNotification.php?UserID=<?php echo $UserID?>&CourseID=<?php echo $CourseID?>"> Contact</a></td>
-        <?php
+        }else{
+        echo "<td> x</td>"; 
     } 
+    echo "<td> <a href=/IS3-Online-Tutoring/src/actions/PushNotification.php?UserID=$UserID&CourseID=$CourseID> Contact</a></td></td>";
+ 
  
     echo "</tr>";
 }
