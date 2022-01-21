@@ -62,7 +62,7 @@
 		<td> <?php echo $row["Username"] ?> </td>
 		<td> <?php echo $row["FirstName"] ?> </td>
 		<td> <?php echo $row["LastName"] ?> </td>
-		<td> <a href = viewUser.php?id=<?php echo $row["UserID"] ?> class="btn btn-primary" style="background-color:green"> View </a> </td>
+		<td> <a href = viewLearner.php?id=<?php echo $row["UserID"] ?> class="btn btn-primary" style="background-color:green"> View </a> </td>
 	</tr>
 	</tbody>
 

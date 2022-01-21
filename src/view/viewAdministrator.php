@@ -22,7 +22,7 @@ isAdmin();
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
-<link rel="stylesheet" href="../../../CSS/view.css">
+<link rel="stylesheet" href="/IS3-Online-Tutoring/CSS/view.css">
 
 <!doctype html>
 <html>
@@ -48,7 +48,7 @@ isAdmin();
 
             while($row = $results->fetch_array(MYSQLI_ASSOC)) {
                 ?>
-            <img id="deleteAdmin" src="../../../uploads/backgroundImages/deleteAdmin.jpg" alt="deleteAdmin" width="600" height="600">
+            <img id="deleteAdmin" src="/IS3-Online-Tutoring/uploads/backgroundImages/deleteAdmin.jpg" alt="deleteAdmin" width="600" height="600">
             <div id="centerViewForm">
 
                 <div class="row">
@@ -107,7 +107,7 @@ isAdmin();
 
                 <div class="row">
 						<div class="col-lg-12">
-                            <button class="btn btn-danger" type="delete" onclick= "if (!confirm('Are you sure you want to delete this administrator?')) { return false }"><? header("Location:approveCourse.php");?><i class="fa fa-trash fa-2x"></i></button>
+                            <button class="btn btn-danger" type="delete" onclick= "if (!confirm('Are you sure you want to delete this Administrator?')) { return false }"><? header("Location:approveCourse.php");?><i class="fa fa-trash fa-2x"></i></button>
 					    </div>
 				</div>  
 

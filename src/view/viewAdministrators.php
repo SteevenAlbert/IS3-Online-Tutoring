@@ -38,8 +38,7 @@
 				<th> Username </th>
 				<th> First Name </th>
 				<th> Last Name</th>
-				<th> View </th>
-				<th> Delete </th>
+				<th> View/Delete </th>
 			</tr>	
 		<thead>
 
@@ -62,8 +61,7 @@
 			<td> <?php echo $row["Username"] ?> </td>
 			<td> <?php echo $row["FirstName"] ?> </td>
 			<td> <?php echo $row["LastName"] ?> </td>
-			<td> <a href =/IS3-Online-Tutoring/src/view/viewUser.php?id=<?php echo $row["UserID"] ?> class="btn btn-primary" style="background-color:green"> View </a> </td>
-			<td> <a href =/IS3-Online-Tutoring/src/model/User/deleteUser.php?id=<?php echo $row["UserID"] ?> class="btn btn-danger" > Delete </a> </td>
+			<td> <a href =viewAdministrator.php?id=<?php echo $row["UserID"] ?> class="btn btn-primary" style="background-color:green"> View/Delete </a> </td>
 		</tr>
 	</tbody>
 
