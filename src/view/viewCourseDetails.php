@@ -100,7 +100,7 @@ $GLOBALS['conn'] = $conn;
 <div class="container-fluid">
   <div class="Banner">
     <div class="BannerElements">
-        <h1> <?php echo $row["Code"]." - ".$row["Title"] ?> </h1>
+        <h1> <?php echo $row["Code"]." - ".$row["Title"] ?> </h1>     
         <h5> <?php echo "Difficulty: <b>" . $row['Level'] ?></b></h5>
         <h3> <?php echo $row['Description']?> </h3>
         <h4>

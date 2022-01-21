@@ -262,7 +262,6 @@ function showResult(str) {
                                 </li>
                     </ul> 
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="nav-item"> <a href="/<?php echo $root ?>/src/public/home.php">Featured</a> </li>
                         <li class="nav-item"> <a href="/<?php echo $root ?>/src/public/RegisterForm.php?id=tutor">Teach on IS3</a> </li>
                         <li class="nav-item"> <a href="/<?php echo $root ?>/src/public/loginForm.php">Sign in</a> </li>
                        <li> <a href="/<?php echo $root ?>/src/public/RegisterForm.php?id=learner"><button class="button"><span>Sign Up </span></button></a> </li>

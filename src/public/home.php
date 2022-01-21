@@ -38,8 +38,15 @@ if (!$result)
 
 function addToCart(courseID){
         var CourseID = courseID;
-        var UserID = <?php echo $_SESSION['UserID'];?>;
-
+        var UserID=-1;
+        <?php 
+        $UserID="";
+        if(isset($_SESSION['UserID'])){
+            $UserID=$_SESSION['UserID'];
+        }
+        ?>
+        UserID = '<?=$UserID?>';
+       
         $.ajax({
             url:'/IS3-Online-Tutoring/lib/ajax/addToCart.php',
             type:'post',
