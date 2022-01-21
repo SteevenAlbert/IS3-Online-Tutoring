@@ -17,6 +17,31 @@ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/filters.php";
 <link rel="stylesheet" href="../../../CSS/editProfile.css">
 
 <script>
+    /*------------- Check Username validity --------------------*/
+    function UserNameCheck(str) {    
+        if (str.length==0) {
+            document.getElementById("usernameMessage").innerHTML="";
+            return;
+        }
+        var currentUsername = "<?php echo $_SESSION['username'];?>";
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange=function() {
+            if (this.readyState==4 && this.status==200) {
+                document.getElementById("usernameMessage").innerHTML=this.responseText;
+                if(this.responseText!="Available"){
+                    if(str!=currentUsername)  {
+                      document.getElementById("submit").disabled = true;        
+                    }else{
+                        document.getElementById("usernameMessage").innerHTML="";
+                    }       
+                }else{
+                    document.getElementById("submit").disabled = false;
+                }
+            }
+        }
+        xmlhttp.open("GET","/<?php echo $root?>/lib/ajax/checkUsername.php?un="+str,true);
+        xmlhttp.send();
+    }
     /*------------- Image Upload --------------------*/
     function triggerClick() {
         document.querySelector('#profileImage').click();
@@ -78,58 +103,57 @@ if(isset($_POST['submit'])){
         $_SESSION['Country'] = $Country;
         $_SESSION['Birthdate'] = $BirthDate;
 
-    // if ($_SESSION['UserType'] == 'Learner')
+    if($_SESSION['UserType']=="Learner" || $_SESSION['UserType']=="Tutor"){
+        // Update Profile Picture
+        if($_FILES["pp"]["size"]!=0){
+            // Check if it already exists and update it if it does exist
+            $fileName = time() .'_'.$_FILES['pp']['name'];
+            $TempImageName = $_FILES['pp']['tmp_name'];
+            $target='/xampp/htdocs/IS3-Online-Tutoring/uploads/profile_pictures/'.$fileName;
+            $UserID = $_SESSION['UserID'];
+            
+            $query = "SELECT * FROM learners WHERE UserID ='$UserID'";
+            $result = $conn->query($query);
+            if (!$result)
+                throw new Exception($query);
 
-    // Update Profile Picture
-    if($_FILES["pp"]["size"]!=0){
-        
-        // Check if it already exists and update it if it does exist
-        $fileName = time() .'_'.$_FILES['pp']['name'];
-        $TempImageName = $_FILES['pp']['tmp_name'];
-        $target='/xampp/htdocs/IS3-Online-Tutoring/uploads/profile_pictures/'.$fileName;
-        $UserID = $_SESSION['UserID'];
-        
-        $query = "SELECT * FROM learners WHERE UserID ='$UserID'";
-        $result = $conn->query($query);
-        if (!$result)
-            throw new Exception($query);
-
-        if(!empty($row = $result->fetch_array(MYSQLI_ASSOC))){
+            if(!empty($row = $result->fetch_array(MYSQLI_ASSOC))){
 
 
-             $fileType=strtolower(pathinfo($target,PATHINFO_EXTENSION));
-                $accept=false;
-            if($fileType=="jpg" || $fileType=="jpeg" || $fileType=="png"){
-                
-                $result = move_uploaded_file($TempImageName, $target);
-                $accept=true;
-                $deleteTarget='/xampp/htdocs/IS3-Online-Tutoring/uploads/profile_pictures/'.$row['profile_picture'];
-                $query = "UPDATE learners SET profile_picture='$fileName' WHERE UserID = '$UserID'";
-                try{
-                    if(!$conn->query($query))
-                       throw new Exception("Error Occured");
-                 }
-                 catch(Exception $e){  
-                     echo"Message:", $e->getMessage();  
-                  }
-    
-                    // echo "Profile Picture Updated\n";
-                    ?> <div class="alert alert-success" role="alert"> Updated Successfully</div> <?php
-                    ?></div><?php
-                    echo "<br>";
-                    ?><?php
-                    if($_SESSION['PP']!="default.png"){
-                       unlink($deleteTarget);
+                $fileType=strtolower(pathinfo($target,PATHINFO_EXTENSION));
+                    $accept=false;
+                if($fileType=="jpg" || $fileType=="jpeg" || $fileType=="png"){
+                    
+                    $result = move_uploaded_file($TempImageName, $target);
+                    $accept=true;
+                    $deleteTarget='/xampp/htdocs/IS3-Online-Tutoring/uploads/profile_pictures/'.$row['profile_picture'];
+                    $query = "UPDATE learners SET profile_picture='$fileName' WHERE UserID = '$UserID'";
+                    try{
+                        if(!$conn->query($query))
+                        throw new Exception("Error Occured");
                     }
-                    move_uploaded_file($TempImageName, $target);
-                    $_SESSION['PP'] = $fileName;
-            }
-            else
-            {
-                trigger_error("user tried to upload wrong file format", E_USER_WARNING);
-                ?> <div class="alert alert-danger" role="alert"> update failed</div> <?php
-                ?></div><?php    
-                $accept=false;
+                    catch(Exception $e){  
+                        echo"Message:", $e->getMessage();  
+                    }
+        
+                        // echo "Profile Picture Updated\n";
+                        ?> <div class="alert alert-success" role="alert"> Updated Successfully</div> <?php
+                        ?></div><?php
+                        echo "<br>";
+                        ?><?php
+                        if($_SESSION['PP']!="default.png"){
+                        unlink($deleteTarget);
+                        }
+                        move_uploaded_file($TempImageName, $target);
+                        $_SESSION['PP'] = $fileName;
+                }
+                else
+                {
+                    trigger_error("user tried to upload wrong file format", E_USER_WARNING);
+                    ?> <div class="alert alert-danger" role="alert"> update failed</div> <?php
+                    ?></div><?php    
+                    $accept=false;
+                }
             }
         }
     }
@@ -137,7 +161,7 @@ if(isset($_POST['submit'])){
 ?>
 
 <?php	
-    // Update session
+    // Get Current User Data
     $username = $_SESSION['username'];
     $password = $_SESSION['password'];
     $FirstName = $_SESSION['FirstName'];
@@ -184,24 +208,26 @@ if(isset($_POST['submit'])){
         <div class="row">
 			<div class="col-lg-6">
                 <label style="color:black;">Username:</label>
-                <input type='text' name='UserName' id="UserName" class="form-control" value=<?php echo $username?> > 
+                <input type='text' name='UserName' id="UserName" class="form-control" value=<?php echo $username?> onkeyup="UserNameCheck(this.value)" > 
             </div>
+        
             <div class="col-lg-6" style="margin-bottom:2%">
                 <label style="color:black;">Email:</label>
                 <input type="text" name='Email' id="Email" placeholder="Smith@email.com" class="form-control" value = <?php echo $Email ?>>  
             </div>
-        </div>
+        </div>    <div id="usernameMessage"></div> <div id="usernameMessage"></div>
 
         <div class="row">
 			<div class="col-lg-6">
                 <label style="color:black;">Phone Number:</label>
-                <input type="text" name='PhoneNo' id="PhoneNo" class="form-control" value = <?php echo $PhoneNo ?>> 
+                <input type="text" name='PhoneNo' id="PhoneNo" class="form-control" pattern="[0-5]{3}[0-9]{8}" value = <?php echo $PhoneNo ?>> 
             </div>
             <div class="col-lg-6" style="margin-bottom:2%">
                 <label style="color:black;">Birth Date:</label>
                 <input type="date" name='BOD' id="BOD"  min="1920-01-01" max="2021-12-31" class="form-control" value = <?php echo $BirthDate ?> >  
             </div>
         </div>
+
         <!-- ADDING COUNTRIES USING A LOOP OVER AN ARRAY -->
         <div class="row">
 			<div class="col-lg-6" style="margin-bottom:2%">
@@ -221,7 +247,7 @@ if(isset($_POST['submit'])){
     I Agree to Terms and Conditions <input type='checkbox' name='agree' required>
     <br><br>
 
-    <input type="submit" name ="submit" value = "Update" class="btn btn-info">
+    <input type="submit" name ="submit" id="submit" value = "Update" class="btn btn-primary">
     <a href="/IS3-Online-Tutoring/src/actions/requestReset.php"> Change Password </a>
 </div>
 </form>

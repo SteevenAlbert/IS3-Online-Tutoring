@@ -176,7 +176,7 @@ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
             <div class="row">
 				<div class="col-lg-6" style="margin-bottom:3%">
 					<label style="color:black;">Phone Number:</label>
-                    <input type="text" name='PhoneNo' id="PhoneNo" class="form-control">
+                    <input type="text" name='PhoneNo' id="PhoneNo" pattern="[0-5]{3}[0-9]{8}" class="form-control">
 				</div>
 				<div class="col-lg-6">
 					<label>Country:</label>

@@ -81,7 +81,7 @@ function addToCart(courseID){
                     <?php }else if($_SESSION['UserType']=="Tutor"){?>
                         <h1> Welcome Back,<br> <?php echo $_SESSION['FirstName'] ." ". $_SESSION['LastName']?> </h1>
                         <h2> Let's Teach! </h2>
-                    <?php }else if($_SESSION['UserType']=="Adminstrator"){?>
+                    <?php }else if($_SESSION['UserType']=="Administrator"){?>
                         <h1> Welcome Back,<br> <?php echo $_SESSION['FirstName'] ." ". $_SESSION['LastName']?> </h1>
                         <h2>  </h2>
                     <?php }else if($_SESSION['UserType']=="Auditor"){?>
