@@ -160,7 +160,9 @@
             <!-- User Details -->
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <img src="../../uploads/backgroundImages/imagePlaceholder.jpeg" onclick="triggerClick()" id="profileDisplay" width="150" height="150">
+                <div class="circular-landscape center-block">
+                    <img src="../../uploads/backgroundImages/imagePlaceholder.jpeg" onclick="triggerClick()" id="profileDisplay">
+                </div> 
                     <label for="profileImage" style="color:black;" >Profile Image</image></label>
                     <input type="file" name="profileImage" onchange="displayImage(this)" id="profileImage" style="display:none;"> 
                 </div>
@@ -215,7 +217,7 @@
             <div class="row">
 				<div class="col-lg-6" style="margin-bottom:3%">
 					<label style="color:black;">Phone Number:</label>
-                    <input type="text" name='PhoneNo' id="PhoneNo" class="form-control">
+                    <input type="text" name='PhoneNo' id="PhoneNo" pattern="[0-5]{3}[0-9]{8}" class="form-control" required>
 				</div>
 				<div class="col-lg-6">
 					<label>Country:</label>

@@ -59,8 +59,21 @@ body {
 #submit:hover{
     background-color: #01073b;
 }
-#profileDisplay {
-    display: block;
-    margin: 10px auto;
-    border-radius: 50%;
+
+
+.circular-landscape { 
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    width: 150px; 
+    height: 150px; 
+    overflow: hidden; 
+    border-radius: 50%; 
+    
+} 
+.circular-landscape img {
+
+    width: auto; 
+    height: 100%; 
+
 }

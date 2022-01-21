@@ -54,16 +54,14 @@ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
         var alphabets = /([a-zA-Z])/;
         var special_characters = /([~,!,@,#,$,%,^,&,*,-,_,+,=,?,>,<])/;
         if ($('#password1').val().length<1){
-            $('#passCheckMessage').html("");
             $passValid=false;
             return;
         }
         if ($('#password1').val().length > 6 && $('#password1').val().match(number) && $('#password1').val().match(alphabets) && $('#password1').val().match(special_characters)) {
-            $('#passCheckMessage').html("Strong");
+            ShowAlert("Password Valid", "", "success");          
             $passValid=true;
-        } else {
-            $('#passCheckMessage').html("Not Strong Enough - Password should include alphabets, numbers and special characters.)");
-         
+           } else {
+            ShowAlert("Not Strong Enough", " Password should include alphabets, numbers and special characters.", "danger");           
             $passValid=false;
         }
         toggleButton()
@@ -73,15 +71,17 @@ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
      /*--------------Password Match Check-----------*/
      function checkPassMatch(){
         if ($('#password2').val().length==0){
-            $('#checkMatchMessage').html("");
+         
             $passMatch=false;
             return;
         }
          if($('#password1').val() == $('#password2').val()){
-            document.getElementById("checkMatchMessage").innerHTML = "Password Match";
+            ShowAlert2("Passwords Match", "", "success");
+      
             $passMatch=true;
          }else{
-            document.getElementById("checkMatchMessage").innerHTML = "Passwords do not Match";
+            ShowAlert2("Passwords Don't Match", "", "danger");
+   
             $passMatch=false;
          }
          toggleButton();
@@ -94,6 +94,24 @@ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
             document.getElementById("submit").disabled = true;
         }
      }
+     function ShowAlert(msg_title, msg_body, msg_type) {
+      var AlertMsg = $('div[role="alert"]');
+      $(AlertMsg).find('strong').html(msg_title);
+      $(AlertMsg).find('p').html(msg_body);
+      $(AlertMsg).removeAttr('class');
+      $(AlertMsg).addClass('alert-dismissible');
+      $(AlertMsg).addClass('alert alert-' + msg_type);
+      $(AlertMsg).show();
+  }
+  function ShowAlert2(msg_title, msg_body, msg_type) {
+      var AlertMsg = $('div[role="alert2"]');
+      $(AlertMsg).find('strong').html(msg_title);
+      $(AlertMsg).find('p').html(msg_body);
+      $(AlertMsg).removeAttr('class');
+      $(AlertMsg).addClass('alert-dismissible');
+      $(AlertMsg).addClass('alert alert-' + msg_type);
+      $(AlertMsg).show();
+  }
 	 </script>
 </head>
 <body>
@@ -142,11 +160,18 @@ include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
 				<div class="col-lg-6" style="margin-bottom:3%">
 					<label><br></label>
 					<input type="Password" name='password2' id="password2" placeholder="Re-Enter Password" onkeyup="checkPassMatch(this.value)" class="form-control" required>
-                    <div id="passCheckMessage"></div> <div id="checkMatchMessage"></div>
+        
 				</div>
    		    </div>
 
-        
+               <div class="alert" role="alert" style="display:none;">
+                        <strong></strong> 
+                        <p></p>
+                </div>
+                <div class="alert" role="alert2" style="display:none;">
+                    <strong></strong> 
+                    <p></p>
+                </div>
 
             <div class="row">
 				<div class="col-lg-6" style="margin-bottom:3%">

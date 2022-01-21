@@ -18,19 +18,14 @@
     left: 80%;
     bottom:2%;
 }
-#profilePictureUpdated{
-    position: absolute;
-    left: 80%;
-    bottom:9%;
-}
-.circular-landscape { 
 
-    position: relative; 
+.circular-landscape { 
+    display: flex;
+    justify-content: center;
     width: 150px; 
     height: 150px; 
     overflow: hidden; 
     border-radius: 50%; 
-  
 } 
 .circular-landscape img {
     width: auto; 
