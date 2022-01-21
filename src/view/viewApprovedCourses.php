@@ -224,8 +224,7 @@ else if($_SESSION["UserType"]=="Administrator" || $_SESSION["UserType"]=="Audito
         {
         displayCourse($row, $averageRating, $reviewCount);
         ?>
-        <a href=/IS3-Online-Tutoring/src/model/Course/editCourse.php?id=<?php echo $row['CourseID'] ?> class="btn btn-primary">Edit</a>
-        <a href=/IS3-Online-Tutoring/src/model/Course/deleteCourse.php?id=<?php echo $row['CourseID'] ?> class="btn btn-primary">Delete</a>
+        <a href=/IS3-Online-Tutoring/src/model/Course/editCourse.php?id=<?php echo $row['CourseID'] ?> class="btn btn-primary">Edit/Delete</a>
         </div></div></div>
 
     <?php
