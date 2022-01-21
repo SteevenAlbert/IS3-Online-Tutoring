@@ -48,6 +48,7 @@ if(isset($_POST["UserName"], $_POST["Password"],$_POST['Fname'],$_POST['LName'],
     }
     elseif($_POST['profileImage']==null){
         echo "User didn't upload an image <br>";
+        $accept=false;
     }
     else
     {
@@ -79,14 +80,13 @@ if(isset($_POST["UserName"], $_POST["Password"],$_POST['Fname'],$_POST['LName'],
             // echo "Image Uploaded Successfully<br>"; 
             $query = "INSERT INTO users (Username, Password, FirstName, LastName, Email, PhoneNumber, Country, Birthdate, UserType)
             VALUES ('$UserName', '$hashedPassword', '$Fname','$LName', '$Email', '$PhoneNo', '$Country', '$Birthdate', '$UserType')";
-            ?> <div class="alert alert-success" role="alert"> Updated Successfully</div> <?php
-            ?></div><?php
-        }else{     
+        }
+        else{
+
             $query = "INSERT INTO users (Username, Password, FirstName, LastName, Email, PhoneNumber, Country, Birthdate, UserType)
             VALUES ('$UserName', '$hashedPassword', '$Fname','$LName', '$Email', '$PhoneNo', '$Country', '$Birthdate', '$UserType')";
             trigger_error("user tried to upload wrong file format", E_USER_WARNING);
-                ?> <div class="alert alert-danger" role="alert">profile picture upload failed</div> <?php
-                ?></div><?php    
+ 
         }   
         
         if(!$conn->query($query))

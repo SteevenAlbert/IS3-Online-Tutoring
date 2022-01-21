@@ -164,7 +164,7 @@
                     <img src="../../uploads/backgroundImages/imagePlaceholder.jpeg" onclick="triggerClick()" id="profileDisplay">
                 </div> 
                     <label for="profileImage" style="color:black;" >Profile Image</image></label>
-                    <input type="file" name="profileImage" onchange="displayImage(this)" id="profileImage" style="display:none;"> 
+                    <input type="file" name="profileImage" onchange="displayImage(this)" id="profileImage" style="display:none;" accept=".jpg,.jpeg,.png" > 
                 </div>
             </div>
 

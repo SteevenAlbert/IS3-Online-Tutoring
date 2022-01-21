@@ -186,7 +186,7 @@ if(isset($_POST['submit'])){
               <img src="<?php echo $target ?>" onclick="triggerClick()" id="editProfileDisplay" width="150" height="150">
             </div>
               <label for="pp" style="color:black;" >Profile Image</image></label>
-            <input type="file" name="pp" onchange="editImage(this)" id="pp" style="display:none;">
+            <input type="file" name="pp" onchange="editImage(this)" id="pp" style="display:none;" accept=".jpg,.jpeg,.png">
         </div>
     </div>
 
