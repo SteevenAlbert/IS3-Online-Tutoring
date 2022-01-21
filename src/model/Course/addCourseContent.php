@@ -97,7 +97,7 @@ isAdminOrTutor();
             
             $row = $result->fetch_array(MYSQLI_ASSOC);
             if($row['Overview']!=null){
-                $deleteTarget='CoursesContent/Videos/'.$row['Overview'];
+                $deleteTarget='/xampp/htdocs/IS3-Online-Tutoring/resources/CoursesContent/Videos/'.$row['Overview'];
                 $query = "UPDATE courses SET Overview='$fileName' WHERE CourseID =".$_GET['id'];
                 if(!$conn->query($query))
                     throw new Exception($query);
