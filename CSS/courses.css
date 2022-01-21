@@ -154,9 +154,22 @@
 }
 
 .card-custom{
+    background-color:white;
     padding:20px;
     border-style: none;
     border-bottom-style: solid;
+    border-bottom-width: 0.5px;
+    border-bottom-color: rgb(238, 238, 238);
+    transition:0.5s;
+}
+
+
+.card-custom:hover{
+    background-color:rgb(245, 245, 245);
+    padding:20px;
+    border-style: none;
+    border-bottom-style: solid;
+    transition:0.5s;
 }
 .card-text2{
     padding-top: 30px;

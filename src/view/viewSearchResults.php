@@ -1,11 +1,7 @@
-
-
-
 <link rel="stylesheet" href="../../CSS/courses.css" type="text/css">
 
 
 <?php
-
 session_start();
 include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
 ?>
@@ -102,7 +98,7 @@ function displayCourse($row, $averageRating, $reviewCount)
     // Display course details
     ?>
 
-    <div class="card card-custom ">
+    <div class="card card-custom">
         <div class="row">
             <div class="col-s-3">
                 <img src=<?php echo $thumbnail?> width = 100>
