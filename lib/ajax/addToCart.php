@@ -9,13 +9,8 @@ $UserID= $_POST['UserID'];
         $checkInCart= "SELECT CourseID FROM cartcourses WHERE UserID='".$UserID."' AND CourseID=".$CourseID;
         $result_checkCart = mysqli_query($conn,$checkInCart);
         
-        try{
-            if (!$result_checkCart){
-                throw new Exception("Error Occured"); 
-            }
-                        
-        }catch(Exception $e){  
-           echo"Message:", $e->getMessage();  
+        if (!$result_checkCart){
+            throw new Exception($checkInCart); 
         }
         
         $row1 = mysqli_num_rows($result_checkCart);
@@ -28,13 +23,8 @@ $UserID= $_POST['UserID'];
             $message2="You are already enrolled in this course";
             $checkInEnroll= "SELECT CourseID FROM enroll WHERE UserID='$UserID' AND CourseID=".$CourseID;
             $result_checkEnroll = mysqli_query($conn,$checkInEnroll);
-            try{
-                if (!$result_checkEnroll){
-                    throw new Exception("Error Occured"); 
-                }
-                            
-            }catch(Exception $e){  
-               echo"Message:", $e->getMessage();  
+            if (!$result_checkEnroll){
+                throw new Exception($checkInEnroll); 
             }
         
             $row2 = mysqli_num_rows($result_checkEnroll);
@@ -46,17 +36,11 @@ $UserID= $_POST['UserID'];
                 VALUES ('".$UserID."','".$CourseID."')";
         
                 $result_insertCart = mysqli_query($conn,$insertCartQuery);
-                try{
-                    if (!$result_insertCart){
-                        throw new Exception("Error Occured"); 
-                    }else{
-                        echo "Success";
-                    }
-                    
-                }catch(Exception $e){  
-                   echo"Message:", $e->getMessage();  
+                if (!$result_insertCart){
+                    throw new Exception($insertCartQuery); 
+                }else{
+                    echo "Success";
                 }
-                
             }
         
         } 
