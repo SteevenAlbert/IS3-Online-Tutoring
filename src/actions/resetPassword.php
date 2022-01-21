@@ -29,14 +29,10 @@ $code=$_GET["code"];
 
 $emailQuery="SELECT email FROM resetpassword WHERE code='$code'";
 $result = $conn->query($emailQuery);
-try{
+
     if (!$result){
         throw new Exception("Error Occured"); 
     }
-                
-}catch(Exception $e){  
-   echo"Message:", $e->getMessage();  
-}
 
 if(mysqli_num_rows($result)==0){
     exit("Opps....Something went wrong");
@@ -46,8 +42,8 @@ if(isset($_POST["password1"])){
     $pass=$_POST["password1"];
     $row=mysqli_fetch_array($result);
     $email=$row["email"];
-
-    $updateQuery="UPDATE users SET Password='$pass' WHERE email='$email'";
+    $hashedPassword =  password_hash($pass, PASSWORD_DEFAULT);
+    $updateQuery="UPDATE users SET Password='$hashedPassword' WHERE email='$email'";
     $result_update = $conn->query($updateQuery);
     if (!$result_update){
         throw new Exception($updateQuery); 

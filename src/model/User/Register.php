@@ -36,7 +36,6 @@ if(isset($_POST["UserName"], $_POST["Password"],$_POST['Fname'],$_POST['LName'],
     $profileImageName = time() .'_'.$_FILES['profileImage']['name'];
     $TempImageName = $_FILES['profileImage']['tmp_name'];
     $target='/xampp/htdocs/IS3-Online-Tutoring/uploads/profile_pictures/'.$profileImageName;
-    $result = move_uploaded_file($TempImageName, $target);
     $hashedPassword =  password_hash($Password, PASSWORD_DEFAULT);
 
     $fileType=strtolower(pathinfo($target,PATHINFO_EXTENSION));
@@ -77,15 +76,17 @@ if(isset($_POST["UserName"], $_POST["Password"],$_POST['Fname'],$_POST['LName'],
         if(filterEmail($Email)){
             $Email= filter_var($Email,FILTER_SANITIZE_EMAIL);
         if($accept){
-            echo "Image Uploaded Successfully<br>"; 
+            // echo "Image Uploaded Successfully<br>"; 
             $query = "INSERT INTO users (Username, Password, FirstName, LastName, Email, PhoneNumber, Country, Birthdate, UserType)
             VALUES ('$UserName', '$hashedPassword', '$Fname','$LName', '$Email', '$PhoneNo', '$Country', '$Birthdate', '$UserType')";
-            $query2 = true;
+            ?> <div class="alert alert-success" role="alert"> Updated Successfully</div> <?php
+            ?></div><?php
         }else{     
             $query = "INSERT INTO users (Username, Password, FirstName, LastName, Email, PhoneNumber, Country, Birthdate, UserType)
             VALUES ('$UserName', '$hashedPassword', '$Fname','$LName', '$Email', '$PhoneNo', '$Country', '$Birthdate', '$UserType')";
             trigger_error("user tried to upload wrong file format", E_USER_WARNING);
-            $query2 = false;
+                ?> <div class="alert alert-danger" role="alert">profile picture upload failed</div> <?php
+                ?></div><?php    
         }   
         
         if(!$conn->query($query))
@@ -104,7 +105,7 @@ if(isset($_POST["UserName"], $_POST["Password"],$_POST['Fname'],$_POST['LName'],
                 else
                     throw new Exception($getID);
 
-                if ($query2)
+                if ($accept)
                 {
                     if($UserType=="Learner")
                     $query2 = "INSERT INTO learners (UserID, profile_picture) VALUES ('$UserID','$profileImageName')"; 
