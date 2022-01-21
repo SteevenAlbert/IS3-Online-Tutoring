@@ -19,7 +19,6 @@
 		include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/filters.php";
 		include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
 		establishConnection();
-		isAdmin();
 		
 		//--------------------------------- Insert Administrator ---------------------------------
 		// Filter email first

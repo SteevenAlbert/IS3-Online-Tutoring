@@ -10,13 +10,8 @@ $password = $_POST['password'];
 //-------------------------------------------- Get user data --------------------------------------------
 $getUserQuery = "SELECT * FROM users WHERE Username ='$username'";
 $result = $conn->query($getUserQuery);
-try{
-    if(!$result){     
-        throw new Exception("Error Occured");   
-    }
-    
-}catch(Exception $e){  
-   echo"Message:", $e->getMessage();  
+if(!$result){     
+    throw new Exception($getUserQuery);   
 }
 
 $userData = mysqli_fetch_array($result);
