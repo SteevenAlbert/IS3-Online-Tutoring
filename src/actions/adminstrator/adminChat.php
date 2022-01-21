@@ -20,6 +20,7 @@
 session_start();
 include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/Menu.php";
 include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
+include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/filters.php";
 
 establishConnection();
 
@@ -38,6 +39,8 @@ if (!$result){
 if (isset($_POST['submit']))
 {
     $text_msg = $conn->real_escape_string($_POST['message']);
+    filterString($text_msg);
+    
     $query = "INSERT INTO messages(fromUserID, toUserID, text, date) VALUES ('".$_SESSION['UserID']."','".$_GET['id']."','".$text_msg."', now())";
     $result = $conn->query($query);
     if (!$result){

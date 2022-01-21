@@ -16,6 +16,7 @@
 <?php
 session_start();
 include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/Menu.php";
+include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/filters.php";
 include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
 establishConnection();
 
@@ -68,6 +69,7 @@ isAdminOrTutor();
     if(isset($_POST["addChapter"])){
         $chaptersCount+=1;
         $title = $_POST['chapterTitle'];
+        filterString($title);
         $query = "INSERT INTO coursechapters(CourseID, chapter, Title)
                     VALUES ('$id', '$chaptersCount+1', '$title' )";
         if(!$conn->query($query))

@@ -22,6 +22,7 @@
 <body>
 <?php
 include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
+include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/filters.php";
 session_start();
 
 	class applyAdd{
@@ -34,36 +35,49 @@ session_start();
 		public $approved;
 		public $createdBy;
 		public $categories;
-
-		function __construct($code, $title, $description,$hours, $level, $price, $approved,$createdBy,$categories){
-			$this->code=$code;
-			$this->title=$title;
-			$this->description=$description;
-			$this->hours=$hours;
-			$this->level=$level;
-			$this->price=$price;
-			$this->approved=$approved;
-			$this->createdBy=$createdBy;
-			$this->categories=$categories;
-		}
-
 		
 		function insert(){
 			//------------------------ Add Course ------------------------
+			$code = $_POST["code"];
+			filterString($code);
+
+			$title = $_POST["title"];
+			filterString($title);
+
+			$description = $_POST["description"];
+			filterString($description);
+
+			$hours = $_POST["hours"];
+			filterString($hours);
+
+			$level = $_POST["level"];
+			filterString($level);
+
+			$price = $_POST["price"];
+			filterString($price);
+
+			$courseID = $_POST["CourseID"];
+			filterString($courseID);
+			
+			$category = $_POST['category'];
+			filterString($category);
+			
+			
+			
 			$conn = new mysqli("localhost","root","","is3 online tutoring");
 			if($conn->connect_error)
 				throw new Exception("Cannot connect to database");
 			
 			$sql = "INSERT INTO courses ( code, title, description,hours, level, price, approved,createdBy,categories) VALUES (
-					'".$_POST['code']."',
-					'".$_POST['title']."',
-					'".$_POST['description']."',
-					'".$_POST['hours']."',
-					'".$_POST['level']."',
-					'".$_POST['price']."',
+					'".$code."',
+					'".$title."',
+					'".$description."',
+					'".$hours."',
+					'".$level."',
+					'".$price."',
 					0,
 					'".$_SESSION['UserID']."',
-					'".$_POST['category']."')";
+					'".$category."')";
 			
 			if(!$conn->query($sql)){
 				throw new Exception($sql);
@@ -73,16 +87,8 @@ session_start();
 	}
 
 	//--------------------------------- Create Object ---------------------------------
-	$code=$_POST['code'];
-	$title=$_POST['title'];
-	$description=$_POST['description'];
-	$hours=$_POST['hours'];
-	$level=$_POST['level'];
-	$price=$_POST['price'];
-	$createdBy=$_SESSION['UserID'];
-	$categories=$_POST['category'];
 
-	$applyAdd=new applyAdd($code, $title, $description,$hours, $level, $price, 0,$createdBy,$categories);
+	$applyAdd=new applyAdd();
 	$applyAdd->insert();
 	header("Location:/IS3-Online-Tutoring/src/public/home.php");
 ?>	

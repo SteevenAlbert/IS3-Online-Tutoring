@@ -20,6 +20,7 @@
 session_start();
 include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/Menu.php";
 include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
+include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/filters.php";
 
 establishConnection();
 
@@ -143,8 +144,11 @@ if (isset($_POST['reply']))
 //---------------------------------------------------------- Send reply message to Admin ---------------------------------------------
 if(isset($_POST['submitReply'])){
     if($_POST['message']){
+        $text_msg = $conn->real_escape_string($_POST['message']);
+        filterString($text_msg);
+
         $replyQuery = "INSERT INTO messages(fromUserID, toUserID, text, isRead, date,parentMessageID) 
-        VALUES ('".$_SESSION['UserID']."','".$_GET['admin']."','".$_POST['message']."',0, now(),'".$_POST['replyTo']."')";
+        VALUES ('".$_SESSION['UserID']."','".$_GET['admin']."','".$text_msg."',0, now(),'".$_POST['replyTo']."')";
             $replyResult = $conn->query($replyQuery);
             if (!$replyResult){
                 throw new Exception($replyQuery); 

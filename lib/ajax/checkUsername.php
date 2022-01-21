@@ -5,10 +5,11 @@ establishConnection();
 $username = $_GET['un'];
 
 $query = "SELECT * FROM users WHERE Username= '$username'";
-if(!$conn->query($query))
-    echo mysqli_errno($conn).": " .mysqli_error($conn);
-
 $result = $conn->query($query);
+if(!$result)
+    throw new Exception($query);
+
+
 $row = $result->fetch_array(MYSQLI_ASSOC);
 
 if($row){

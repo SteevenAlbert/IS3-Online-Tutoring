@@ -25,17 +25,39 @@
 	<?php
 	session_start();
 	include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/is3library.php";
+	include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/filters.php";
 	establishConnection();
 	
 		
 	//-------------------------------- Update current course --------------------------------
-	$query="update courses set Code='".$_POST["code"]."',
-	Title='".$_POST["title"]."',
-	Description='".$_POST["description"]."',
-	Hours='".$_POST["hours"]."',
-	Level='".$_POST["level"]."',
-	Price='".$_POST["price"]."' where
-	CourseID=".$_POST["CourseID"];
+	$code = $_POST["code"];
+	filterString($code);
+
+	$title = $_POST["title"];
+	filterString($title);
+
+	$description = $_POST["description"];
+	filterString($description);
+
+	$hours = $_POST["hours"];
+	filterString($hours);
+
+	$level = $_POST["level"];
+	filterString($level);
+
+	$price = $_POST["price"];
+	filterString($price);
+
+	$courseID = $_POST["CourseID"];
+	filterString($courseID);
+
+	$query="update courses set Code='".$code."',
+	Title='".$title."',
+	Description='".$description."',
+	Hours='".$hours."',
+	Level='".$level."',
+	Price='".$price."' where
+	CourseID=".$courseID;
 	
 	$results = $conn-> query($query);
 	

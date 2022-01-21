@@ -10,10 +10,12 @@ $rating = $_POST['rating'];
 $review = $_POST['review'];
 
 $query = "SELECT * FROM ratings WHERE CourseID = '$CourseID' AND UserID='$UserID'" ;
-if(!$conn->query($query))
-    echo mysqli_errno($conn).": " .mysqli_error($conn);
 
 $result = $conn->query($query);
+if(!$result)
+    throw new Exception($query);
+
+
 $row = $result->fetch_array(MYSQLI_ASSOC);
 
 if(!$row){ 
@@ -24,7 +26,7 @@ if(!$row){
         VALUES ('$CourseID', '$UserID','$rating','$review', now())";
         
         if(!$conn->query($submitReviewQuery))
-          echo mysqli_errno($conn).": " .mysqli_error($conn);
+          throw new Exception($submitReviewQuery);
       
         //header('Location: /IS3-Online-Tutoring/src/view/viewCourseDetails.php?id='.$CourseID);
         echo "success";

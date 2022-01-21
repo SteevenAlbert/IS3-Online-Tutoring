@@ -66,9 +66,6 @@ establishConnection();
 
 if(empty($_SESSION['UserID']))
 {
-    ?>
-
-    <?php
     exit();
 }
 
@@ -81,6 +78,14 @@ if(isset($_POST['submit'])){
     $PhoneNo = $_POST['PhoneNo'];
     $Country = $_POST['Country'];
     $BirthDate = $_POST['BOD'];
+
+    filterString($UserName); 
+    filterEmail($Email);
+    filterString($Fname); 
+    filterString($LName);
+    filterString($PhoneNo);
+    filterString($Country);
+    filterString($Birthdate);
 
     $query = "UPDATE users 
             SET  UserName = '$UserName', FirstName = '$Fname',
@@ -186,7 +191,7 @@ if(isset($_POST['submit'])){
               <img src="<?php echo $target ?>" onclick="triggerClick()" id="editProfileDisplay" width="150" height="150">
             </div>
               <label for="pp" style="color:black;" >Profile Image</image></label>
-            <input type="file" name="pp" onchange="editImage(this)" id="pp" style="display:none;">
+            <input type="file" name="pp" onchange="editImage(this)" id="pp" style="display:none;" accept=".jpg,.jpeg,.png">
         </div>
     </div>
 

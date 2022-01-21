@@ -26,10 +26,16 @@
 <link rel="stylesheet" href="../../CSS/registerForm.css">
 
 
+<?php
+    include_once "/xampp/htdocs/IS3-Online-Tutoring/src/public/filters.php";
+?>
+
 <script>
     $usernameValid = false;
+    $emailValid = false;
     $passValid=false;
     $passMatch=false;
+   
    /*--------------Username Responsive Check-----------*/
     function UserNameCheck(str) {
         if (str.length==0) {
@@ -52,6 +58,71 @@
         xmlhttp.open("GET","/<?php echo $root?>/lib/ajax/checkUsername.php?un="+str,true);
         xmlhttp.send();
     }
+
+    /*--------------Name Responsive Filtering-----------*/
+    function fnameFilter(str) {
+        if (str.length==0) {
+            $fnameValid=false;
+            return;
+        }
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange=function() {
+            if (this.readyState==4 && this.status==200) {
+                if(this.responseText!="Valid"){
+                    $fnameValid=false;      
+                }else{
+                    $fnameValid=true;
+                }
+                toggleButton();
+            }
+        }
+        xmlhttp.open("GET","/<?php echo $root?>/lib/ajax/filterField.php?string="+str,true);
+        xmlhttp.send();
+    }
+
+    function lnameFilter(str) {
+        if (str.length==0) {
+            $lnameValid=false;
+            return;
+        }
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange=function() {
+            if (this.readyState==4 && this.status==200) {
+                if(this.responseText!="Valid"){
+                    $lnameValid=false;      
+                }else{
+                    $lnameValid=true;
+                }
+                toggleButton();
+            }
+        }
+        xmlhttp.open("GET","/<?php echo $root?>/lib/ajax/filterField.php?string="+str,true);
+        xmlhttp.send();
+    }
+
+    /*--------------Email Responsive Filtering-----------*/
+    function emailFilter(str) {
+        if (str.length==0) {
+            document.getElementById("emailMessage").innerHTML="";
+            $emailValid=false;
+            return;
+        }
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange=function() {
+            if (this.readyState==4 && this.status==200) {
+                document.getElementById("emailMessage").innerHTML=this.responseText;
+                if(this.responseText!="Valid"){
+                    $emailValid=false;      
+                }else{
+                    $emailValid=true;
+                }
+                toggleButton();
+            }
+        }
+        xmlhttp.open("GET","/<?php echo $root?>/lib/ajax/filterField.php?email="+str,true);
+        xmlhttp.send();
+    }
+
     /*--------------Password Responsive Check-----------*/
     function passCheck() {
         var number = /([0-9])/;
@@ -92,7 +163,7 @@
      }
 
      function toggleButton(){
-         if($usernameValid== true && $passValid == true && $passMatch== true){
+         if($fnameValid == true && $lnameValid == true &&$emailValid == true && $usernameValid== true && $passValid == true && $passMatch== true){
             document.getElementById("submit").disabled = false;
         }else{
             document.getElementById("submit").disabled = true;
@@ -130,6 +201,8 @@
       $(AlertMsg).addClass('alert alert-' + msg_type);
       $(AlertMsg).show();
   }
+
+
 </script>
 
 
@@ -164,26 +237,28 @@
                     <img src="../../uploads/backgroundImages/imagePlaceholder.jpeg" onclick="triggerClick()" id="profileDisplay">
                 </div> 
                     <label for="profileImage" style="color:black;" >Profile Image</image></label>
-                    <input type="file" name="profileImage" onchange="displayImage(this)" id="profileImage" style="display:none;"> 
+                    <input type="file" name="profileImage" onchange="displayImage(this)" id="profileImage" style="display:none;" accept=".jpg,.jpeg,.png" > 
                 </div>
             </div>
 
             <div class="row">
 			    <div class="col-lg-6">
 			    	<label style="color:black;">Name:</label>
-			    	<input type="text" name='Fname' id="Fname" placeholder="First Name" class="form-control" required>
+			    	<input type="text" name='Fname' id="Fname" placeholder="First Name" onkeyup="fnameFilter(this.value)" class="form-control" required>
 			    </div>
 			    <div class="col-lg-6" style="margin-bottom:3%">
 			    	<label><br></label>
-			    	<input type="text" name='LName' id="Lname" placeholder="Last Name" class="form-control">
+			    	<input type="text" name='LName' id="Lname" placeholder="Last Name" onkeyup="lnameFilter(this.value)" class="form-control">
 			    </div>
+                
    		    </div>
 
             <div class="row">
 				<div class="col-lg-12" style="margin-bottom:3%">
 					<label style="color:black;">Email:</label>
-					<input type="text" name='Email' id="Email" placeholder="Smith@email.com" class="form-control" >
-				</div>
+					<input type="text" name='Email' id="Email" placeholder="Smith@email.com" onkeyup="emailFilter(this.value)" class="form-control" >
+                    <div id="emailMessage"></div>
+                </div>
    		    </div>
 
             <div class="row">
