@@ -290,7 +290,7 @@ function showResult(str) {
 
     while ($row = $result->fetch_assoc())
     {
-        echo "<p><a href = /IS3-Online-Tutoring/src/view/viewApprovedCourses.php?category=".$row['Categories'].">".$row['Categories']."</a> </p>";
+        echo "<p><a href = /IS3-Online-Tutoring/src/view/viewApprovedCourses.php?category=".urlencode($row['Categories']).">".$row['Categories']."</a> </p>";
     }
 
     ?>
