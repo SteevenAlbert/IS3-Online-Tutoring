@@ -8,9 +8,10 @@ html, body {
   position:fixed;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
     font-family: sans-serif;
-    height: 80px;
     position: relative;
-    padding: 15px;
+    padding: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
     margin-bottom: 0px;
 
 }
