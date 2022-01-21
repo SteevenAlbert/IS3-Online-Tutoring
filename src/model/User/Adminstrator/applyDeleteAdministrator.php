@@ -15,7 +15,7 @@
         $results = $conn-> query($query);
 
         
-        if (!$result)
+        if (!$results)
             throw new Exception($query); 
 		
         header("Location: /IS3-Online-Tutoring/src/public/home.php");

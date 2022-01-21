@@ -1,3 +1,4 @@
+
 <?php
 
 //----------------------------------- Establish database connection -----------------------------------
@@ -23,18 +24,23 @@ function getRoot(){
 //----------------------------------- Error and exception handling -----------------------------------
 function myErrorHandler($error_level, $error_message, $error_file, $error_line)
 {
+    establishConnection();
+
     echo "<div class='alert alert-danger'> <strong> An error occured!</strong> Please try again later.</div>" ;
-    
-    if (isset($_SESSION['UserID']))
-        $user_id = $_SESSION['UserID'];
-    else
-        $user_id = -1;
     $msg = $GLOBALS['conn']->real_escape_string($error_message);
     $file = $GLOBALS['conn']->real_escape_string($error_file);
 
-    $sql = "INSERT INTO error_log (userID, error_level, error_msg, error_file, error_line) 
-    values($user_id,$error_level,'$msg','$file','$error_line')";
-
+    if (!empty($_SESSION['UserID']))
+    {
+        $sql = "INSERT INTO error_log (userID, error_level, error_msg, error_file, error_line) 
+        values(".$_SESSION['UserID'].",$error_level,'$msg','$file','$error_line')";
+    }
+    else
+    {
+        $sql = "INSERT INTO error_log (error_level, error_msg, error_file, error_line) 
+        values($error_level,'$msg','$file','$error_line')";
+    }
+       
     $result = $GLOBALS['conn']->query($sql);
     if (!$result)
     {
@@ -47,18 +53,22 @@ function myErrorHandler($error_level, $error_message, $error_file, $error_line)
 set_error_handler("myErrorHandler");
 
 function myExceptionHandler($exception) {
+    establishConnection();
+
     echo "<div class='alert alert-danger'> <strong> An exception occured!</strong> Please try again later.</div>" ;
-    
-    if (isset($_SESSION['UserID']))
-        $user_id = $_SESSION['UserID'];
-    else
-        $user_id = -1;
-    
     $msg = $GLOBALS['conn']->real_escape_string($exception->getMessage());
     $file = $GLOBALS['conn']->real_escape_string($exception->getFile());
 
-    $sql = "INSERT INTO error_log (userID, isException, error_msg, error_file, error_line) 
-    values($user_id,1,'$msg','$file','". $exception->getLine()."')";
+    if (!empty($_SESSION['UserID']))    
+    {
+        $sql = "INSERT INTO error_log (userID, isException, error_msg, error_file, error_line) 
+        values(".$_SESSION['UserID'].",1,'$msg','$file','". $exception->getLine()."')";
+    }
+    else
+    {
+        $sql = "INSERT INTO error_log (isException, error_msg, error_file, error_line) 
+        values(1,'$msg','$file','". $exception->getLine()."')";
+    }
 
     $result = $GLOBALS['conn']->query($sql);
     if (!$result)

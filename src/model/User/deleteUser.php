@@ -36,6 +36,7 @@ isAdmin();
 	<form method = "post" action="/IS3-Online-Tutoring/src/model/User/Adminstrator/applyDeleteAdministrator.php">
 	 <?php 
         establishConnection();
+			echo "<input type = text hidden name='UserID' value = ".$_GET["id"].">";
 
             //----------------------------- Display user to delete details -----------------------------
             $query = "SELECT * FROM users WHERE UserID = '" .$_GET["id"]."'";

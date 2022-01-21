@@ -285,7 +285,7 @@ function showResult(str) {
     $result = $conn->query($getCategoriesQuery);
 
     if (!$result)
-        throw new Exception($getCategoriesQuery;
+        throw new Exception($getCategoriesQuery);
 
 
     while ($row = $result->fetch_assoc())

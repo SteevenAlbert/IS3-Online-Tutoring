@@ -61,7 +61,7 @@ session_start();
 					'".$_POST['hours']."',
 					'".$_POST['level']."',
 					'".$_POST['price']."',
-					'0',
+					0,
 					'".$_SESSION['UserID']."',
 					'".$_POST['category']."')";
 			
@@ -84,7 +84,7 @@ session_start();
 
 	$applyAdd=new applyAdd($code, $title, $description,$hours, $level, $price, 0,$createdBy,$categories);
 	$applyAdd->insert();
-	header("Location:/IS3-Online-Tutoring/src/view/viewTutorCourses.php");
+	header("Location:/IS3-Online-Tutoring/src/public/home.php");
 ?>	
 </body>
 </html>
